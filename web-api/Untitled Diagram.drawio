@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-08-21T01:25:09.569Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36" etag="wYcqbRtQJ-7k4qzTn-Oh" version="14.9.8" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-21T01:55:17.305Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36" etag="i5ns5hV_wrjWVMCtEtkJ" version="14.9.8" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1038" dy="545" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1865" dy="545" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -119,13 +119,79 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="0kyeVdW8HTEz_GP9G8ct-1" value="Customer&lt;br&gt;Employee&lt;br&gt;Admin" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="100" y="600" width="160" height="150" as="geometry" />
+          <mxGeometry x="90" y="510" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="0kyeVdW8HTEz_GP9G8ct-2" value="Login with saved credentials, Search Cards, Make Orders to Pickup in Store, Submit Decklists, Read Decklists, See Event Schedules,&amp;nbsp;&lt;br&gt;Order Product through Stripe API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="300" y="490" width="340" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="0kyeVdW8HTEz_GP9G8ct-3" value="login, Update the product collection (prices, stock), approve orders from customers" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="300" y="600" width="330" height="100" as="geometry" />
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-3" value="login, Have Own DashBoard,&amp;nbsp; Update the product collection (prices, stock), approve orders from customers, Create Events (FNM, PTQ), Publish Decklists from users who submit, publish decklists of week/month, create different products and put them in collections" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="300" y="585" width="330" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-4" value="What to do with imgs?" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="690" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-5" value="Admin can see logs from Employees/Users, Same Features as Employees, Has same CRUD but can RWDU employees" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="320" y="685" width="270" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-6" target="0kyeVdW8HTEz_GP9G8ct-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-6" target="0kyeVdW8HTEz_GP9G8ct-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-6" target="0kyeVdW8HTEz_GP9G8ct-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-6" target="0kyeVdW8HTEz_GP9G8ct-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-6" value="LOGIN" style="rounded=0;whiteSpace=wrap;html=1;direction=west;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="85" y="797.5" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-7" value="SEARCH CARDS" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="635" y="930" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-8" value="SEE EVENT SCHEDULE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="635" y="1010" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-9" target="0kyeVdW8HTEz_GP9G8ct-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-9" value="- ADD CARDS TO CART&lt;br&gt;- REMOVE CARDS FROM CART&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;direction=west;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="787.5" width="100" height="102.5" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-12" value="- CHECKOUT/PURCHASE AT STORE" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="440" y="791.25" width="160" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-19" target="0kyeVdW8HTEz_GP9G8ct-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-19" value="REGISTER FOR EVENT" style="rounded=0;whiteSpace=wrap;html=1;direction=west;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="82.5" y="880" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-21" value="SUBMIT DECKLIST" style="rounded=0;whiteSpace=wrap;html=1;direction=west;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="75" y="970" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-25" target="0kyeVdW8HTEz_GP9G8ct-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-25" value="VIEW ORDERS" style="rounded=0;whiteSpace=wrap;html=1;direction=west;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="80" y="725" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-29" value="CANCEL ORDERS" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="80" y="660" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-31" value="VIEW USER INFO, LOGIN CREDENTIALS,PREVIOUS EVENTS/DECKLISTS" style="rounded=0;whiteSpace=wrap;html=1;direction=west;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-160" y="760" width="170" height="87.5" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="0kyeVdW8HTEz_GP9G8ct-35" target="0kyeVdW8HTEz_GP9G8ct-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-35" value="CREATE ACCOUNT" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-200" y="510" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="0kyeVdW8HTEz_GP9G8ct-36" value="EMAIL CONFIRM THROUGH TWILLIO API" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-200" y="600" width="160" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
