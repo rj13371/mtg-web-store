@@ -19,7 +19,7 @@ const MtgCardSchema = new Schema({
         type: Number,
         required: true
     },
-    set_id: {
+    set_name: {
         type: String,
         required: true,
     },
@@ -32,16 +32,13 @@ const MtgCardSchema = new Schema({
         type: String,
         required: true,
     },
+    //changed small and normal to properties of imguri
     image_uris: {
         type: String,
         required: true,
         unique: true,
-        size: [
-        // TODO: Figure out how to write nested properties
-        // the empty "" are supposed to point to different URLs
-            {"small": ""},
-            {"normal": ""},
-        ]
+        small:"",
+        normal:""
     },
     stock: {
         type: Number,
