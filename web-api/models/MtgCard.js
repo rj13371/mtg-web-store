@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MtgCardSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
     // TODO: Copy Relevant Properties to Pokemon, YuGiOh Files
     colors: {
         // TODO: Research how enums are structured
@@ -19,13 +23,22 @@ const MtgCardSchema = new Schema({
         type: Number,
         required: true
     },
+    //Had to add power and toughness, non creatures do not have this property
+    power: {
+        type: String,
+        required: false
+    },
+    toughness: {
+        type: String,
+        required: false
+    },
     set_name: {
         type: String,
         required: true,
     },
+    //removed required, some cards do not have oracle text
     oracleText: {
         type: String,
-        required: true, 
     },
     type_line: {
         // TODO: Is there a better way to structure this? Subtypes etc.
@@ -34,11 +47,8 @@ const MtgCardSchema = new Schema({
     },
     //changed small and normal to properties of imguri
     image_uris: {
-        type: String,
-        required: true,
-        unique: true,
-        small:"",
-        normal:""
+        small: { type: String },
+        normal:{ type: String }
     },
     stock: {
         type: Number,

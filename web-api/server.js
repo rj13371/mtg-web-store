@@ -4,15 +4,9 @@ const exp = require('express');
 const bp = require('body-parser');
 const { success, error } = require('consola')
 const { connect } = require('mongoose');
-const { DB, PORT } = require('./config')
 
 // Bring in the app constants
-
-
-// const DB = process.env.APP_DB
-// const PORT = process.env.APP_PORT
-// const DB = "mongodb+srv://admin:CNoEcAmzHWsYXwCM@bastion.84pur.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const PORT = 5000;
+const { DB, PORT } = require('./config')
 
 // Initialize the application
 const app = exp();
@@ -41,4 +35,12 @@ const startApp = async () => {
     }
 }
 
+//ROUTES
+
+// const usersRoute = require('./routes/user');
+const mtgCardsRoute = require('./routes/mtgCards');
+// const productsRoute = require('./routes/products');
+
 startApp();
+
+app.use ('/mtgcards', mtgCardsRoute);
