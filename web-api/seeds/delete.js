@@ -35,6 +35,8 @@ startApp();
 
 
 const seedDb = async () => {
+
+
     //uncomment to reset DB if you want
    // await MtgCard.deleteMany({});
 

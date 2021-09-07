@@ -41,11 +41,10 @@ const MtgCardSchema = new Schema({
         type: String,
     },
     type_line: {
-        // TODO: Is there a better way to structure this? Subtypes etc.
         type: String,
         required: true,
     },
-    //changed small and normal to properties of imguri
+    //changed small and normal to properties of imguri, changed syntax to correct format
     image_uris: {
         small: { type: String },
         normal:{ type: String }

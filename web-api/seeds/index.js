@@ -35,9 +35,6 @@ startApp();
 
 
 const seedDb = async () => {
-    //uncomment to reset DB if you want
-   // await MtgCard.deleteMany({});
-   await MtgCard.updateMany({},{"$unset":{"":1}})
 
         const newMtgCard = new MtgCard({
             name:"Kraken Hatchling",
@@ -73,7 +70,7 @@ seedDb().then(() => {
 
 
 
-// EXAMPLE TEMPLATE
+// EXAMPLE TEMPLATE TO ADD CARD
 
 // const newMtgCard = new MtgCard({
 //     name:"",
