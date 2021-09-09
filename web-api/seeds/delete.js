@@ -33,6 +33,56 @@ const startApp = async () => {
 
 startApp();
 
+const propsToRemove = [
+    "object",
+    "mtgo_foil_id",
+    "tcgplayer_id",
+    "cardmarket_id",
+    "released_at",
+    "uri",
+    "scryfall_uri",
+  "layout",
+  "highres_image",
+  "keywords",
+  "legalities",
+  "foil",
+  "nonfoil",
+  "finishes",
+  "oversized",
+  "promo",
+  "reprint",
+  "variation",
+  "set_id",
+  "set",
+  "set_type",
+  "set_uri",
+  "set_search_uri",
+  "scryfall_set_uri",
+  "rulings_uri",
+  "prints_search_uri",
+  "collector_number",
+  "digital",
+  "card_back_id",
+  "artist_ids",
+  "illustration_id",
+  "border_color",
+  "frame",
+  "full_art",
+  "textless",
+  "booster",
+  "story_spotlight",
+  "edhrec_rank",
+  "related_uris",
+  "games",
+  "reserved",
+  "image_status",
+  "preview",
+  "id",
+  "multiverse_ids",
+  "lang",
+  "price"
+  ];
+
 
 const seedDb = async () => {
 
@@ -42,61 +92,9 @@ const seedDb = async () => {
 
    //removes unneeded properties, comment/uncomment the props u need removed
 
-//    await MtgCard.updateMany({}, [{ $unset: ["object"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["mtgo_foil_id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["tcgplayer_id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["cardmarket_id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["released_at"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["uri"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["scryfall_uri"] }])
-
-//    await MtgCard.updateMany({}, [{ $unset: ["layout"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["highres_image"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["keywords"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["legalities"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["foil"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["nonfoil"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["finishes"] }])
-
-//    await MtgCard.updateMany({}, [{ $unset: ["oversized"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["promo"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["reprint"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["variation"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["set_id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["set"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["set_type"] }])
-
-//    await MtgCard.updateMany({}, [{ $unset: ["set_uri"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["set_search_uri"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["scryfall_set_uri"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["rulings_uri"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["prints_search_uri"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["collector_number"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["digital"] }])
-
-//    await MtgCard.updateMany({}, [{ $unset: ["card_back_id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["artist_ids"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["illustration_id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["border_color"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["frame"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["full_art"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["textless"] }])
-
-//    await MtgCard.updateMany({}, [{ $unset: ["booster"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["story_spotlight"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["edhrec_rank"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["related_uris"] }])
-
-// await MtgCard.updateMany({}, [{ $unset: ["games"] }])
-// await MtgCard.updateMany({}, [{ $unset: ["reserved"] }])
-// await MtgCard.updateMany({}, [{ $unset: ["image_status"] }])
-// await MtgCard.updateMany({}, [{ $unset: ["preview"] }])
-
-
-//    await MtgCard.updateMany({}, [{ $unset: ["oracle_id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["id"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["multiverse_ids"] }])
-//    await MtgCard.updateMany({}, [{ $unset: ["lang"] }])
+   for (let i = 0;i<propsToRemove.length;i++){
+    await MtgCard.updateMany({}, [{ $unset: [propsToRemove[i]] }])
+   }
 
 }
 
