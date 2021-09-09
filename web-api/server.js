@@ -14,6 +14,9 @@ const app = exp();
 // Middlewares
 app.use(cors());
 app.use(bp.json());
+app.use(bp.urlencoded(
+    {extended:true}
+));
 
 const startApp = async () => {
     try {

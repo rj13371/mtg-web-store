@@ -1,6 +1,34 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// added color type to check for MTG colors in regex , returns a split array of the string
+const regex = /[WURGB]+/
+
+class Color extends mongoose.SchemaType {
+    constructor(key, options) {
+      super(key, options, 'Color');
+    }
+    
+  
+    // `cast()` takes a parameter that can be anything. You need to
+    // validate the provided `val` and throw a `CastError` if you
+    // can't convert it.
+    cast(string) {
+
+        let value = String(string);
+
+      if (regex.test(value)){
+      return value.split('')
+    }else{
+        throw new Error('color: ' + value +
+        ' is not a valid color');
+    
+    }
+    }
+  }
+
+  mongoose.Schema.Types.Color = Color;
+
 const MtgCardSchema = new Schema({
     name: {
         type: String,
@@ -8,12 +36,8 @@ const MtgCardSchema = new Schema({
     },
     // TODO: Copy Relevant Properties to Pokemon, YuGiOh Files
     colors: {
-        // TODO: Research how enums are structured
-        type: String,
-        // JSON uses "", so we went with this, null is colorless
-        enum: [null, "W", "U", "B", "R", "G"],
-        default: null,
-        required: true
+        type: Color,
+        required:true
     },
     mana_cost: {
         type: String,
