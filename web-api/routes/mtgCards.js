@@ -7,7 +7,7 @@ const catchAsync = func => {
         func(req,res,next).catch(e => next(e))
     }
    }
-router.get('/', MtgCards.getMtgCards)
-router.post('/', catchAsync (MtgCards.postMtgCard))
+router.get('/card', catchAsync(MtgCards.getMtgCards)) //SEARCH
+router.post('/addcard', catchAsync (MtgCards.postMtgCard)) //ADD CARD
 
 module.exports = router;

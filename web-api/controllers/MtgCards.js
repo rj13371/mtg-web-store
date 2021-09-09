@@ -1,9 +1,16 @@
 
 const MtgCard = require('../models/MtgCard');
 
+
+//added regex for search
 module.exports.getMtgCards = async (req, res, next) =>{
- 
-    //await MtgCard.find({ req.body.mtgcard })
+
+    // const search = new RegExp('.*' + req.query.name + '.*', 'i')
+    // console.log (req.query)
+    
+    const foundCard = await MtgCard.find({name: new RegExp('.*'+req.query.name+'.*', "i")})
+    
+      res.send(foundCard)
 
 }
 
