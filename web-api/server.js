@@ -41,8 +41,8 @@ const startApp = async () => {
 //ROUTES
 
 // const usersRoute = require('./routes/user');
-const mtgCardsRoute = require('./routes/mtgCards');
-// const productsRoute = require('./routes/products');
+const mtgCardsRoute = require('./routes/MtgCards');
+// const productsRoute = require('./routes/Products');
 
 startApp();
 
