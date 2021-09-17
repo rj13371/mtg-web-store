@@ -1,36 +1,40 @@
 import React,{useState, useEffect} from "react";
-import { useLocation , useParams} from "react-router-dom";
+import { useLocation , useParams, useHistory} from "react-router-dom";
 import MtgCard from "./MtgCard";
 
 export default function Mtgcardsindex() {
 
-    const [data, setData] = useState([{name:'Roland'}])
+    const [cards, setCards] = useState([])
     const [isLoading, setisLoading] = useState(true);
 
-    const location = useLocation();
-    const {name} = useParams()
+    const location = useLocation()
+    const query =  JSON.parse(location.state.query);
+    const res = query.data
 
-    // const query = location.state.params;
+    // const history = useHistory();
+    // const query = history.state.query
+     const {data} = useParams()
+
+
+ 
 
     useEffect(() => {
 
-        if (data.name){
-            setData(name)
-             console.log(data)
+            setCards(res)
+            console.log(cards)
             
-            }
 
-      }, [data]);
+      }, []);
 
-      useEffect(() => {
+    //   useEffect(() => {
 
-        if (data.name){
-            setisLoading(false)
-             console.log(isLoading)
+    //     if (data.name){
+    //         setisLoading(false)
+    //          console.log(isLoading)
             
-            }
+    //         }
 
-      }, [isLoading]);
+    //   }, [isLoading]);
 
 
 
@@ -38,7 +42,28 @@ export default function Mtgcardsindex() {
       return (
         <div>
 
-        <MtgCard data={data}/>
+        {/* <MtgCard data={data}/> */}
+
+        <table>
+        {   cards.filter(function(card) {
+    return card._id
+  }).map(card=> (
+
+            <tr>
+        <td>{card.name}</td>
+        <td>{card.set_name}</td>
+        <td>{card.rarity}</td>
+        <td>{card.oracle_text}</td>
+        <td>{card.prices.usd}</td>
+        <td>{card.stock}</td>
+        {/* <img src={`${card.image_uris.small}`}/> */}
+        </tr>
+        
+        )
+        )
+
+              }
+              </table>
 
         </div>
     )

@@ -44,7 +44,6 @@ function CardSearch(props) {
         return JSON.stringify(response)
          })
         .then(data =>{
-          console.log(data)
           history.push("/cards/", { query: data });
           setSubmitted(true);
         })
