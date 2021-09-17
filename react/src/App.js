@@ -26,7 +26,7 @@ function App() {
   <Fragment>
     <NavbarComponent/>
     <CardSearch/>
-    <Route exact path='/cards/:name' component={CardSearch}/>
+   {/* <Route exact path='/cards/:name' component={CardSearch}/> */}
 
   </Fragment>
 </Router>

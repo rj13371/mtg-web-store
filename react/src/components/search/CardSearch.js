@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 function CardSearch(props) {
   const [query, setQuery] = useState("");
@@ -22,12 +23,24 @@ function CardSearch(props) {
   }, [query])
 
 
+  const handleClick = async (e) => {
+    e.preventDefault();
 
-//   const handleClick = async () => {
-//     alert("saved food to db");
+    const body = {
+        name: query
+    }
+  
 
-//     props.history.push(`/food/${query}`); //use for mongoDB push
-//   };
+     await axios({
+        method: 'get',
+        url: `/mtgcards/card?name=${query}`,
+        data: body,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+      }).then(res =>{console.log(res)})
+
+}
 
   return (
     <div>
@@ -37,8 +50,8 @@ function CardSearch(props) {
         placeholder="Search For Magic Card"
         onChange={handleChange}
       ></input>
-
-      <Link to={`mtgcards/card?name=${query}`}>Go</Link>
+        <button onClick={handleClick}>Search</button>
+      <Link to={`/mtgcards/card?name=${query}`}>Go</Link>
     </div>
 
 
