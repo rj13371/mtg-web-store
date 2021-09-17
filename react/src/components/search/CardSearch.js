@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from "react"
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
 import { useParams } from 'react-router-dom'
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from 'axios'
 
 function CardSearch(props) {
   const [query, setQuery] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-  const { params } = useParams()
+  const location = useLocation();
+  const history = useHistory();
 
   const handleChange = (event) => {
     setQuery(event.target.value);
   };
 
-  useEffect(() => {
-    const params = new URLSearchParams()
-    if (query) {
-      params.append("name", query)
-    } else {
-      params.delete("name")
-    }
-  }, [query])
+//   useEffect(() => {
+//     const params = new URLSearchParams()
+//     if (query) {
+//       params.append("name", query)
+//     } else {
+//       params.delete("name")
+//     }
+//   }, [query])
 
 
-  const handleClick = async (e) => {
+  const handleClickSearch = async (e) => {
     e.preventDefault();
 
     const body = {
@@ -38,7 +40,18 @@ function CardSearch(props) {
             headers: {
               'Content-Type': 'application/json'
             }
-      }).then(res =>{console.log(res)})
+      }).then(response => {
+        return JSON.stringify(response)
+         })
+        .then(data =>{
+          console.log(data)
+          history.push("/cards/", { query: data });
+          setSubmitted(true);
+        })
+
+        if (submitted) {
+            return <Redirect to='/cards/' /> 
+          }
 
 }
 
@@ -50,8 +63,8 @@ function CardSearch(props) {
         placeholder="Search For Magic Card"
         onChange={handleChange}
       ></input>
-        <button onClick={handleClick}>Search</button>
-      <Link to={`/mtgcards/card?name=${query}`}>Go</Link>
+        <button onClick={handleClickSearch}>Search</button>
+
     </div>
 
 

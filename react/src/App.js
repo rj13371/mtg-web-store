@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavbarComponent from './components/layouts/NavbarComponent';
 import CardSearch from './components/search/CardSearch';
+import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
 
 import {
   Collapse,
@@ -26,7 +27,7 @@ function App() {
   <Fragment>
     <NavbarComponent/>
     <CardSearch/>
-   {/* <Route exact path='/cards/:name' component={CardSearch}/> */}
+   <Route exact path='/cards/' render={(props) => (<Mtgcardsindex test="hi" {...props}/>)}/>
 
   </Fragment>
 </Router>

@@ -2,6 +2,7 @@
 const MtgCard = require('../models/MtgCard');
 
 
+
 //added regex for search,
 // need to refactor this to change search dynamically based on color, manacost, set etc
 module.exports.getMtgCards = async (req, res, next) =>{
