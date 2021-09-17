@@ -94,6 +94,7 @@ const seedDb = async () => {
 
    for (let i = 0;i<propsToRemove.length;i++){
     await MtgCard.updateMany({}, [{ $unset: [propsToRemove[i]] }])
+   // await MtgCard.updateMany({}, [{ $set: {image_uris: "https://c1.scryfall.com/file/scryfall-cards/small/front/e/e/ee766f7b-4e9c-442d-bf53-31c204646449.jpg?1562162476"} }])
    }
 
 }
