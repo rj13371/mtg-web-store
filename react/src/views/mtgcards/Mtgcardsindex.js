@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useParams, useHistory } from "react-router-dom";
-import MtgCard from "./MtgCard";
+import EditMtgCard from "./EditMtgCard";
 
 export default function Mtgcardsindex() {
   const [cards, setCards] = useState([]);
@@ -18,16 +18,6 @@ export default function Mtgcardsindex() {
     setCards(res);
     console.log(cards);
   }, []);
-
-  //   useEffect(() => {
-
-  //     if (data.name){
-  //         setisLoading(false)
-  //          console.log(isLoading)
-
-  //         }
-
-  //   }, [isLoading]);
 
   return (
     <div>
@@ -50,7 +40,9 @@ export default function Mtgcardsindex() {
               <td>{card.prices.usd}</td>
               <td>{card.stock}</td>
               <td>{card.artist}</td>
-              <img src={`${card.image_uris.small}`} />
+              <td><img src={`${card.image_uris.small}`} /></td>
+              <td><EditMtgCard id={card._id}/></td>
+              
             </tr>
           ))}
 

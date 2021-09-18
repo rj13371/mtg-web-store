@@ -79,8 +79,7 @@ const MtgCardSchema = new Schema({
         default: 0,
     },
     price: {
-        type: Number,
-        required: true
+        type: Number
     }
 })
 
