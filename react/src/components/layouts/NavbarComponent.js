@@ -43,9 +43,12 @@ export default function NavbarComponent() {
           <NavItem>
             <NavLink href="#">Buylist</NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink href="/employeedashboard">Dashboard</NavLink>
+          </NavItem>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
-              Magic The Gathering
+              About
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem>
@@ -60,6 +63,9 @@ export default function NavbarComponent() {
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
+          <NavItem>
+            <NavLink href="/">Contact Us</NavLink>
+          </NavItem>
         </Nav>
         <NavbarText className="mr-auto">Simple Text</NavbarText>
       </Collapse>

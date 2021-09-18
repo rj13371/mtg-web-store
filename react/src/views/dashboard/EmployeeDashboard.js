@@ -1,24 +1,29 @@
 import React, { Fragment, useState } from "react";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
 import { Redirect } from "react-router-dom";
+import useToggle from "../../hooks/useToggleState";
 
 import axios, { AxiosInstance } from 'axios';
-// import * as tunnel from 'tunnel';
-// const agent = tunnel.httpsOverHttp({
-//     proxy: {
-//         host: 'proxy.mycorp.com',
-//         port: 5000,
-//     },
-// });
 
-// const axiosClient = axios.create({
-//     baseURL: 'https://some.api.com:443',  // here I specify port 443
-//     httpsAgent: agent,
-// });
+
+
+import * as tunnel from 'tunnel';
+const agent = tunnel.httpsOverHttp({
+    proxy: {
+        host: 'http://localhost/',
+        port: 5000,
+    },
+});
+
+const axiosClient = axios.create({
+    baseURL: 'http://localhost:5000/', 
+    httpsAgent: agent,
+});
 
 const EmployeeDashboard = () => {
 
     const [submitted, setSubmitted] = useState(false);
+    const [onSaleToggle, setOnSaleToggle] = useState(false);
 
   const [formData, setFormData] = useState({
     productName: "",
@@ -26,7 +31,7 @@ const EmployeeDashboard = () => {
     stock: "",
     price: "",
     productCategory: "",
-    onSale: ""
+    onSale: false
   })
 
   const history = useHistory();
@@ -56,7 +61,7 @@ const EmployeeDashboard = () => {
       onSale: onSale,
     };
 
-    await axios({
+    await axiosClient({
       method: "post",
       url: "/products/addproduct/",
       data: body,
@@ -121,7 +126,7 @@ const EmployeeDashboard = () => {
             type="checkbox"
             placeholder="onSale"
             name="onSale"
-            value={onSale}
+            checked={onSale}
             onChange={onChange}
           />
         </div>
