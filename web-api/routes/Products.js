@@ -10,5 +10,6 @@ const catchAsync = func => {
    }
 router.get('/product', catchAsync(Products.getProducts)) //SEARCH
 router.post('/addproduct', catchAsync (Products.postProduct)) //ADD CARD
-
+router.put('/:productId', catchAsync (Products.editProduct)) //ADD CARD
+router.delete('/:productId',catchAsync (Products.deleteProduct))// 
 module.exports = router;

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams, useHistory } from "react-router-dom";
+import { useLocation, useParams, useHistory, Link , Router} from "react-router-dom";
 import EditMtgCard from "./EditMtgCard";
 
 export default function Mtgcardsindex() {
   const [cards, setCards] = useState([]);
-  const [isLoading, setisLoading] = useState(true);
+  const [auth, setAuth] = useState(true) //login auth for later for edit button
+  // const [isLoading, setisLoading] = useState(true);
 
   const location = useLocation();
   const query = JSON.parse(location.state.query);
@@ -20,6 +21,7 @@ export default function Mtgcardsindex() {
   }, []);
 
   return (
+
     <div>
       {/* <MtgCard data={data}/> */}
 
@@ -41,8 +43,8 @@ export default function Mtgcardsindex() {
               <td>{card.stock}</td>
               <td>{card.artist}</td>
               <td><img src={`${card.image_uris.small}`} /></td>
-              <td><EditMtgCard id={card._id}/></td>
-              
+              <td>{auth?<EditMtgCard id={card._id}/>: null}</td>
+              <td><Link to={{ pathname: `/mtgcards/${card._id}`, state:{ ...card} }}> Details </Link></td>
             </tr>
           ))}
 
@@ -63,6 +65,8 @@ export default function Mtgcardsindex() {
           ))}
 
       </table>
+     
     </div>
+  
   );
 }

@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavbarComponent from './components/layouts/NavbarComponent';
 import CardSearch from './components/search/CardSearch';
 import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
-import EmployeeDashboard from './views/dashboard/EmployeeDashboard';
+import MtgCardDisplay from './views/mtgcards/MtgCardDisplay';
+import EmployeeDashboard from './views/dashboard/employeeDashboard/EmployeeDashboard';
 
 import {
   Collapse,
@@ -24,15 +25,13 @@ import {
 
 function App() {
   return (
-<Router>
   <Fragment>
     <NavbarComponent/>
     <CardSearch/>
    <Route exact path='/cards/' render={(props) => (<Mtgcardsindex test="hi" {...props}/>)}/>
    <Route exact path='/employeedashboard/' component={EmployeeDashboard}/>
-
+   <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
   </Fragment>
-</Router>
   );
 }
 

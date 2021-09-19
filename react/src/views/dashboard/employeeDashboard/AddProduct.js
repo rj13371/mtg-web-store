@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
 import { Redirect } from "react-router-dom";
-import useToggle from "../../hooks/useToggleState";
-import axiosClient from "../../utils/axios";
+import useToggle from "../../../hooks/useToggleState";
+import axiosClient from "../../../utils/axios";
 
-const EmployeeDashboard = () => {
+const AddProduct = () => {
 
     // const [submitted, setSubmitted] = useState(false);
     // const [onSaleToggle, setOnSaleToggle] = useState(false);
@@ -120,4 +120,4 @@ const EmployeeDashboard = () => {
   )
 }
 
-export default EmployeeDashboard
+export default AddProduct

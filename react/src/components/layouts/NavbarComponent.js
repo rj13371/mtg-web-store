@@ -31,12 +31,16 @@ export default function NavbarComponent() {
 
   return (
     <div>
-    <Container>
-    <Navbar className="bg-light justify-content-between" color="light" light expand="md">
-      <NavbarBrand href="/">Mtg Web Store</NavbarBrand>
+    <Container className="d-flex justify-content-start">
+    <Navbar className="bg-light" color="light" light expand="md">
+      <NavbarBrand href="/">
+     
+      <img width="80" height="80" src="logo.jpg" alt="store logo" />
+
+      </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
-        <Nav className="mr-auto" navbar>
+        <Nav className="justify-content-start" navbar>
           <NavItem>
             <NavLink href="#">Events</NavLink>
           </NavItem>
@@ -67,7 +71,7 @@ export default function NavbarComponent() {
             <NavLink href="/">Contact Us</NavLink>
           </NavItem>
         </Nav>
-        <NavbarText className="mr-auto">Simple Text</NavbarText>
+        <NavbarText className="">Simple Text</NavbarText>
       </Collapse>
     </Navbar>
     </Container>
