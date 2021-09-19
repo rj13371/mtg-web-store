@@ -1,29 +1,53 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React,{useEffect, useState} from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import EditMtgCard from './EditMtgCard'
+import axios from 'axios'
 
 export default function MtgCardDisplay() {
 
-    const location = useLocation()
-    console.log (location)
+    const [card, setCard] = useState({name:'', set_name:'', rarity:'', oracle_text:'', prices:'', stock:'', artist:'', image_uris:'', _id:''})
 
-    const {name, set_name, rarity, oracle_text, prices, stock, artist, image_uris, _id} =
-            (location.state ) != undefined
-                ? location.state
-                : " ";
+    const location = useLocation()
+    const {id} = useParams()
+
+    // const {name, set_name, rarity, oracle_text, prices, stock, artist, image_uris, _id} =
+    //         (location.state ) != undefined
+    //             ? location.state
+    //             : " ";
+
+    useEffect(()=>{
+
+       const grabCard = async () =>{  if (!location.state){
+            await axios({
+                method: 'get',
+                url: `/mtgcards/${id}`,
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+              }).then(response => {
+                setCard({...response.data})
+                 })
+        }else{
+            setCard({...location.state})
+        }}
+        grabCard();
+
+    },[])
+    
 
 
     return (
         <div>
-{name}
-{set_name}
-{rarity}
-{oracle_text}
-{prices.usd}
-{stock}
-{artist}
+{card.name}
+{card.set_name}
+{card.rarity}
+{card.oracle_text}
+{card.prices ? card.prices.usd:''}
+{card.stock}
+{card.artist}
+<img src={`${card.image_uris.small}`} />
 
-{true?<EditMtgCard id={_id}/>: null}
+{location.state && <EditMtgCard id={card._id}/>}
         </div>
     )
 }
