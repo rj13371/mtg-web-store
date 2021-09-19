@@ -2,6 +2,10 @@ import React,{useEffect, useState} from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import EditMtgCard from './EditMtgCard'
 import axios from 'axios'
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
+  } from 'reactstrap';
 
 export default function MtgCardDisplay() {
 
@@ -38,14 +42,19 @@ export default function MtgCardDisplay() {
 
     return (
         <div>
-{card.name}
-{card.set_name}
-{card.rarity}
-{card.oracle_text}
-{card.prices ? card.prices.usd:''}
-{card.stock}
-{card.artist}
-<img src={`${card.image_uris.small}`} />
+
+<Card>
+<CardImg className="w-25 h-25 p-3" src={`${card.image_uris.normal}`} alt="Card image cap" />
+<CardBody>
+  <CardTitle tag="h5">{card.name}</CardTitle>
+  <CardSubtitle tag="h6" className="mb-2 text-muted">{card.rarity}</CardSubtitle>
+  <CardText>{card.set_name}</CardText>
+  <CardText>{card.oracle_text}</CardText>
+  <CardText>{card.prices ? card.prices.usd:''}</CardText>
+  <CardText>{card.artist}</CardText>
+  <Button>Button</Button>
+</CardBody>
+</Card>
 
 {location.state && <EditMtgCard id={card._id}/>}
         </div>
@@ -53,3 +62,13 @@ export default function MtgCardDisplay() {
 }
 
 {/* <img src={`${image_uris.small}`} /> */}
+
+
+// {card.name}
+// {card.set_name}
+// {card.rarity}
+// {card.oracle_text}
+// {card.prices ? card.prices.usd:''}
+// {card.stock}
+// {card.artist}
+// <img src={`${card.image_uris.small}`} />
