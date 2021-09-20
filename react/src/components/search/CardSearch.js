@@ -55,7 +55,7 @@ function CardSearch(props) {
 }
 
   return (
-    <div>
+    <div><form onSubmit={handleClickSearch}>
       <input
         type="text"
         value={query}
@@ -63,7 +63,7 @@ function CardSearch(props) {
         onChange={handleChange}
       ></input>
         <button onClick={handleClickSearch}>Search</button>
-
+        </form>
     </div>
 
 

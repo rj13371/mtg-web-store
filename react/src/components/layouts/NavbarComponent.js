@@ -35,7 +35,7 @@ export default function NavbarComponent() {
     <Navbar className="bg-light" color="light" light expand="md">
       <NavbarBrand href="/">
      
-      <img width="80" height="80" src="logo.jpg" alt="store logo" />
+      <img className="rounded" width="100" height="100" src="logo.jpg" alt="store logo" />
 
       </NavbarBrand>
       <NavbarToggler onClick={toggle} />
@@ -68,7 +68,10 @@ export default function NavbarComponent() {
             </DropdownMenu>
           </UncontrolledDropdown>
           <NavItem>
-            <NavLink href="/">Contact Us</NavLink>
+            <NavLink href="/contact/">Contact Us</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/">About</NavLink>
           </NavItem>
         </Nav>
         <NavbarText className="">Simple Text</NavbarText>

@@ -25,7 +25,10 @@ const ProductSchema = new Schema({
     },
     onSale: {
         type: Boolean
-    }
+    },
+    images: [{
+        url: String
+    }]
 })
 
  // - _id: string

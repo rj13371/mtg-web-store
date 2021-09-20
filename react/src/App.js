@@ -22,6 +22,8 @@ import {
   Form,
   Input
 } from 'reactstrap';
+import Contact from './views/contact/Contact';
+import About from './views/contact/About';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
     <CardSearch/>
    <Route exact path='/cards/' render={(props) => (<Mtgcardsindex test="hi" {...props}/>)}/>
    <Route exact path='/employeedashboard/' component={EmployeeDashboard}/>
+   <Route exact path='/contact/' component={Contact}/>
+   <Route exact path='/about/' component={About}/>
    <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
   </Fragment>
   );
