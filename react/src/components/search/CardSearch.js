@@ -15,15 +15,6 @@ function CardSearch(props) {
     setQuery(event.target.value);
   };
 
-//   useEffect(() => {
-//     const params = new URLSearchParams()
-//     if (query) {
-//       params.append("name", query)
-//     } else {
-//       params.delete("name")
-//     }
-//   }, [query])
-
 
   const handleClickSearch = async (e) => {
     e.preventDefault();

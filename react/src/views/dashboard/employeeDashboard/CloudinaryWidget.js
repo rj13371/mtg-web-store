@@ -1,53 +1,51 @@
 import React, {useEffect, useState} from 'react'
-import axiosClient from '../../../utils/axios';
 
-export default function CloudinaryWidget() {
+import { WidgetLoader, Widget } from 'react-cloudinary-upload-widget'
+
+export default function CloudinaryWidget(props) {
     
-    const [image, setImage] = useState('');
-    const [url, setUrl] = useState('');
+     const [images, setImages] = useState();
 
     useEffect(()=>{
-        const myWidget = window.cloudinary.createUploadWidget(
-            {
-              cloudName: "dwxcp0a8j",
-              uploadPreset: "pgqdbzeq"
-            },
-            (error, result) => {
-              if (!error && result && result.event === "success") {
-                console.log("Done! Here is the image info: ", result.info);
-
-                // const body = {
-                //     images: {url: url}
-                //   };
-
-                // await axiosClient({
-                //     method: "post",
-                //     url: "/products/addproduct/",
-                //     data: body,
-                //     headers: {
-                //       "Content-Type": "application/json",
-                //     },
-                //   }).then(response => {
-                //       console.log(response)
-                //        })
-
-              }
-            }
-          );
-          document.getElementById("upload_widget").addEventListener(
-            "click",
-            function () {
-              myWidget.open();
-            },
-            false
-          );
+      setImages(props.images)
     },[])
 
+    const addImage = (res) => {
+      const newImage = {name: res.info.original_filename, url: res.info.secure_url}
+
+      props.onChange(newImage);
+
+      
+      console.log(newImage)
+    }
+
     return (
-        <div>
-<button id="upload_widget" className="cloudinary-button">
-        Upload
-      </button>
-        </div>
+<>
+      <WidgetLoader/>
+    <Widget
+      sources={['local', 'camera']}
+      cloudName={'dwxcp0a8j'} 
+      uploadPreset={'pgqdbzeq'} 
+      buttonText={'Upload images'}
+      style={{
+        color: 'white',
+        border: 'none',
+        width: '120px',
+        backgroundColor: 'green',
+        borderRadius: '4px',
+        height: '25px'
+      }}
+//[{name: res.info.original_filename, url: res.info.secure_url}]
+      onSuccess={(res) => addImage(res)}
+      onFailure={(res) => console.log(res)}
+      logging={true}
+      apiKey={''}
+      accepts={'application/json'}
+      contentType={'application/json'}
+      withCredentials={true}
+      unique_filename={true}
+      resourceType={'image'}
+    />
+  </>
     )
 }

@@ -10,17 +10,10 @@ import CloudinaryWidget from "./CloudinaryWidget";
 import {Image, Transformation} from 'cloudinary-react';
 import {Cloudinary} from 'cloudinary-core';
 
-// const widget = Cloudinary.createUploadWidget({
-//   cloudName: 'dwxcp0a8j', uploadPreset: 'pgqdbzeq', folder: 'mtg-web-store', cropping: true}, 
-//   (error, result) => { console.log(error, result) })
-//   widget.open();
 
 
 
 const AddProduct = () => {
-
-    // const [submitted, setSubmitted] = useState(false);
-    // const [onSaleToggle, setOnSaleToggle] = useState(false);
 
   const [formData, setFormData] = useState({
     productName: "",
@@ -31,12 +24,8 @@ const AddProduct = () => {
     onSale: false
   })
 
-  const [image, setImage] = useState('');
-  const [url, setUrl] = useState('');
+  const [images, setImages] = useState([{name: '', url: ''}]);
 
-
-
-  const history = useHistory();
 
   const {
     productName,
@@ -48,40 +37,12 @@ const AddProduct = () => {
   } = formData;
 
   const onChange = (e) => {
-    // console.log(e.target.name, e.target.value)
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
   };
 
-const onChangeFile = async (e) => {
-  const data = new FormData();
-
-data.append("file", image)
-data.append("upload_preset", "pgqdbzeq")
-data.append("cloud_name","dwxcp0a8j")
-
-const headers = new Headers({
-  'Access-Control-Request-Headers':'Accept, Content-Type',
-  'Accept': 'multipart/form-data',
-  'Content-Type': 'multipart/form-data',        
-
-});
-
-await axios({
-  method: "post",
-  url:"https://api.cloudinary.com/v1_1/pgqdbzeq",
-  data: data,
-  headers:{
-    headers
+  const onChangeImage = (newImage) => {
+    setImages([...images, newImage]);
   }
-}).then(resp => resp.json())
-.then(data => {
-setUrl(data.url)
-})
-.catch(err => console.log(err))
-
-}
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -93,8 +54,9 @@ setUrl(data.url)
       price: price,
       productCategory: productCategory,
       onSale: onSale,
-      images: {url: url}
+      images: images
     };
+    console.log(body)
      
 
     await axiosClient({
@@ -120,6 +82,8 @@ setUrl(data.url)
   };
 
   return (
+
+    <div>
     <Form onSubmit={onSubmit}>
     <Row form>
       <Col md={6}>
@@ -198,17 +162,15 @@ setUrl(data.url)
         />{onSale}
     </FormGroup>
 
-    <CloudinaryWidget/>
-
-    {/* <div>
-<input type="file" onChange= {(e)=> setImage(e.target.files[0])}></input>
-<button onClick={onChangeFile}>Upload</button>
-</div> */}
+    
 
 
     <Button>Add Product</Button>
   </Form>
 
+  <CloudinaryWidget images={images} onChange={onChangeImage}/>
+
+  </div>
 
 
   )

@@ -27,6 +27,7 @@ const ProductSchema = new Schema({
         type: Boolean
     },
     images: [{
+        name: String,
         url: String
     }]
 })
