@@ -10,14 +10,18 @@ import {
 import { ShoppingCartContext } from '../../context/ShoppingCartContext';
 import ShoppingCartContainer from '../../containers/ShoppingCartContainer';
 
+import { Form, FormGroup, Label, Input } from 'reactstrap';
+
 export default function MtgCardDisplay(props) {
 
     const [card, setCard] = useState({name:'', set_name:'', rarity:'', oracle_text:'', prices:'', stock:'', artist:'', image_uris:'', _id:''})
 
+    const [quantity, setQuantity] = useState('0')
+
     const location = useLocation()
     const {id} = useParams()
 
-    const {cart, addToCart} = useContext(ShoppingCartContext)
+    const {cart, addToCart, clearCart} = useContext(ShoppingCartContext)
 
     useEffect(()=>{
 
@@ -52,7 +56,26 @@ export default function MtgCardDisplay(props) {
   <CardText>{card.oracle_text}</CardText>
   <CardText>{card.prices ? card.prices.usd:''}</CardText>
   <CardText>{card.artist}</CardText>
-  <Button onClick={()=>addToCart(card)}>Button</Button>
+
+<Form>
+
+      <Button onClick={()=>(addToCart(card, quantity))}>Add to cart</Button>
+
+      <FormGroup>
+          <Label for="quantity">Quantity</Label>
+          <Input
+          type="number"
+          placeholder="0"
+          name="quantity"
+          value={quantity}
+          onChange={(e)=>setQuantity(e.target.value)}
+        />
+        </FormGroup>  
+
+</Form>
+
+
+  <Button onClick={clearCart}>Clear cart</Button>
 </CardBody>
 </Card>
 

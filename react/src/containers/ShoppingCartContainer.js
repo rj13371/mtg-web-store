@@ -13,6 +13,7 @@ export default function ShoppingCartContainer() {
        <div>
        <p>{item.name}</p>
        <p>{item.prices.usd}</p>
+       <p>{item.quantity}</p>
        </div>
        
        )) : 'Shopping Cart is Empty'}
