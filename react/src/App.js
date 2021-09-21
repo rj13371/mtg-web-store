@@ -24,10 +24,12 @@ import {
 } from 'reactstrap';
 import Contact from './views/contact/Contact';
 import About from './views/contact/About';
+import { ShoppingCartProvider } from './context/ShoppingCartContext';
 
 function App() {
   return (
   <Fragment>
+    <ShoppingCartProvider>
     <NavbarComponent/>
     <CardSearch/>
    <Route exact path='/cards/' render={(props) => (<Mtgcardsindex test="hi" {...props}/>)}/>
@@ -35,6 +37,7 @@ function App() {
    <Route exact path='/contact/' component={Contact}/>
    <Route exact path='/about/' component={About}/>
    <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
+   </ShoppingCartProvider>
   </Fragment>
   );
 }

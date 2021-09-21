@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState, useContext} from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import EditMtgCard from './EditMtgCard'
 import axios from 'axios'
@@ -7,17 +7,17 @@ import {
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
 
-export default function MtgCardDisplay() {
+import { ShoppingCartContext } from '../../context/ShoppingCartContext';
+import ShoppingCartContainer from '../../containers/ShoppingCartContainer';
+
+export default function MtgCardDisplay(props) {
 
     const [card, setCard] = useState({name:'', set_name:'', rarity:'', oracle_text:'', prices:'', stock:'', artist:'', image_uris:'', _id:''})
 
     const location = useLocation()
     const {id} = useParams()
 
-    // const {name, set_name, rarity, oracle_text, prices, stock, artist, image_uris, _id} =
-    //         (location.state ) != undefined
-    //             ? location.state
-    //             : " ";
+    const {cart, addToCart} = useContext(ShoppingCartContext)
 
     useEffect(()=>{
 
@@ -52,9 +52,11 @@ export default function MtgCardDisplay() {
   <CardText>{card.oracle_text}</CardText>
   <CardText>{card.prices ? card.prices.usd:''}</CardText>
   <CardText>{card.artist}</CardText>
-  <Button>Button</Button>
+  <Button onClick={()=>addToCart(card)}>Button</Button>
 </CardBody>
 </Card>
+
+<ShoppingCartContainer/>
 
 {location.state && <EditMtgCard id={card._id}/>}
         </div>

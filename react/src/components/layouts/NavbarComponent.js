@@ -1,4 +1,7 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
+
+import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+
 import {
   Collapse,
   Navbar,
@@ -21,9 +24,10 @@ import {
   Input,
 } from "reactstrap";
 
-import { Link } from "react-router-dom";
 
-export default function NavbarComponent() {
+export default function NavbarComponent(props) {
+
+  const {cart} = useContext(ShoppingCartContext)
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -31,6 +35,9 @@ export default function NavbarComponent() {
 
   return (
     <div>
+
+
+
     <Container className="d-flex justify-content-start">
     <Navbar className="bg-light" color="light" light expand="md">
       <NavbarBrand href="/">
