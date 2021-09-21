@@ -12,6 +12,8 @@ import ShoppingCartContainer from '../../containers/ShoppingCartContainer';
 
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 
+// move CART into new component
+
 export default function MtgCardDisplay(props) {
 
     const [card, setCard] = useState({name:'', set_name:'', rarity:'', oracle_text:'', prices:'', stock:'', artist:'', image_uris:'', _id:''})

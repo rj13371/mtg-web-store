@@ -2,10 +2,10 @@ import React, { Fragment, useState } from "react";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
 import { Redirect } from "react-router-dom";
 import { Form, FormGroup, Input, Label, Button,Row,Col, FormText } from "reactstrap";
-import useToggle from "../../../hooks/useToggleState";
-import axiosClient from "../../../utils/axios";
+import useToggle from "../../../../hooks/useToggleState";
+import axiosClient from "../../../../utils/axios";
 import axios from "axios";
-import CloudinaryWidget from "./CloudinaryWidget";
+import CloudinaryWidget from "../CloudinaryWidget";
 
 import {Image, Transformation} from 'cloudinary-react';
 import {Cloudinary} from 'cloudinary-core';

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import AddProduct from "./AddProduct";
+import AddProduct from "./Products/AddProduct";
 
 const EmployeeDashboard = () => {
 
@@ -16,8 +16,4 @@ export default EmployeeDashboard
 // CRUD USERS
 // CRUD ORDERS
 
-//USER DASHBOARD
-// ENTER EVENTS 
-//CRUD DECKLISTS FOR EVENT
-// CR ORDER HISTORY
-// 
+//ADD ROUTES FOR EMPLOYEE

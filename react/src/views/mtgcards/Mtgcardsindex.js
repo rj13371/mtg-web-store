@@ -31,8 +31,6 @@ export default function Mtgcardsindex() {
   return (
 
     <div>
-      {/* <MtgCard data={data}/> */}
-
       
     <Container>
         {cards.length === 0 ? 'no results': null}
@@ -54,20 +52,6 @@ export default function Mtgcardsindex() {
           <Link to={{ pathname: `/mtgcards/${card._id}`, state:{ ...card} }}> Details </Link>
         </CardBody>
       </Card>
-
-/* 
-            <tr>
-              <td>{card.name}</td>
-              <td>{card.set_name}</td>
-              <td>{card.rarity}</td>
-              <td>{card.oracle_text}</td>
-              <td>{card.prices.usd}</td>
-              <td>{card.stock}</td>
-              <td>{card.artist}</td>
-              <td><img src={`${card.image_uris.small}`} /></td>
-              <td>{auth?<EditMtgCard id={card._id}/>: null}</td>
-              <td><Link to={{ pathname: `/mtgcards/${card._id}`, state:{ ...card} }}> Details </Link></td>
-            </tr> */
           ))}
     </CardGroup>
 
