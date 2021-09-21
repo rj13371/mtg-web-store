@@ -2,10 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams:true});
 const Products = require('../controllers/Products')
 
-// const multer  = require('multer')
-// const {storage} = require('../cloudinary')
-// const upload = multer({storage})
-//upload.array('image')
+
 
 //returns func that catches errors in async functions
 const catchAsync = func => {
