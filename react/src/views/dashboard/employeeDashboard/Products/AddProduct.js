@@ -1,14 +1,12 @@
-import React, { Fragment, useState } from "react";
-import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
-import { Redirect } from "react-router-dom";
-import { Form, FormGroup, Input, Label, Button,Row,Col, FormText } from "reactstrap";
-import useToggle from "../../../../hooks/useToggleState";
+import React, { useState } from "react";
+// import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
+// import { Redirect } from "react-router-dom";
+import { Form, Input, Button,Row,Col, } from "react-bootstrap";
+
 import axiosClient from "../../../../utils/axios";
-import axios from "axios";
+
 import CloudinaryWidget from "../CloudinaryWidget";
 
-import {Image, Transformation} from 'cloudinary-react';
-import {Cloudinary} from 'cloudinary-core';
 
 
 
@@ -21,7 +19,7 @@ const AddProduct = () => {
     stock: "",
     price: "",
     productCategory: "",
-    onSale: false
+    onSale: 'false'
   })
 
   const [images, setImages] = useState([{name: '', url: ''}]);
@@ -56,7 +54,6 @@ const AddProduct = () => {
       onSale: onSale,
       images: images
     };
-    console.log(body)
      
 
     await axiosClient({
@@ -87,85 +84,70 @@ const AddProduct = () => {
     <Form onSubmit={onSubmit}>
     <Row form>
       <Col md={6}>
-        <FormGroup>
-          <Label for="productName">Product Name</Label>
-          <Input
+        <Form.Group>
+          <Form.Label for="productName">Product Name</Form.Label>
+          <Form.Control
           type="text"
           placeholder="Product Name"
           name="productName"
           value={productName}
           onChange={onChange}
         />
-        </FormGroup>
+        </Form.Group>
       </Col>
       <Col md={6}>
-        <FormGroup>
-          <Label for="productCaregory">Product Category</Label>
-          <Input
+        <Form.Group>
+          <Form.Label for="productCaregory">Product Category</Form.Label>
+          <Form.Control
           type="text"
           placeholder="Product Category"
           name="productCategory"
           value={productCategory}
           onChange={onChange}
         />
-        </FormGroup>
+        </Form.Group>
       </Col>
     </Row>
 
     <Row form>
       <Col md={10}>
-        <FormGroup>
-          <Label for="productDescription">Product Description</Label>
-          <Input
+        <Form.Group>
+          <Form.Label for="productDescription">Product Description</Form.Label>
+          <Form.Control
           type="textarea"
           placeholder="Product Description"
           name="productDescription"
           value={productDescription}
           onChange={onChange}
         />
-        </FormGroup>
+        </Form.Group>
       </Col>
       <Col md={1}>
-        <FormGroup>
-          <Label for="stock">Stock</Label>
-          <Input
+        <Form.Group>
+          <Form.Label for="stock">Stock</Form.Label>
+          <Form.Control
           type="number"
           placeholder="Stock"
           name="stock"
           value={stock}
           onChange={onChange}
         />
-        </FormGroup>
+        </Form.Group>
       </Col>
       <Col md={1}>
-        <FormGroup>
-          <Label for="price">Price</Label>
-          <Input
+        <Form.Group>
+          <Form.Label for="price">Price</Form.Label>
+          <Form.Control
           type="number"
           placeholder="Price"
           name="price"
           value={price}
           onChange={onChange}
         />
-        </FormGroup>  
+        </Form.Group>  
       </Col>
     </Row>
-
-    <FormGroup check>
-      <Input type="checkbox" name="onSale"/>
-      <Input
-          type="checkbox"
-          placeholder="onSale"
-          name="onSale"
-          checked={onSale}
-          onChange={onChange}
-        />{onSale}
-    </FormGroup>
-
-    
-
-
-    <Button>Add Product</Button>
+    <Button type="submit">Add Product</Button>
   </Form>
 
   <CloudinaryWidget images={images} onChange={onChangeImage}/>

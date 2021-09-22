@@ -1,101 +1,107 @@
-import React,{useEffect, useState, useContext} from 'react'
-import { useLocation, useParams } from 'react-router-dom'
-import EditMtgCard from './EditMtgCard'
-import axios from 'axios'
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-  } from 'reactstrap';
+import React, { useEffect, useState, useContext } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import EditMtgCard from "./EditMtgCard";
+import axios from "axios";
+import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
 
-import { ShoppingCartContext } from '../../context/ShoppingCartContext';
-import ShoppingCartContainer from '../../containers/ShoppingCartContainer';
-
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import ShoppingCartContainer from "../../containers/ShoppingCartContainer";
 
 // move CART into new component
 
 export default function MtgCardDisplay(props) {
+  const [card, setCard] = useState({
+    name: "",
+    set_name: "",
+    rarity: "",
+    oracle_text: "",
+    prices: "",
+    stock: "",
+    artist: "",
+    image_uris: "",
+    _id: "",
+  });
 
-    const [card, setCard] = useState({name:'', set_name:'', rarity:'', oracle_text:'', prices:'', stock:'', artist:'', image_uris:'', _id:''})
+  const [quantity, setQuantity] = useState("0");
 
-    const [quantity, setQuantity] = useState('0')
+  const location = useLocation();
+  const { id } = useParams();
 
-    const location = useLocation()
-    const {id} = useParams()
+  const { cart, addToCart, clearCart } = useContext(ShoppingCartContext);
 
-    const {cart, addToCart, clearCart} = useContext(ShoppingCartContext)
+  useEffect(() => {
+    const grabCard = async () => {
+      if (!location.state) {
+        await axios({
+          method: "get",
+          url: `/mtgcards/${id}`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+          setCard({ ...response.data });
+        });
+      } else {
+        setCard({ ...location.state });
+      }
+    };
+    grabCard();
+  }, []);
 
-    useEffect(()=>{
-
-       const grabCard = async () =>{  if (!location.state){
-            await axios({
-                method: 'get',
-                url: `/mtgcards/${id}`,
-                    headers: {
-                      'Content-Type': 'application/json'
-                    }
-              }).then(response => {
-                setCard({...response.data})
-                 })
-        }else{
-            setCard({...location.state})
-        }}
-        grabCard();
-
-    },[])
-    
-
-
-    return (
-        <div>
-
-<Card>
-<CardImg className="w-25 h-25 p-3" src={`${card.image_uris.normal}`} alt="Card image cap" />
-<CardBody>
-  <CardTitle tag="h5">{card.name}</CardTitle>
-  <CardSubtitle tag="h6" className="mb-2 text-muted">{card.rarity}</CardSubtitle>
-  <CardText>{card.set_name}</CardText>
-  <CardText>{card.oracle_text}</CardText>
-  <CardText>{card.prices ? card.prices.usd:''}</CardText>
-  <CardText>{card.artist}</CardText>
-
-<Form>
-
-      <Button onClick={()=>(addToCart(card, quantity))}>Add to cart</Button>
-
-      <FormGroup>
-          <Label for="quantity">Quantity</Label>
-          <Input
-          type="number"
-          placeholder="0"
-          name="quantity"
-          value={quantity}
-          onChange={(e)=>setQuantity(e.target.value)}
+  return (
+    <div>
+      <Container>
+        <Row>
+          <Col lg>
+      <Card style={{ width: '18rem' }}>
+        <Card.Img
+          src={`${card.image_uris.normal}`}
+          alt="card image"
         />
-        </FormGroup>  
+      </Card>
+      </Col>
 
-</Form>
+      <Col>
+      <Card>
+        <Card.Body>
+          <Card.Title tag="h5">{card.name}{card.mana_cost}</Card.Title>
+          <Card.Text>{card.type_line}</Card.Text>
+          <Card.Text>{card.oracle_text}</Card.Text>
+          <Card.Text>{card.power? `${card.power} /` :''} {card.toughness? card.toughness:''} </Card.Text>
+          <Card.Text>{card.stock}</Card.Text>
+          <Card.Text>{card.set_name}</Card.Text>
+
+          <Card.Text tag='h3'>{card.prices ? card.prices.usd : ""}</Card.Text>
+          <Card.Text tag='h3'>{card.stock ? card.stock : ""}</Card.Text>
+
+          </Card.Body>
+      </Card>
+      </Col>
+
+      </Row>
+      </Container>
 
 
-  <Button onClick={clearCart}>Clear cart</Button>
-</CardBody>
-</Card>
+          <Form>
+            <Button onClick={() => addToCart(card, quantity)}>Add to cart</Button>
 
-<ShoppingCartContainer/>
+            <Form.Control
+              type="number"
+              placeholder="0"
+              name="quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+          </Form>
 
-{location.state && <EditMtgCard id={card._id}/>}
-        </div>
-    )
+          <Form>
+            <Button onClick={clearCart}>Clear cart</Button>
+          </Form>
+
+
+      <ShoppingCartContainer />
+
+      {location.state && <EditMtgCard id={card._id} />}
+    </div>
+  );
 }
-
-{/* <img src={`${image_uris.small}`} /> */}
-
-
-// {card.name}
-// {card.set_name}
-// {card.rarity}
-// {card.oracle_text}
-// {card.prices ? card.prices.usd:''}
-// {card.stock}
-// {card.artist}
-// <img src={`${card.image_uris.small}`} />

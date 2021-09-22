@@ -1,24 +1,15 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useState, Fragment } from "react";
+import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import {
-  Dropdown,
-  InputGroup,
-  FormControl,
-  DropdownButton,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Container, Row, Col } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 function CardSearch(props) {
-  const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
 
-  const location = useLocation();
   const history = useHistory();
 
   const handleSearch = async (query) => {
@@ -40,6 +31,9 @@ function CardSearch(props) {
         const options = res.map((i) => ({
           name: i.name,      
           img: (i.image_uris ? i.image_uris.small : '')  ,
+          set_name: i.set_name,
+          stock: i.stock,
+          price: (i.prices.usd ? `$${i.prices.usd}` : '')
         }));
 
         setResults(options);
@@ -49,11 +43,6 @@ function CardSearch(props) {
 
   const filterBy = () => true;
 
-  // const handleChange = (event) => {
-  //   event.preventDefault();
-
-  //   setQuery(event.target.value);
-  // };
 
   const handleClickSearch = async (q) => {
     
@@ -88,7 +77,9 @@ function CardSearch(props) {
   };
 
   return (
-    <>
+    <Container>
+      <Row>
+      <Col className="mt-3" md={{ span: 6, offset: 3 }}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"
@@ -112,41 +103,16 @@ function CardSearch(props) {
                 width: "75px",
               }}
             />
-            <span>{option.name}</span>
+            <span>{option.name}/{option.set_name}/{option.price}/Stock:{option.stock} </span>
           </Fragment>
 
         )}
       />
-
-    </>
+      </Col>
+    </Row>
+    </Container>
   );
 }
 
 export default CardSearch;
 
-{/* <Form onSubmit={handleClickSearch} type="text">
-<Form.Group className="mb-3" controlId="formBasicEmail">
-  <Form.Control
-    value={query}
-    type="text"
-    onChange={handleChange}
-    placeholder="Search For Magic Card"
-  />
-</Form.Group>
-
-<Button variant="primary" type="submit">
-  Submit
-</Button>
-</Form> */}
-
-{/* 
-<InputGroup.Append>
-              <Button
-                onClick={()=>{console.log}}
-                variant="outline-secondary">
-                Play Again
-              </Button>
-            </InputGroup.Append>
-
-                </InputGroup>
-                </Form.Group> */}

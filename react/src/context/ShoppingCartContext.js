@@ -8,12 +8,11 @@ export function ShoppingCartProvider(props) {
     const [cart, setCart] = useLocalStorageState("item", [])
 
     const addToCart = (e, quantity) =>{
-        console.log(e)
         e.quantity = quantity;
         setCart([...cart, e])
     }
 
-    const clearCart = () => {
+    const clearCart = (e) => {
         window.localStorage.clear();
         setCart([]);
     }

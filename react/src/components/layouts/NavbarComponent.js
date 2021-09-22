@@ -2,27 +2,8 @@ import React,{useContext, useState} from "react";
 
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  NavbarText,
-  UncontrolledDropdown,
-  Container,
-  Row,
-  Col,
-  Jumbotron,
-  Button,
-  Form,
-  Input,
-} from "reactstrap";
+import { Nav, Navbar, Container } from "react-bootstrap";
+
 
 
 export default function NavbarComponent(props) {
@@ -34,58 +15,26 @@ export default function NavbarComponent(props) {
     const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
 
+    <>
+    <Container >
+  <Navbar sticky="top" bg="dark" variant="dark" expand='md' >
+    
+    <Navbar.Brand href="/"> <img className="rounded" width="100" height="100" src="logo.jpg" alt="store logo" /> </Navbar.Brand>
+    <Navbar.Toggle />
+    <Navbar.Collapse className="justify-content-end">
+    <Nav className="me-auto">
+      <Nav.Link href="#home">Events</Nav.Link>
+      <Nav.Link href="#features">Buylist</Nav.Link>
+      <Nav.Link href="/employeedashboard">Dashboard</Nav.Link>
+      <Nav.Link href="/contact">Contact</Nav.Link>
+      <Nav.Link href="/about">About</Nav.Link>
+    </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+  </Container>
+    </>
 
-
-    <Container className="d-flex justify-content-start">
-    <Navbar className="bg-light" color="light" light expand="md">
-      <NavbarBrand href="/">
-     
-      <img className="rounded" width="100" height="100" src="logo.jpg" alt="store logo" />
-
-      </NavbarBrand>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="justify-content-start" navbar>
-          <NavItem>
-            <NavLink href="#">Events</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="#">Buylist</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/employeedashboard">Dashboard</NavLink>
-          </NavItem>
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              About
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>
-                Option 1
-              </DropdownItem>
-              <DropdownItem>
-                Option 2
-              </DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>
-                Reset
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <NavItem>
-            <NavLink href="/contact/">Contact Us</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/">About</NavLink>
-          </NavItem>
-        </Nav>
-        <NavbarText className="">Simple Text</NavbarText>
-      </Collapse>
-    </Navbar>
-    </Container>
-  </div>
   );
 }
 
