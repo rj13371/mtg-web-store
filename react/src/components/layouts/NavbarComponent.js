@@ -18,7 +18,7 @@ export default function NavbarComponent(props) {
 
     <>
     <Container >
-  <Navbar sticky="top" bg="dark" variant="dark" expand='md' >
+  <Navbar sticky="top" className="p-1" bg="dark" variant="dark" expand='md' >
     
     <Navbar.Brand href="/"> <img className="rounded" width="100" height="100" src="logo.jpg" alt="store logo" /> </Navbar.Brand>
     <Navbar.Toggle />

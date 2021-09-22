@@ -5,26 +5,10 @@ import CardSearch from './components/search/CardSearch';
 import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
 import MtgCardDisplay from './views/mtgcards/MtgCardDisplay';
 import EmployeeDashboard from './views/dashboard/employeeDashboard/EmployeeDashboard';
-
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  Container,
-  Row,
-  Col,
-  Jumbotron,
-  Button,
-  Form,
-  Input
-} from 'reactstrap';
 import Contact from './views/contact/Contact';
 import About from './views/contact/About';
 import { ShoppingCartProvider } from './context/ShoppingCartContext';
+import Landing from './views/Landing';
 
 function App() {
   return (
@@ -32,6 +16,7 @@ function App() {
     <ShoppingCartProvider>
     <NavbarComponent/>
     <CardSearch/>
+    <Route exact path='/' component={Landing}/>
    <Route exact path='/cards/' render={(props) => (<Mtgcardsindex test="hi" {...props}/>)}/>
    <Route exact path='/employeedashboard/' component={EmployeeDashboard}/>
    <Route exact path='/contact/' component={Contact}/>

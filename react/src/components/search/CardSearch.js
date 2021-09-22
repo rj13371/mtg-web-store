@@ -79,7 +79,7 @@ function CardSearch(props) {
   return (
     <Container>
       <Row>
-      <Col className="mt-3" md={{ span: 6, offset: 3 }}>
+      <Col className="mt-3 mb-3" md={{ span: 6, offset: 3 }}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"

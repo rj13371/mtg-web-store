@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams, useHistory, Link , Router} from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import EditMtgCard from "./EditMtgCard";
 
-import {
-  Card, Button, CardImg, CardTitle, CardText, CardColumns,
-  CardSubtitle, CardBody,CardGroup, Container
-} from 'reactstrap';
+import { Card, Container, Col, Row, Button } from "react-bootstrap";
+
 
 export default function Mtgcardsindex() {
   const [cards, setCards] = useState([]);
@@ -16,9 +14,6 @@ export default function Mtgcardsindex() {
   const query = JSON.parse(location.state.query);
   const res = query.data;
 
-  // const history = useHistory();
-  // const query = history.state.query
-  const { data } = useParams();
 
   useEffect(() => {
     setCards(res);
@@ -26,36 +21,36 @@ export default function Mtgcardsindex() {
   }, []);
 
 
-
-
+  const numberOfCards = 3;
+  //.from({ length: 3 })
   return (
 
     <div>
       
-    <Container>
-        {cards.length === 0 ? 'no results': null}
-      
-        <CardGroup>
-        {cards
-          .filter(function (card) {
+<Container>
+
+{cards.length === 0 ? 'no results': null}
+
+    <Row xs={1} md={3} className="g-4">
+  {cards.filter(function (card) {
             return card.image_uris;
-          })
-          .map((card) => (
-
+          }).map((card) => (
+    <Col>
       <Card>
-        <CardImg className="w-25 h-25 p-3" src={`${card.image_uris.small}`} alt="Card image cap" />
-        <CardBody>
-          <CardTitle tag="h5">{card.name}</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">{card.rarity}</CardSubtitle>
-          <CardText>{card.prices.usd}</CardText>
-          <CardText>{card.stock}</CardText>
-          <Link to={{ pathname: `/mtgcards/${card._id}`, state:{ ...card} }}> Details </Link>
-        </CardBody>
-      </Card>
-          ))}
-    </CardGroup>
+        <Card.Img className="w-75 h-75 p-3" src={`${card.image_uris.small}`} alt="Card image cap" />
+        <Card.Body>
+        <Card.Title tag="h5">{card.name}</Card.Title>
+        <Card.Subtitle tag='h3'>{card.set_name} </Card.Subtitle>
+          <Card.Text>${card.prices.usd || '0'}// In Stock: {card.stock} </Card.Text>
 
-    </Container>
+          <Button href={`/mtgcards/${card._id}`} variant="primary" size="lg">  Details </Button>
+        </Card.Body>
+      </Card>
+    </Col>
+  ))}
+</Row>
+</Container>
+
 
     {cards
           .filter(function (card) {
