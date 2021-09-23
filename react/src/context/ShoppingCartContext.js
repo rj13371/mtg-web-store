@@ -1,4 +1,4 @@
-import React, {createContext} from 'react'
+import React, {createContext, useEffect, useState} from 'react'
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 export const ShoppingCartContext = createContext();
@@ -6,6 +6,20 @@ export const ShoppingCartContext = createContext();
 export function ShoppingCartProvider(props) {
 
     const [cart, setCart] = useLocalStorageState("item", [])
+
+    const [total, setTotal] = useState(0)
+
+    useEffect(()=>{
+        let totalCost = 0;
+
+        if(cart.length != 0){
+            for (let i =0;i<cart.length;i++){
+               totalCost += cart[i].prices.usd * cart[i].quantity
+            }
+        }
+
+        setTotal(totalCost)
+    },[cart])
 
     const addToCart = (e, quantity) =>{
         e.quantity = quantity;
@@ -27,7 +41,7 @@ export function ShoppingCartProvider(props) {
     }
 
     return (
-        <ShoppingCartContext.Provider value={{cart, addToCart, clearCart, removeItem}}>
+        <ShoppingCartContext.Provider value={{cart, addToCart, clearCart, removeItem, total}}>
 
             {props.children}
 
