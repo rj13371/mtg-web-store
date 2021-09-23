@@ -23,7 +23,6 @@ module.exports.postMtgCard = async (req, res, next) =>{
 
 }
 
-
 module.exports.getMtgCard = async (req, res, next)=>{
     const {id} = req.params
     const foundCard = await MtgCard.findById(id)
@@ -34,7 +33,6 @@ module.exports.getMtgCard = async (req, res, next)=>{
 
     res.send(foundCard)
 }
-
 
 module.exports.editMtgCard = async (req,res, next)=>{
     const {id} = req.params;

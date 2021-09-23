@@ -14,7 +14,12 @@ const UserSchema = new Schema({
     },
     password:{
         type: String,
-        required: true,
+        required: true
+    },
+    // 0: regular User, 1: Employee, 2: Admin
+    authorization_level:{
+        type: String,
+        required: true
     }
 });
 
