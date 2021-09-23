@@ -5,7 +5,6 @@ import axios from "axios";
 import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
 
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
-import ShoppingCartContainer from "../../containers/ShoppingCartContainer";
 
 // move CART into new component
 
@@ -69,7 +68,7 @@ export default function MtgCardDisplay(props) {
           <Card.Text>{card.oracle_text}</Card.Text>
           <Card.Text>{card.power? `${card.power} /` :''} {card.toughness? card.toughness:''} </Card.Text>
           <Card.Text>{card.stock}</Card.Text>
-          <Card.Text>{card.set_name}</Card.Text>
+          <Card.Text>{card.set_name} </Card.Text>
 
           <Card.Text tag='h3'>{card.prices ? card.prices.usd : ""}</Card.Text>
           <Card.Text tag='h3'>{card.stock ? card.stock : ""}</Card.Text>
@@ -99,7 +98,7 @@ export default function MtgCardDisplay(props) {
           </Form>
 
 
-      <ShoppingCartContainer />
+      
 
       {location.state && <EditMtgCard id={card._id} />}
     </div>

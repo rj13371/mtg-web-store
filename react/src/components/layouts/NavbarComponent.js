@@ -3,7 +3,8 @@ import React,{useContext, useState} from "react";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
 import { Nav, Navbar, Container } from "react-bootstrap";
-
+import ShoppingCartContainer from "../../containers/ShoppingCartContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function NavbarComponent(props) {
@@ -21,25 +22,23 @@ export default function NavbarComponent(props) {
   <Navbar sticky="top" className="p-1" bg="dark" variant="dark" expand='md' >
     
     <Navbar.Brand href="/"> <img className="rounded" width="100" height="100" src="logo.jpg" alt="store logo" /> </Navbar.Brand>
-    <Navbar.Toggle />
+    <Navbar.Toggle> <FontAwesomeIcon icon="chevron-circle-down" size="2x" /> </Navbar.Toggle >
     <Navbar.Collapse className="justify-content-end">
     <Nav className="me-auto">
-      <Nav.Link href="#home">Events</Nav.Link>
+      <Nav.Link href="/events/">Events</Nav.Link>
       <Nav.Link href="#features">Buylist</Nav.Link>
       <Nav.Link href="/employeedashboard">Dashboard</Nav.Link>
       <Nav.Link href="/contact">Contact</Nav.Link>
       <Nav.Link href="/about">About</Nav.Link>
+      <Nav.Link><ShoppingCartContainer/></Nav.Link>
+      
     </Nav>
     </Navbar.Collapse>
   </Navbar>
+
   </Container>
     </>
 
   );
 }
 
-
-            
-{/* <input type='text' value={query} placeholder='search for food' onChange={handleChange}></input>
-<Link to={`/food/${query}/drink/${query}`}>Go</Link>
-<button onClick={handleClick}>save to db</button> */}

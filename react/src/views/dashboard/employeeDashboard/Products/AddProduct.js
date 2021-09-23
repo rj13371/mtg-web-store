@@ -7,10 +7,6 @@ import axiosClient from "../../../../utils/axios";
 
 import CloudinaryWidget from "../CloudinaryWidget";
 
-
-
-
-
 const AddProduct = () => {
 
   const [formData, setFormData] = useState({

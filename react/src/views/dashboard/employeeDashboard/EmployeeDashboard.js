@@ -6,7 +6,6 @@ const EmployeeDashboard = () => {
   return (
     <Fragment>
       <AddProduct/>
-      
     </Fragment>
   )
 }

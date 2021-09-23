@@ -74,7 +74,7 @@ function CardSearch(props) {
     if (submitted) {
       return <Redirect to="/cards/" />;
     }
-  };
+  }
 
   return (
     <Container>
