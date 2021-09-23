@@ -6,6 +6,7 @@ import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
 
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
+import ShoppingCart from "../../components/cart/ShoppingCart";
 // move CART into new component
 
 export default function MtgCardDisplay(props) {
@@ -21,12 +22,9 @@ export default function MtgCardDisplay(props) {
     _id: "",
   });
 
-  const [quantity, setQuantity] = useState("0");
 
   const location = useLocation();
   const { id } = useParams();
-
-  const { cart, addToCart, clearCart } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     const grabCard = async () => {
@@ -57,8 +55,11 @@ export default function MtgCardDisplay(props) {
           src={`${card.image_uris.normal}`}
           alt="card image"
         />
+         <ShoppingCart product={card}/>
       </Card>
       </Col>
+
+      
 
       <Col>
       <Card>
@@ -80,25 +81,6 @@ export default function MtgCardDisplay(props) {
       </Row>
       </Container>
 
-
-          <Form>
-            <Button onClick={() => addToCart(card, quantity)}>Add to cart</Button>
-
-            <Form.Control
-              type="number"
-              placeholder="0"
-              name="quantity"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
-          </Form>
-
-          <Form>
-            <Button onClick={clearCart}>Clear cart</Button>
-          </Form>
-
-
-      
 
       {location.state && <EditMtgCard id={card._id} />}
     </div>

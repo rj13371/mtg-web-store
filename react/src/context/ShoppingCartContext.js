@@ -17,8 +17,17 @@ export function ShoppingCartProvider(props) {
         setCart([]);
     }
 
+    const removeItem = (index) =>{
+        
+        cart.splice(index, 1);
+        const newCart = cart.filter((e)=>e)
+
+        console.log(newCart)
+        setCart(newCart)
+    }
+
     return (
-        <ShoppingCartContext.Provider value={{cart, addToCart, clearCart}}>
+        <ShoppingCartContext.Provider value={{cart, addToCart, clearCart, removeItem}}>
 
             {props.children}
 

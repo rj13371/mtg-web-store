@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
-import EditMtgCard from "./EditMtgCard";
+import { useLocation } from "react-router-dom";
 
 import { Card, Container, Col, Row, Button } from "react-bootstrap";
 

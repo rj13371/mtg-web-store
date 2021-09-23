@@ -1,5 +1,5 @@
 import React,{useContext, useState} from "react";
-import { Button, Modal, Image } from "react-bootstrap";
+import { Button, Modal, Image, Container } from "react-bootstrap";
 import { ShoppingCartContext } from "../context/ShoppingCartContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function ShoppingCartContainer() {
 
-    const {cart, addToCart, clearCart} = useContext(ShoppingCartContext)
+    const {cart, addToCart, clearCart, removeItem} = useContext(ShoppingCartContext)
 
     const [show, setShow] = useState(false);
 
@@ -15,7 +15,7 @@ export default function ShoppingCartContainer() {
     const handleShow = () => setShow(true);
 
     return (
-<>
+<Container fluid="md">
 <Button variant="primary" onClick={handleShow}>
 <FontAwesomeIcon icon="shopping-cart" size="lg" />
 </Button>
@@ -24,11 +24,18 @@ export default function ShoppingCartContainer() {
   <Modal.Header closeButton>
     <Modal.Title>Shopping Cart</Modal.Title>
   </Modal.Header>
-  <Modal.Body>{cart.length !== 0 ? cart.map(item => (
+  <Modal.Body>{cart.length !== 0 ? cart.map((item, index) => (
 <div>
 <p>{item.name}{` x${item.quantity}`} ${parseFloat(item.prices.usd) * parseFloat(item.quantity)} </p>
+<Button variant="danger" onClick={()=>removeItem(index)}>
+    <FontAwesomeIcon icon='trash' size="sm" />
+    </Button>
+
 </div>
-)) : 'Shopping Cart is Empty'}</Modal.Body>
+)) : 'Shopping Cart is Empty'}
+test
+
+</Modal.Body>
   <Modal.Footer>
     <Button variant="secondary" onClick={handleClose}>
     <FontAwesomeIcon icon='window-close' size="2x" />
@@ -41,7 +48,7 @@ export default function ShoppingCartContainer() {
     </Button>
   </Modal.Footer>
 </Modal>
-</>
+</Container>
 
     )
 }

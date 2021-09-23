@@ -7,6 +7,8 @@ import CardSearch from './components/search/CardSearch';
 
 
 import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
+import ProductsIndex from './views/products/ProductsIndex';
+import ProductDisplay from './views/products/ProductDisplay';
 import MtgCardDisplay from './views/mtgcards/MtgCardDisplay';
 import EmployeeDashboard from './views/dashboard/employeeDashboard/EmployeeDashboard';
 
@@ -35,6 +37,9 @@ function App() {
     <CardSearch/>
     <Route exact path='/' component={Landing}/>
    <Route exact path='/cards/' render={(props) => (<Mtgcardsindex test="hi" {...props}/>)}/>
+
+   <Route exact path='/products/' render={(props) => (<ProductsIndex test="hi" {...props}/>)}/>
+
    <Route exact path='/events/' component={EventsIndex}/>
    <Route exact path='/employeedashboard/' component={EmployeeDashboard}/>
    <Route exact path='/contact/' component={Contact}/>
@@ -42,6 +47,7 @@ function App() {
    <Route exact path='/register/' component={Register}/>
    <Route exact path='/login/' component={Login}/>
    <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
+   <Route exact path='/products/:id' component={ProductDisplay}/>
    </ShoppingCartProvider>
    <FooterComponent/>
    </div>
