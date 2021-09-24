@@ -35,7 +35,7 @@ const AddProduct = () => {
   };
 
   const onChangeImage = (newImage) => {
-    setImages([...images, newImage]);
+    setImages([newImage]);
   }
 
   const onSubmit = async (e) => {

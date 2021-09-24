@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function FooterComponent() {
   return (
-    <Navbar bg="dark" className="p-1" variant="dark" sticky="bottom" >
+    <Navbar bg="dark" variant="dark" sticky="bottom" >
       <Nav className="justify-content-start">
 
         <Nav.Item>
           
-        <Nav.Link href="/home">© Bastion Games</Nav.Link>
+        <Nav.Link>©Bastion Games</Nav.Link>
 
         </Nav.Item>
 

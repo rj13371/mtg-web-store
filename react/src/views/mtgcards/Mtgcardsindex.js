@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { Card, Container, Col, Row, Button } from "react-bootstrap";
+import ShoppingCart from "../../components/cart/ShoppingCart";
 
 
 export default function Mtgcardsindex() {
@@ -20,7 +21,6 @@ export default function Mtgcardsindex() {
   }, []);
 
 
-  const numberOfCards = 3;
   //.from({ length: 3 })
   return (
 
@@ -35,14 +35,15 @@ export default function Mtgcardsindex() {
             return card.image_uris;
           }).map((card) => (
     <Col>
-      <Card>
-        <Card.Img className="w-75 h-75 p-3" src={`${card.image_uris.small}`} alt="Card image cap" />
-        <Card.Body>
+      <Card className='m-auto' >
+        <Card.Img className="w-75 h-75 p-3 m-auto" style={{backgroundBlendMode:'normal'}} src={`${card.image_uris.small}`} alt="Card image cap" />
+        <Card.Body className='m-auto'>
         <Card.Title tag="h5">{card.name}</Card.Title>
         <Card.Subtitle tag='h3'>{card.set_name} </Card.Subtitle>
           <Card.Text>${card.prices.usd || '0'}// In Stock: {card.stock} </Card.Text>
 
-          <Button href={`/mtgcards/${card._id}`} variant="primary" size="lg">  Details </Button>
+        <Button href={`/mtgcards/${card._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart product={card}/>
+
         </Card.Body>
       </Card>
     </Col>

@@ -15,7 +15,7 @@ export default function ShoppingCart(props) {
     },[props.product])
 
 
-  const [quantity, setQuantity] = useState("0");
+  const [quantity, setQuantity] = useState("1");
 
     return (
         <Container className="mb-3 pt-2">
@@ -32,7 +32,7 @@ export default function ShoppingCart(props) {
             <Form.Control
             style={{width: '50px'}}
               type="number"
-              placeholder="1"
+              placeholder="0"
               name="quantity"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}

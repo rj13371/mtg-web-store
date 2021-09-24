@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
+import ShoppingCart from "../../components/cart/ShoppingCart";
 
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
@@ -10,6 +11,11 @@ import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 export default function ProductDisplay(props) {
   const [product, setProduct] = useState({
     productName: "",
+    productDescription: '',
+    stock: '',
+    price: '',
+    productCategory: '',
+    onSale: false,
   });
 
 
@@ -27,6 +33,7 @@ export default function ProductDisplay(props) {
             "Content-Type": "application/json",
           },
         }).then((response) => {
+          console.log(response)
           setProduct({ ...response.data });
         });
       } else {
@@ -41,7 +48,7 @@ export default function ProductDisplay(props) {
       <Container>
         <Row>
           <Col lg>
-      <Card style={{ width: '18rem' }}>
+      <Card style={{ width: '18rem', color:'white' }}>
         <Card.Img
           src={`/test.png`}
           alt="card image"
@@ -50,15 +57,20 @@ export default function ProductDisplay(props) {
       </Col>
 
       <Col>
-      <Card>
+      <Card style={{ color:'black' }}>
         <Card.Body>
-          <Card.Title tag="h5">{product.productName}{product.mana_cost}</Card.Title>
+          <Card.Title tag="h5">{product.productName}</Card.Title>
           <Card.Text>{product.productCategory}</Card.Text>
+          <Card.Text>{product.productDescription}</Card.Text>
+          <Card.Text>{product.price}</Card.Text>
+          <Card.Text>{product.stock}</Card.Text>
           </Card.Body>
       </Card>
       </Col>
 
       </Row>
+
+      <ShoppingCart product={product}/>
       </Container>
 
     </div>

@@ -9,16 +9,21 @@ export function ShoppingCartProvider(props) {
 
     const [total, setTotal] = useState(0)
 
+
     useEffect(()=>{
         let totalCost = 0;
 
-        if(cart.length != 0){
+        if(cart.length !=0 && cart.every((e) => e.prices) ){
             for (let i =0;i<cart.length;i++){
                totalCost += cart[i].prices.usd * cart[i].quantity
             }
+        } else {
+            for (let i =0;i<cart.length;i++){
+                totalCost += cart[i].price * cart[i].quantity
+             }
         }
 
-        setTotal(totalCost)
+        setTotal(totalCost.toFixed(2))
     },[cart])
 
     const addToCart = (e, quantity) =>{
@@ -36,7 +41,6 @@ export function ShoppingCartProvider(props) {
         cart.splice(index, 1);
         const newCart = cart.filter((e)=>e)
 
-        console.log(newCart)
         setCart(newCart)
     }
 

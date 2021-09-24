@@ -2,9 +2,10 @@ import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CardSearch(props) {
   const [submitted, setSubmitted] = useState(false);
@@ -77,9 +78,9 @@ function CardSearch(props) {
   }
 
   return (
-    <Container>
-      <Row>
-      <Col className="mt-3 mb-3" md={{ span: 6, offset: 3 }}>
+    <Container fluid="xl">
+      <Row className="justify-content-center">
+      <Col className="mt-3 mb-3" xs={9} md={6}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"
@@ -108,6 +109,15 @@ function CardSearch(props) {
 
         )}
       />
+
+      </Col>
+
+      <Col className="mt-3 mb-3" xs={1} md={1}>
+      <Button onClick={() => { handleClickSearch(results) }}>
+
+      <FontAwesomeIcon icon='search' size="1x" />
+
+      </Button>
       </Col>
     </Row>
     </Container>

@@ -3,7 +3,7 @@ import { Col, Button, Form, Row, FormGroup, Label, Input, Jumbotron, Container }
 export default function Contact() {
     return (
         <div>
-        <Container>
+        <Container fluid>
     <Jumbotron>
       <p className="lead"> Feel free to contact us @</p>
       <hr className="my-2" />
@@ -21,11 +21,9 @@ export default function Contact() {
     <Col sm={6}>
           <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2609.4540934663296!2d-121.96399418431514!3d49.15398847931755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x410b83d1dfe49a63%3A0xe11e5b1e6907ad8e!2sBastion%20Games!5e0!3m2!1sen!2sjp!4v1632062334723!5m2!1sen!2sjp"
-              width="500"
-              height="350"
               frameBorder="0"
-              style={{ border: 0 }}
-              allowFullScreen=""
+              style={{ height: '400px', width: '100%' }}
+              allowFullScreen="true"
               aria-hidden="false"
               tabIndex="0"
             />
