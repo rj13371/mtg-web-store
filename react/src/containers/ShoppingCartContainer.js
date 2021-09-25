@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function ShoppingCartContainer() {
 
-    const {cart, addToCart, clearCart, removeItem} = useContext(ShoppingCartContext)
+    const {cart, addToCart, clearCart, removeItem, total} = useContext(ShoppingCartContext)
 
     const [show, setShow] = useState(false);
 
@@ -33,7 +33,7 @@ export default function ShoppingCartContainer() {
 
 </div>
 )) : 'Shopping Cart is Empty'}
-test
+{`Your Pre Total is: ${total}`}
 
 </Modal.Body>
   <Modal.Footer>
