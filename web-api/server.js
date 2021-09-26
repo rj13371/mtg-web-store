@@ -42,9 +42,11 @@ const startApp = async () => {
 
 // const usersRoute = require('./routes/user');
 const mtgCardsRoute = require('./routes/MtgCards');
- const productsRoute = require('./routes/Products');
+const productsRoute = require('./routes/Products');
+const usersRoute = require('./routes/Users');
 
 startApp();
 
 app.use ('/mtgcards', mtgCardsRoute);
 app.use ('/products', productsRoute);
+app.use ('/users', usersRoute);
