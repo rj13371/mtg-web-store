@@ -1,18 +1,37 @@
 const User = require('../models/Users');
+const bcrypt = require('bcrypt');
+const { checkout } = require('../routes/Users');
 
 // registering a new user
-module.exports.registerUser = async (req, res, next) =>{
+module.exports.registerUser = async (req, res, next) => {
     // TODO: remove unneccessary try catch later if not needed
-    const {email, username, password, authorization_level=0} = req.body
+    var {email, username, password='', authorization_level=0} = req.body
     console.log(req.body)
-    // const NewUser = new User({email:email, username:username, password:password, authorization_level:'0'});
-    const newUser = new User({email, username, password, authorization_level});
-    await newUser.save()
 
-    res.send('success')
+    const user = new User({email, username, password, authorization_level});
+        // generate salt to hash password
+        const salt = await bcrypt.genSalt(10);
+        // now we set user password to hashed password
+        user.password = await bcrypt.hash(user.password, salt);
+        await user.save()
+        res.status(201).send('success');
 }
 
 // TODO: logging in
-module.exports.login = (req, res, next) =>{
-    res.send('success')
-}
+module.exports.login = async (req, res, next) => {
+    var {username, password} = req.body
+    console.log(req.body)
+
+    const user = await User.findOne({ username: username });
+    if (user) {
+        // check user password with hashed password stored in the database
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (validPassword) {
+        res.status(200).json({ message: "Valid password" });
+        } else {
+        res.status(400).json({ error: "Invalid Password" });
+        }
+    } else {
+        res.status(401).json({ error: "User does not exist" });
+    }
+};
