@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import EventsDashboard from "./Events/EventsDashboard";
+import OrdersDashboard from "./Orders/OrdersDashboard";
 import AddProduct from "./Products/AddProduct";
 
 const EmployeeDashboard = () => {
@@ -6,6 +8,8 @@ const EmployeeDashboard = () => {
   return (
     <Fragment>
       <AddProduct/>
+      <EventsDashboard/>
+      <OrdersDashboard/>
     </Fragment>
   )
 }

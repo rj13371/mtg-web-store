@@ -2,6 +2,10 @@ import React from 'react'
 import { FloatingLabel, Form, Button, Container,Col,Row, Card } from 'react-bootstrap'
 import useInputState from '../../../../hooks/useInputState'
 
+// ADD VALIDATION 
+// ADD USE EFFECT TO GRAB EVENTS FROM DB, EMPLOYEE WILL HAVE CRUD IN DASHBOARD
+//WHEN USER SUBMITS DECKLIST, AXIOS POST WITH EVENT ID AND DECKLIST , AND USER ID, POPULATE
+
 export default function DecklistsDashboard() {
 
     const [decklist, handleDecklistChange, resetDecklist] = useInputState([
