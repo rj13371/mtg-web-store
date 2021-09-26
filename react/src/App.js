@@ -13,6 +13,8 @@ import ProductDisplayByCatagory from './views/products/ProductDisplayByCatagory'
 import MtgCardDisplay from './views/mtgcards/MtgCardDisplay';
 import EmployeeDashboard from './views/dashboard/employeeDashboard/EmployeeDashboard';
 import SidebarComponent from './components/layouts/SidebarComponent';
+import NavbarCatagories from './components/layouts/NavbarCatagories';
+import UserDashboard from './views/dashboard/userDashboard/UserDashboard';
 
 import Contact from './views/contact/Contact';
 import About from './views/contact/About';
@@ -30,7 +32,7 @@ import initFontAwesome from './icons/fontAwesomeConfig';
 import { Container,Col,Row} from 'react-bootstrap';
 
 import useWindowSize from "./hooks/useWindowSize";
-import NavbarCatagories from './components/layouts/NavbarCatagories';
+
 
 initFontAwesome();
 
@@ -54,6 +56,7 @@ function App() {
    <Route exact path='/products/' render={(props) => (<ProductsIndex  {...props}/>)}/>
 
    <Route exact path='/events/' component={EventsIndex}/>
+   <Route exact path='/dashboard/' component={UserDashboard}/>
    <Route exact path='/employeedashboard/' component={EmployeeDashboard}/>
    <Route exact path='/contact/' component={Contact}/>
    <Route exact path='/about/' component={About}/>
