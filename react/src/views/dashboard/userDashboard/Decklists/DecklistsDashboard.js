@@ -14,7 +14,6 @@ export default function DecklistsDashboard() {
     const [event, handleEventChange] = useInputState([
 
     ])
-    console.log(event)
 
     const sampleEvents = [
         {eventName:'MTG PTQ Standard', eventId:'1', eventDate:'10/10/2021' },

@@ -1,5 +1,8 @@
 import React from "react";
 import { Container, Button, Table } from "react-bootstrap";
+import OrdersSearch from "../../../../components/search/OrdersSearch";
+
+// IMPLEMENT SEARCH BAR FOR ORDERS, WITH ID, DATE OR USER ID PARAM
 
 export default function OrdersDashboard() {
   const sampleOrders = [
@@ -39,6 +42,7 @@ export default function OrdersDashboard() {
 
   return (
     <div>
+        <OrdersSearch/>
       <Container>
       <Table striped bordered hover variant="dark">
   <thead>
@@ -60,7 +64,7 @@ export default function OrdersDashboard() {
             <td>{order.orderDate}</td>
             <td>{order.orderTotal}</td>
             <td>{order.orderCustomerUsername}</td>
-            <Button href={`/products/${order.orderId}`} variant="primary" size="sm">  Details </Button>
+            <Button href={`/orders/${order.orderId}`} variant="primary" size="sm">  Details </Button>
             </tr>
         ))
     }
