@@ -17,6 +17,6 @@ const EmployeeDashboard = () => {
 export default EmployeeDashboard
 //CRUD events
 // CRUD USERS
-// CRUD ORDERS
+// CRUD ORDERSs
 
 //ADD ROUTES FOR EMPLOYEE
