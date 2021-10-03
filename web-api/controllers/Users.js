@@ -1,6 +1,7 @@
 const User = require('../models/Users');
 const bcrypt = require('bcrypt');
 const { checkout } = require('../routes/Users');
+var session = require('express-session')
 
 // registering a new user
 module.exports.registerUser = async (req, res, next) => {
@@ -17,7 +18,7 @@ module.exports.registerUser = async (req, res, next) => {
         res.status(201).send('success');
 }
 
-// TODO: logging in
+// logging in
 module.exports.login = async (req, res, next) => {
     var {username, password} = req.body
     console.log(req.body)
@@ -28,6 +29,15 @@ module.exports.login = async (req, res, next) => {
         const validPassword = await bcrypt.compare(password, user.password);
         if (validPassword) {
         res.status(200).json({ message: "Valid password" });
+        var app = express()
+            app.set('trust proxy', 1) // trust first proxy
+            app.use(session({
+            secret: 'keyboard cat',
+            resave: false,
+            saveUninitialized: true,
+            //TODO:Use https
+            cookie: { secure: false }
+            }))
         } else {
         res.status(400).json({ error: "Invalid Password" });
         }
@@ -35,3 +45,5 @@ module.exports.login = async (req, res, next) => {
         res.status(401).json({ error: "User does not exist" });
     }
 };
+
+// git check
