@@ -4,7 +4,7 @@ const { checkout } = require('../routes/Users');
 const jwt = require('jsonwebtoken');
 
 // registering a new user
-module.exports.registerUser = async (req, res, next) => {
+module.exports.registerUser = async (req, res) => {
     // TODO: remove unneccessary try catch later if not needed
     var {email, username, password='', authorization_level=0} = req.body
     console.log(req.body)
@@ -45,7 +45,7 @@ module.exports.registerUser = async (req, res, next) => {
 }
 
 // logging in
-module.exports.login = async (req, res, next) => {
+module.exports.login = async (req, res) => {
     var {username, password} = req.body
     console.log(req.body)
 
@@ -66,9 +66,11 @@ module.exports.login = async (req, res, next) => {
                   expiresIn: "2h",
                 }
             );
-            // save user token
-            user.token = token;
-            res.status(200).json(user);
+            return res.cookie("access_token", token, {
+                httpOnly: true,
+                // TODO: Create HTTPS for production version of the website
+                secure: process.env.NODE_ENV === "production",
+            }).status(200).json({ message: "Logged in successfully" });
         } else {
             res.status(400).json({ error: "Invalid Password" });
         }
@@ -76,3 +78,9 @@ module.exports.login = async (req, res, next) => {
         res.status(401).json({ error: "User does not exist" });
     }
 };
+
+//logging out
+// TODO: WIP, does apparently not do the thing yet
+module.exports.logout = async(req, res) => {
+    return　res.clearCookie("access_token").status(200).json({ message: "Successfully logged out"});
+}
