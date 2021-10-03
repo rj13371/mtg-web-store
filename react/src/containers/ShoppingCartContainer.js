@@ -36,7 +36,7 @@ export default function ShoppingCartContainer() {
  </Button>
  </Col>
 </Row>
-)) : 'Shopping Cart is Empty'}
+)) : 'Shopping Cart is Empty!'}
 
 {`Your Pre Total is: ${total}`}
 </Container>
