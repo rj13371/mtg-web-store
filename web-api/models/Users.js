@@ -20,6 +20,10 @@ const UserSchema = new Schema({
     authorization_level:{
         type: String,
         required: true
+    },
+    token:{
+        type:String,
+        required:true,
     }
 });
 

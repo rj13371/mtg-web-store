@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router({mergeParams:true});
 const Products = require('../controllers/Products')
+const { verifyToken } = require('../middleware/auth')
 
 
 
@@ -17,9 +18,7 @@ router.post('/addproduct', catchAsync (Products.postProduct)) //ADD CARD
 router.route('/:id')
 .get(catchAsync (Products.getProductsById))
 
-router.route('/catagory/:catagoryName')
-.get(catchAsync (Products.getProductsByCatagoryName))
-
+router.get('/catagory/:catagoryName', verifyToken, catchAsync (Products.getProductsByCatagoryName))
 
 router.put('/:productId', catchAsync (Products.editProduct)) //ADD CARD
 router.delete('/:productId',catchAsync (Products.deleteProduct))// 
