@@ -49,7 +49,7 @@ export default function OrdersDashboard() {
     <tr>
       <th>Order ID</th>
       <th>Order Date</th>
-      <th>Order Totals</th>
+      <th>Order Totals!</th>
       <th>Order Customer Username</th>
       <th>Details</th>
     </tr>
