@@ -22,7 +22,7 @@ export default function ShoppingCartContainer() {
 
 <Modal show={show} onHide={handleClose}>
   <Modal.Header closeButton>
-    <Modal.Title>Shopping Cart</Modal.Title>
+    <Modal.Title>Shopping Cart.</Modal.Title>
   </Modal.Header>
   <Modal.Body>
     
