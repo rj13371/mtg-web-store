@@ -1,28 +1,74 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
+import axios from 'axios'
+import useInputState from '../../hooks/useInputState'
+import { Redirect } from 'react-router'
 
 
 export default function Login() {
+
+  const [loginFormUserName, handleLoginFormUserName] = useInputState('')
+  const [loginFormPassword, handleLoginFormPassword] = useInputState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+
+    const body ={
+      username: loginFormUserName,
+      password: loginFormPassword
+    }
+    console.log(body)
+
+    const login = await axios({
+      method: "post",
+      url: '/users/login',
+      data:body,
+      withCredentials:true
+    })
+      .then((response) => {
+        setSubmitted(!submitted)
+      })
+
+      
+
+  }
+
+  if (submitted){
+    return <Redirect to='/' />
+  }
+
     return (
         <Container className="d-flex justify-content-center" >
-<Form>
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
-    <Form.Text className="text-muted">
-      We'll never share your email with anyone else.
-    </Form.Text>
+<Form onSubmit={handleSubmit}>
+  <Form.Group className="mb-3" controlId="formBasicUsername">
+    <Form.Label>Username</Form.Label>
+    <Form.Control onChange={handleLoginFormUserName} value={loginFormUserName} type="text" placeholder="Enter username" />
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
+    <Form.Control onChange={handleLoginFormPassword} value={loginFormPassword} type="password" placeholder="Password" />
   </Form.Group>
 
   <Button variant="primary" type="submit">
-    Submit
+    Login
   </Button>
 </Form>
 </Container>
     )
 }
+
+// <Form onSubmit={(e)=>handleSubmit(e)}>
+// <Form.Label> Decklist</Form.Label>
+// <Form.Control
+// as="textarea"
+// placeholder="Enter decklist here"
+// className='w-100'
+// style={{ height: '600px'}}
+// onChange={handleDecklistChange}
+// value={decklist}
+// />
+// <Button type="submit"> Login </Button>
+
+// </Form>

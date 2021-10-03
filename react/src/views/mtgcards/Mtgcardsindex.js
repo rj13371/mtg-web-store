@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { useLocation } from "react-router-dom";
+import EditMtgCard from "./EditMtgCard";
 
 import { Card, Container, Col, Row, Button } from "react-bootstrap";
 import ShoppingCart from "../../components/cart/ShoppingCart";
 
+import { AuthContext } from "../../context/AuthContext";
+
+ 
+
 
 export default function Mtgcardsindex() {
+  const {authState} = useContext(AuthContext)
   const [cards, setCards] = useState([]);
   const [auth, setAuth] = useState(true) //login auth for later for edit button
   // const [isLoading, setisLoading] = useState(true);
@@ -21,7 +27,6 @@ export default function Mtgcardsindex() {
   }, []);
 
 
-  //.from({ length: 3 })
   return (
 
     <div>
@@ -43,7 +48,7 @@ export default function Mtgcardsindex() {
           <Card.Text>${card.prices.usd || '0'}// In Stock: {card.stock} </Card.Text>
 
         <Button href={`/mtgcards/${card._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart product={card}/>
-
+        {authState.authorization_level==="1" && <EditMtgCard id={card._id} />}
         </Card.Body>
       </Card>
     </Col>

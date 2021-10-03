@@ -18,4 +18,3 @@ module.exports.verifyToken = (req, res, next) => {
   return next();
 };
 
-// module.exports = verifyToken;

@@ -6,8 +6,15 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 import ShoppingCartContainer from "../../containers/ShoppingCartContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { AuthContext } from "../../context/AuthContext";
+
+
+
+
 
 export default function NavbarComponent(props) {
+
+  const { authState } = useContext(AuthContext)
 
   const {cart} = useContext(ShoppingCartContext)
 
@@ -28,9 +35,20 @@ export default function NavbarComponent(props) {
     <ShoppingCartContainer/> 
     </Navbar.Text>
 
-    <Nav.Link href="/login">
+
+    {authState.email?
+    <Nav.Link href="/logout">
+    <FontAwesomeIcon icon='sign-out-alt' size="2x" color='red' />
+    </Nav.Link>:
+
+<Nav.Link href="/login">
     <FontAwesomeIcon icon="user" size="2x" color='green' />
     </Nav.Link>
+
+  }
+    
+
+
     <Navbar.Toggle> <FontAwesomeIcon icon="chevron-circle-down" size="2x" /> </Navbar.Toggle >
     <Navbar.Collapse>
     <Nav style={{ fontSize:'24px',marginLeft: '120px'}}  >

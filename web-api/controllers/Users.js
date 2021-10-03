@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const { checkout } = require('../routes/Users');
 const jwt = require('jsonwebtoken');
 
+const env = process.env;
+
 // registering a new user
 module.exports.registerUser = async (req, res, next) => {
     // TODO: remove unneccessary try catch later if not needed
@@ -31,7 +33,7 @@ module.exports.registerUser = async (req, res, next) => {
     // Create token
     const token = jwt.sign(
         { user_id: user._id, username },
-        process.env.TOKEN_KEY,
+        env.JWTSECRET,
         {
             expiresIn: "2h",
         }
@@ -50,6 +52,8 @@ module.exports.login = async (req, res, next) => {
     console.log(req.body)
 
     const user = await User.findOne({ username: username });
+
+    
     
     // Validate user input
     if (!(username && password)) {
@@ -60,14 +64,20 @@ module.exports.login = async (req, res, next) => {
         const validPassword = await bcrypt.compare(password, user.password);
         if (validPassword) {
             const token = jwt.sign(
-                { user_id: user._id, username },
-                process.env.TOKEN_KEY,
+                {_id: user._id },
+                env.JWTSECRET,
                 {
                   expiresIn: "2h",
                 }
             );
             // save user token
             user.token = token;
+
+            const cookie = req.cookies.token
+            if (cookie == undefined){
+                res.cookie('token', token, { httpOnly: true, secure: true });
+                }
+
             res.status(200).json(user);
         } else {
             res.status(400).json({ error: "Invalid Password" });
@@ -76,3 +86,16 @@ module.exports.login = async (req, res, next) => {
         res.status(401).json({ error: "User does not exist" });
     }
 };
+
+module.exports.logout = async (req, res) => {
+
+    
+    // Set token to none and expire after 5 seconds
+
+
+    res.clearCookie("token");
+
+    res
+        .status(200)
+        .json({ success: true, message: 'User logged out successfully' })
+}
