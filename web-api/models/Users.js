@@ -24,7 +24,11 @@ const UserSchema = new Schema({
     token:{
         type:String,
         required:true,
-    }
+    },
+    orders: [{
+        type: Schema.Types.ObjectId,
+        ref:('Order')
+    }],
 });
 
 

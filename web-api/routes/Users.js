@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router({mergeParams:true});
 const Users = require('../controllers/Users');
-const { verifyToken } = require('../middleware/auth');
+// const { verifyToken } = require('../middleware/bak_20211009_auth');
 
 const catchAsync = func => {
     return (req,res,next) => {

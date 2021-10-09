@@ -5,7 +5,6 @@ const bp = require('body-parser');
 const { success, error } = require('consola')
 const { connect } = require('mongoose');
 const cookieParser = require("cookie-parser");
-const csrfProtection = require('csurf')
 const jwt = require('express-jwt')
 
 // Bring in the app constants
@@ -76,7 +75,8 @@ const startApp = async () => {
 const mtgCardsRoute = require('./routes/MtgCards');
 const productsRoute = require('./routes/Products');
 const usersRoute = require('./routes/Users');
-const authRoute = require('./routes/Auth')
+const authRoute = require('./routes/Auth');
+const orderRoute = require('./routes/Orders')
 
 startApp();
 
@@ -84,3 +84,4 @@ app.use ('/mtgcards', mtgCardsRoute);
 app.use ('/products', productsRoute);
 app.use ('/users', usersRoute);
 app.use ('/auth', authRoute);
+app.use ('/orders', orderRoute);
