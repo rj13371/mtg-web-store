@@ -13,8 +13,8 @@ const EmployeeDashboard = () => {
 
 
 
-    if(authState.authorization_level=='0'){
-      return <Redirect to="/"/>
+    if(authState.authorization_level=='0' || !authState.authorization_level ){
+      return <Fragment>Unauthorized</Fragment>
     }
 
     

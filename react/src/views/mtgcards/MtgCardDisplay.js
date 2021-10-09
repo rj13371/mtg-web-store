@@ -85,7 +85,7 @@ export default function MtgCardDisplay(props) {
       </Container>
 
 
-      {authState.authorization_level==="1" && <EditMtgCard id={card._id} />}
+      {authState.authorization_level!="1" && <EditMtgCard id={card._id} />}
     </div>
   );
 }
