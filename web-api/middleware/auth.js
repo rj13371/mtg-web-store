@@ -21,4 +21,3 @@ module.exports.verifyToken = (req, res, next) => {
   }
 };
 
-// module.exports = verifyToken;

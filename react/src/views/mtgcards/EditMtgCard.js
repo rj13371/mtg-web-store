@@ -1,7 +1,9 @@
-import React,{useState,Fragment} from 'react'
+import React,{useState,Fragment,useContext} from 'react'
 import axiosClient from '../../utils/axios';
+import { AuthContext } from "../../context/AuthContext";
 
 export default function EditMtgCard(props) {
+  const {authState} = useContext(AuthContext)
 
   const [formData, setFormData] = useState({
     stock: "",
@@ -38,6 +40,10 @@ export default function EditMtgCard(props) {
 
   };
 
+  if(authState.authorization_level=='0' || !authState.authorization_level ){
+    return <Fragment></Fragment>
+  }
+
 
     return (
  
@@ -60,7 +66,7 @@ export default function EditMtgCard(props) {
             onChange={onChange}
           />
         </div>
-        <input type="submit" value="EditMtgCard" />
+         <input type="submit" value="EditMtgCard" /> 
       </form>
     </Fragment>
 

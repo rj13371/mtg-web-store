@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment, useContext } from "react";
 // import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
 // import { Redirect } from "react-router-dom";
 import { Form, Input, Button,Row,Col, } from "react-bootstrap";
@@ -6,6 +6,8 @@ import { Form, Input, Button,Row,Col, } from "react-bootstrap";
 import axiosClient from "../../../../utils/axios";
 
 import CloudinaryWidget from "../CloudinaryWidget";
+
+import { AuthContext } from "../../../../context/AuthContext";
 
 const AddProduct = () => {
 
@@ -62,17 +64,21 @@ const AddProduct = () => {
     }).then(response => {
         console.log(response)
          })
-        // .then(data =>{
-        //   history.push("/", { query: data });
-        //   setSubmitted(true);
-        // })
-
-        // if (submitted) {
-        //     return <Redirect to='/' /> 
-        //   }
 
 
   };
+
+
+
+
+  const { authState } = useContext(AuthContext)
+
+
+
+    if(authState.authorization_level=='0' || !authState.authorization_level ){
+      return <Fragment>Unauthorized</Fragment>
+    }
+
 
   return (
 

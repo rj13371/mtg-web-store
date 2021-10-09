@@ -3,6 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import EditMtgCard from "./EditMtgCard";
 import axios from "axios";
 import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
+import { AuthContext } from "../../context/AuthContext";
 
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
@@ -21,6 +22,8 @@ export default function MtgCardDisplay(props) {
     image_uris: "",
     _id: "",
   });
+
+  const {authState} = useContext(AuthContext)
 
 
   const location = useLocation();
@@ -82,7 +85,7 @@ export default function MtgCardDisplay(props) {
       </Container>
 
 
-      {location.state && <EditMtgCard id={card._id} />}
+      {authState.authorization_level!="1" && <EditMtgCard id={card._id} />}
     </div>
   );
 }

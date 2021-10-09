@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //GLOBAL COMPONENTS DISPLAY
 import NavbarComponent from './components/layouts/NavbarComponent';
@@ -21,6 +21,7 @@ import About from './views/contact/About';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import { ShoppingCartProvider } from './context/ShoppingCartContext';
+import { AuthContext, AuthProvider } from './context/AuthContext';
 import Landing from './views/Landing';
 import EventsIndex from './views/events/EventsIndex';
 
@@ -32,11 +33,47 @@ import initFontAwesome from './icons/fontAwesomeConfig';
 import { Container,Col,Row} from 'react-bootstrap';
 
 import useWindowSize from "./hooks/useWindowSize";
+import Logout from './components/auth/Logout';
 
 
 initFontAwesome();
 
 function App() {
+
+  const {setAuthState, authState} = useContext(AuthContext)
+
+  const loadData = ()=>{
+    isAuthenticated()
+    .then(data=>{
+      if(data.error){
+        console.log('error', data.error)
+      }
+
+      if(!data.user){
+        return 1
+      }
+
+      else{
+        setAuthState({
+          ...authState,
+          _id: data.user._id,
+          email: data.user.email,
+          authorization_level: data.user.authorization_level
+        })
+        
+      }
+    })
+  }
+
+  useEffect(()=>{
+    loadData()
+  },[])
+
+  const isAuthenticated = async ()=>{
+    return await fetch(`/auth/isAuth`)
+    .then(response=>response.json() )
+    .catch(err=>console.log(err))
+    }
 
   
   const size = useWindowSize();
@@ -45,6 +82,7 @@ function App() {
   <Fragment >
     <div className='App-background'>
     <Container fluid > 
+    
     <ShoppingCartProvider>
     <NavbarComponent/>
    {size.width>500? <NavbarCatagories/> : null }
@@ -62,13 +100,13 @@ function App() {
    <Route exact path='/about/' component={About}/>
    <Route exact path='/register/' component={Register}/>
    <Route exact path='/login/' component={Login}/>
+   <Route exact path='/logout/' component={Logout}/>
 
    <Route exact path='/products/catagory/:catagoryName' component={ProductDisplayByCatagory}/>
 
    <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
    <Route exact path='/products/:id' component={ProductDisplay}/>
    </ShoppingCartProvider>
-
    </Container>
    <FooterComponent/>
    </div>

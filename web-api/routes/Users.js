@@ -10,8 +10,9 @@ const catchAsync = func => {
 }
 router.post('/register', catchAsync(Users.registerUser)) //register a new user
 
-// Fabian, 10/04 apparently login is a get request
-router.get('/login', catchAsync(Users.login))//logging in
+router.post('/login', catchAsync(Users.login))
+
+router.get('/logout', catchAsync(Users.logout))
 // TODO: add remaining methods (get, put, edit)
 // router.route('/:id')
 // .get(catchAsync (MtgCards.getMtgCard))

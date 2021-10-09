@@ -6,6 +6,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useWindowSize from "../../hooks/useWindowSize";
 
 function CardSearch(props) {
   const [submitted, setSubmitted] = useState(false);
@@ -77,10 +78,12 @@ function CardSearch(props) {
     }
   }
 
+  const size = useWindowSize();
+
   return (
     <Container fluid="xl">
       <Row className="justify-content-center">
-      <Col className="mt-3 mb-3" xs={9} md={6}>
+      <Col className="mt-3 mb-3" style={size.width<500? {width:'500px'}: null} xs={9} md={6}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"
@@ -95,6 +98,8 @@ function CardSearch(props) {
         placeholder="Search for Magic Cards"
         renderMenuItemChildren={(option, props) => (
           <Fragment>
+
+          
             <img
               alt={option.name}
               src={option.img}
@@ -104,7 +109,13 @@ function CardSearch(props) {
                 width: "75px",
               }}
             />
-            <span>{option.name}/{option.set_name}/{option.price}/Stock:{option.stock} </span>
+
+            {size.width<500? <span style={{fontSize:'0.9em'
+              }}>{option.name} {option.price} Stk:{option.stock} </span> 
+              
+              
+              : <span>{option.name}/{option.set_name}/{option.price}/Stock:{option.stock} </span>}
+            
           </Fragment>
 
         )}
@@ -112,13 +123,18 @@ function CardSearch(props) {
 
       </Col>
 
+      {size.width>500? 
+
       <Col className="mt-3 mb-3" xs={1} md={1}>
+
+              
+
       <Button onClick={() => { handleClickSearch(results) }}>
 
       <FontAwesomeIcon icon='search' size="1x" />
 
       </Button>
-      </Col>
+      </Col> : null}
     </Row>
     </Container>
   );
