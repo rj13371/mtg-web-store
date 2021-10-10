@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// TODO: add required properties
 const OrderSchema = new Schema({
     customer: {
         type: Schema.Types.ObjectId,
@@ -8,7 +9,7 @@ const OrderSchema = new Schema({
     },
 
     products: [{
-        type: Schema.Types.ObjectId,
+        type: Array,
         ref: 'Product'
     }],
 

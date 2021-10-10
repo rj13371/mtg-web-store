@@ -5,10 +5,16 @@ const { checkout } = require('../routes/Users');
 
 // creating a new order
 module.exports.createOrder = async (req, res) => {
-    console.log(req.body)
-    const userId = req.body.userId
-    const productArray = req.body.productArray
-    res.send(`User: ${userId} \n Products: ${productArray}`)
+    
+    // pass productArray inside order
+    const order = new Order;
+    order.products = req.body.productArray;
+    order.customer = req.body.userId;
+    console.log(order.products)
+    await order.save();
+    
+    res.send(`Order: ${order}`)
+
 }
 
 // editting an existing order
