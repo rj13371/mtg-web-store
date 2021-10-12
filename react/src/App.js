@@ -24,6 +24,8 @@ import { ShoppingCartProvider } from './context/ShoppingCartContext';
 import { AuthContext, AuthProvider } from './context/AuthContext';
 import Landing from './views/Landing';
 import EventsIndex from './views/events/EventsIndex';
+import Logout from './components/auth/Logout';
+import Checkout from './components/cart/Checkout';
 
 import './App.css'
 
@@ -33,7 +35,7 @@ import initFontAwesome from './icons/fontAwesomeConfig';
 import { Container,Col,Row} from 'react-bootstrap';
 
 import useWindowSize from "./hooks/useWindowSize";
-import Logout from './components/auth/Logout';
+
 
 
 initFontAwesome();
@@ -96,6 +98,7 @@ function App() {
    <Route exact path='/events/' component={EventsIndex}/>
    <Route exact path='/dashboard/' component={UserDashboard}/>
    <Route exact path='/employeedashboard/' component={EmployeeDashboard}/>
+   <Route exact path='/checkout/' component={Checkout}/>
    <Route exact path='/contact/' component={Contact}/>
    <Route exact path='/about/' component={About}/>
    <Route exact path='/register/' component={Register}/>

@@ -54,7 +54,7 @@ export default function NavbarComponent(props) {
     <Nav style={{ fontSize:'24px',marginLeft: '120px'}}  >
       <Nav.Link style={{ marginRight: '20px' }} href="/events/">Events</Nav.Link>
       <Nav.Link style={{ marginRight: '20px' }} href="#features">Buylist</Nav.Link>
-      <Nav.Link style={{ marginRight: '20px' }} href="/employeedashboard">Dashboard</Nav.Link>
+      <Nav.Link style={{ marginRight: '20px' }} href="/dashboard">Dashboard</Nav.Link>
       <Nav.Link style={{ marginRight: '20px' }} href="/contact">Contact</Nav.Link>
       <Nav.Link style={{ marginRight: '20px' }} href="/about">About</Nav.Link>
       
