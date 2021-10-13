@@ -14,12 +14,12 @@ export default function Checkout() {
     return (
         <Container >
 
-    <Table fluid='xl' variant="dark" striped bordered hover size="sm">
+    <Table fluid='xl' variant="dark" striped bordered hover size="sm" style={ size.width>500? {fontSize:'medium'}: {fontSize:'x-small'} }>
   <thead>
     <tr>
-        {size.width>500? <th>Card Image</th> : null }
-      <th>Card Name</th>
-      <th>Set Name</th>
+        {size.width>500? <th> Image</th> : null }
+      <th> Name</th>
+      <th>Set/Catagory Name</th>
       <th>Rarity </th>
       <th>Price</th>
       <th>Quantity</th>
@@ -31,7 +31,7 @@ export default function Checkout() {
   {cart.length !== 0 ? cart.map((item, index) => (
     <tr>
         {size.width>500? <td><Image  style={ item.rarity? {width:'75px', height:'100px'}: {width:'50%', height:'50%'} }  src={`${item.image_uris? item.image_uris.small : item.images[0].url }`} alt="Card image cap" /></td> : null }
-    <td>{item.name || item.productName}</td>
+    <td >{item.name || item.productName}</td>
       <td>{item.set_name || item.productCategory}</td>
       <td>{item.rarity? item.rarity.charAt() : null}</td>
       <td>${parseFloat(item.prices ? item.prices.usd: item.price).toFixed(2)}</td>

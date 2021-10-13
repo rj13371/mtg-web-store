@@ -70,14 +70,43 @@ module.exports.editOrder = async (req, res) => {
 };
 
 // showing any pending orders
-module.exports.showOrder = async (req, res) => {
-  console.log(req.body);
-  const userId = req.body.userId;
-  const orderId = req.body.orderId;
-  const productArray = req.body.productArray;
-  res.send(
-    `User: ${userId} \n OrderId: ${orderId} \n Products: ${productArray}`
-  );
+module.exports.showOrders = async (req, res) => {
+
+  console.log(req.body.paramType)
+  console.log(req.body.query)
+
+  if (req.body.paramType) {
+
+    if (req.body.paramType === 'userName') {
+      const user = await User.findOne({username: req.body.query}).populate('orders')
+      res.send(user.orders)
+      }
+    else if (req.body.paramType === 'date'){
+      const orders = await Order.find({updatedAt: req.body.query})
+      res.send(orders)
+      }
+      else if (req.body.paramType === 'cost'){
+        const orders = await Order.find({ 'products.totalCost': req.body.query })
+        res.send(orders)
+        }
+        else if (req.body.paramType === 'productName'){
+         const orders = await Order.find({ 'products.productName': req.body.query })
+          res.send(orders)
+          }
+          else if (req.body.paramType === 'cardName'){
+            const orders = await Order.find({ 'products.name': req.body.query })
+            res.send(orders)
+                    }
+
+}else {
+
+  const user = await User.findById(req.body.userId).populate('orders')
+
+  res.send(user.orders)
+}
+  
+
+  
 };
 
 // deleting a pending order

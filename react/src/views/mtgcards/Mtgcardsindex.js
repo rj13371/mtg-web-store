@@ -41,7 +41,7 @@ export default function Mtgcardsindex() {
           }).map((card) => (
     <Col>
       <Card className='m-auto' >
-        <Card.Img className="w-75 h-75 p-3 m-auto" style={{backgroundBlendMode:'normal'}} src={`${card.image_uris.small}`} alt="Card image cap" />
+        <Card.Img className="w-75 h-75 p-3 m-auto" style={{backgroundBlendMode:'normal'}} src={`${card.image_uris.normal}`} alt="Card image cap" />
         <Card.Body className='m-auto'>
         <Card.Title tag="h5">{card.name}</Card.Title>
         <Card.Subtitle tag='h3'>{card.set_name} </Card.Subtitle>

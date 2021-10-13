@@ -38,11 +38,11 @@ export default function NavbarComponent(props) {
 
     {authState.email?
     <Nav.Link href="/logout">
-    <FontAwesomeIcon icon='sign-out-alt' size="2x" color='red' />
+    <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
     </Nav.Link>:
 
 <Nav.Link href="/login">
-    <FontAwesomeIcon icon="user" size="2x" color='green' />
+    <FontAwesomeIcon icon="user" size="lg" color='green' />
     </Nav.Link>
 
   }

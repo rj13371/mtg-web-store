@@ -1,12 +1,31 @@
-import React from 'react'
+import React, {Fragment, useContext} from 'react'
 import DecklistsDashboard from './Decklists/DecklistsDashboard'
+import OrdersDashboard from './Orders/OrdersDashboard'
 //ADD ROUTES FOR EVENTS, ORDERS, AND DECKLISTS
 
+import { AuthContext } from '../../../context/AuthContext'
+
+
+
+  
+
 export default function UserDashboard() {
+
+    const { authState } = useContext(AuthContext)
+
     return (
-        <div>
-            <DecklistsDashboard/>
-        </div>
+        <Fragment> 
+
+{authState.email?
+                <Fragment> 
+                <DecklistsDashboard/>
+                <OrdersDashboard/>
+                </Fragment> 
+                : <p>{'please login'}</p>}
+
+        </Fragment>
+            
+
     )
 }
 

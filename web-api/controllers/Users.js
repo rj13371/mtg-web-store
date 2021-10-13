@@ -48,6 +48,7 @@ module.exports.registerUser = async (req, res) => {
 
 // logging in
 module.exports.login = async (req, res) => {
+    res.clearCookie("token");
     var {username, password} = req.body
     console.log(req.body)
 

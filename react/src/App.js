@@ -47,6 +47,12 @@ function App() {
   const loadData = ()=>{
     isAuthenticated()
     .then(data=>{
+
+      if (!data){
+        console.log('error', data)
+        return 1
+      }
+
       if(data.error){
         console.log('error', data.error)
       }

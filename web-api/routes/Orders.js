@@ -14,7 +14,7 @@ router.post('/createOrder', catchAsync(Orders.createOrder)) // create new order
 
 router.put('/editOrder', catchAsync(Orders.editOrder)) // edit order
 
-router.get('/listUpOrders', catchAsync(Orders.listUpOrders)) // lists up orders of a User
+router.post('/showOrders', catchAsync(Orders.showOrders)) // lists up orders of a User
 
 router.delete('/deleteOrder', catchAsync(Orders.deleteOrder)) // delete order
 

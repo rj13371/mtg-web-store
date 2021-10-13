@@ -11,6 +11,8 @@ export function AuthProvider(props) {
         authorization_level:''
     })
 
+    
+
     console.log(authState)
 
     return (
