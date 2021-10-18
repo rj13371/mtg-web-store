@@ -3,17 +3,33 @@ import { Form, Button, Container } from 'react-bootstrap'
 import useInputState from '../../hooks/useInputState'
 import axios from 'axios'
 import { Redirect } from 'react-router'
+import useStateWithValidation from '../../hooks/useStateWithValidation'
 
 export default function Register() {
 
+  let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+
+  const [loginFormPassword, handleLoginFormPassword, isValidPw1] = useStateWithValidation(
+    name => name.match(passw) ,
+    ""
+  )
+
+  const [loginFormPassword2, handleLoginFormPassword2, isValidPw2] = useStateWithValidation(
+    name => name.match(passw),
+    ""
+  )
+
   const [loginFormUserName, handleLoginFormUserName] = useInputState('')
-  const [loginFormPassword, handleLoginFormPassword] = useInputState('')
-  const [loginFormPassword2, handleLoginFormPassword2] = useInputState('')
   const [loginFormEmail, handleLoginFormEmail] = useInputState('')
   const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
+
+    if (!isValidPw1 && !isValidPw2){
+      console.log('passwords must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter')
+      return 1
+    }
 
     if(loginFormPassword!=loginFormPassword2){
       console.log('passwords must match')
@@ -64,12 +80,12 @@ export default function Register() {
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
-    <Form.Control onChange={handleLoginFormPassword} value={loginFormPassword} type="password" placeholder="Password" />
+    <Form.Control onChange={e => handleLoginFormPassword(e.target.value)} value={loginFormPassword} type="password" placeholder="Password" />
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Confirm Password</Form.Label>
-    <Form.Control onChange={handleLoginFormPassword2} value={loginFormPassword2} type="password" placeholder="Password" />
+    <Form.Control onChange={e => handleLoginFormPassword2(e.target.value)}  value={loginFormPassword2} type="password" placeholder="Password" />
   </Form.Group>
 
   <Button variant="primary" type="submit">

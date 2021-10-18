@@ -14,7 +14,7 @@ export default function Checkout() {
     return (
         <Container >
 
-    <Table fluid='xl' variant="dark" striped bordered hover size="sm" style={ size.width>500? {fontSize:'medium'}: {fontSize:'x-small'} }>
+    <Table fluid='xl' variant="dark" striped bordered hover size="sm" style={ size.width>500? {fontSize:'medium'}: {fontSize:'small'} }>
   <thead>
     <tr>
         {size.width>500? <th> Image</th> : null }
@@ -22,7 +22,7 @@ export default function Checkout() {
       <th>Set/Catagory Name</th>
       <th>Rarity </th>
       <th>Price</th>
-      <th>Quantity</th>
+      {size.width>500? <th> Quantity</th> : <th> #</th> }
       <th>Remove? </th>
     </tr>
   </thead>

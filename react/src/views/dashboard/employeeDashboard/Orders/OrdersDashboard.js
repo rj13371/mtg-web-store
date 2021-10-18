@@ -8,8 +8,8 @@ export default function OrdersDashboard() {
 
 
   return (
-    <div>
+
         <OrdersSearch/>
-    </div>
+
   );
 }

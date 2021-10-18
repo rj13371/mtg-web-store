@@ -3,6 +3,7 @@ import DecklistsDashboard from './Decklists/DecklistsDashboard'
 import OrdersDashboard from './Orders/OrdersDashboard'
 //ADD ROUTES FOR EVENTS, ORDERS, AND DECKLISTS
 
+
 import { AuthContext } from '../../../context/AuthContext'
 
 
@@ -21,7 +22,7 @@ export default function UserDashboard() {
                 <DecklistsDashboard/>
                 <OrdersDashboard/>
                 </Fragment> 
-                : <p>{'please login'}</p>}
+                : <h6 style={{color:'white'}}>{'please login'}</h6>}
 
         </Fragment>
             

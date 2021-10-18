@@ -8,16 +8,32 @@ const catchAsync = func => {
         func(req,res,next).catch(e => next(e))
     }
 }
+
+
+
 router.post('/register', catchAsync(Users.registerUser)) //register a new user
 
 router.post('/login', catchAsync(Users.login))
 
 router.get('/logout', catchAsync(Users.logout))
-// TODO: add remaining methods (get, put, edit)
-// router.route('/:id')
-// .get(catchAsync (MtgCards.getMtgCard))
-// .put(catchAsync (MtgCards.editMtgCard))
+
 
 router.get('/logout', catchAsync(Users.logout)) //logging out
+
+
+
+router.post('/reset/requestResetPassword/', catchAsync(Users.requestResetPassword))
+
+router.post('/reset/resetPassword/', catchAsync(Users.resetPassword))
+
+router.get('/verify/:uniqueString', catchAsync(Users.verify))
+
+
+
+// router.get('/verify/passwordResetPage/:token/:id', catchAsync(Users.resetPassword))
+
+// router.post('/verify/resetPassword/:uniqueString', catchAsync(Users.resetPassword))
+
+
 
 module.exports = router;

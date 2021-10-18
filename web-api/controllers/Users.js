@@ -2,6 +2,9 @@ const User = require('../models/Users');
 const bcrypt = require('bcrypt');
 const { checkout } = require('../routes/Users');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto')
+const sendEmail = require('../utils/Nodemailer')
+const Token = require('../models/Token')
 
 const env = process.env;
 
@@ -24,7 +27,11 @@ module.exports.registerUser = async (req, res) => {
         return res.status(409).send("User Already Exist. Please Login");
     }
 
-    const user = new User({email, username, password, authorization_level});
+    //generates unique string for email verify
+    const uniqueString = crypto.randomBytes(20).toString('hex');
+    const isValid = false;
+
+    const user = new User({email, username, password, authorization_level, uniqueString, isValid});
         // generate salt to hash password
         const salt = await bcrypt.genSalt(10);
         // now we set user password to hashed password
@@ -34,12 +41,14 @@ module.exports.registerUser = async (req, res) => {
     const token = jwt.sign(
         { user_id: user._id, username },
         env.JWTSECRET,
-        {
-            expiresIn: "2h",
-        }
     );
     // save user token
     user.token = token;
+
+
+    const subject = `Thank you ${username} for registering at Bastion Games`
+
+    await sendEmail('createUser', email, subject, null, uniqueString)
     
     await user.save()
         // return new user
@@ -54,7 +63,9 @@ module.exports.login = async (req, res) => {
 
     const user = await User.findOne({ username: username });
 
-    
+    if (user.isValid == false){
+        res.status(400).send("Please verify first before login");
+    }
     
     // Validate user input
     if (!(username && password)) {
@@ -90,9 +101,6 @@ module.exports.login = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
 
-    
-    // Set token to none and expire after 5 seconds
-
 
     res.clearCookie("token");
 
@@ -100,3 +108,81 @@ module.exports.logout = async (req, res) => {
         .status(200)
         .json({ success: true, message: 'User logged out successfully' })
 }
+
+module.exports.verify = async (req, res) => {
+
+    const {uniqueString} = req.params
+
+    const user = await User.findOne({uniqueString: uniqueString})
+
+    console.log(req.params, user)
+
+    if (user){
+        user.isValid = true;
+        await user.save()
+        res.send('success')
+    }else {
+        res.json('user not fonud')
+    }
+
+
+}
+
+
+module.exports.requestResetPassword = async (req,res) => {
+
+    const email = req.body.email 
+
+    const user = await User.findOne({ email });
+  
+    if (!user) throw new Error("User does not exist");
+    let token = await Token.findOne({ userId: user._id });
+    if (token) await token.deleteOne();
+    let resetToken = crypto.randomBytes(32).toString("hex");
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(resetToken, salt);
+  
+    await new Token({
+      userId: user._id,
+      token: hash,
+      createdAt: Date.now(),
+    }).save();
+  
+    const link = `http://localhost:3000/reset/passwordResetPage/${resetToken}/${user._id}`;
+    sendEmail('resetPassword',user.email,"Password Reset Request",link,null);
+    res.status(200).json(link);
+  };
+
+
+
+module.exports.resetPassword = async (req,res) => {
+
+    const {userId, token, password} = req.body
+
+    let passwordResetToken = await Token.findOne({ userId });
+    if (!passwordResetToken) {
+      throw new Error("Invalid or expired password reset token");
+    }
+    const isValid = await bcrypt.compare(token, passwordResetToken.token);
+    if (!isValid) {
+      throw new Error("Invalid or expired password reset token");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    await User.updateOne(
+      { _id: userId },
+      { $set: { password: hash } },
+      { new: true }
+    );
+    const user = await User.findById({ _id: userId });
+
+
+    sendEmail(
+        'resetPasswordConfirmation',
+      user.email,
+      "Password Reset Successfully",
+        user.username,
+    );
+    await passwordResetToken.deleteOne();
+    return true;
+  };

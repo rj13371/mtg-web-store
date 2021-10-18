@@ -3,6 +3,7 @@ import { Form, Button, Container } from 'react-bootstrap'
 import axios from 'axios'
 import useInputState from '../../hooks/useInputState'
 import { Redirect } from 'react-router'
+import { Link } from 'react-router-dom'
 
 
 export default function Login() {
@@ -54,6 +55,19 @@ export default function Login() {
   <Button variant="primary" type="submit">
     Login
   </Button>
+
+  <Link to='/users/reset/requestPasswordReset'>
+  <Button className="m-3" variant="secondary" type="submit">
+    Forgot Password? 
+  </Button>
+  </Link>
+
+  <Link to='/register'>
+  <Button  variant="success" type="submit">
+    Register
+  </Button>
+  </Link>
+
 </Form>
 </Container>
     )

@@ -2,18 +2,15 @@ import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Container, Row, Col, Button,Dropdown } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useWindowSize from "../../hooks/useWindowSize";
-import ProductSearch from "./ProductSearch";
-import useToggle from '../../hooks/useToggleState'
 
-function CardSearch(props) {
+function ProductSearch(props) {
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
-  const [searchByCard, toggleSearchByCard] = useToggle(true)
 
   const history = useHistory();
 
@@ -22,24 +19,25 @@ function CardSearch(props) {
 
     await axios({
       method: "get",
-      url: `/mtgcards/card?name=${query}`,
+      url: `/products/product?productName=${query}`,
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => resp)
-      .then((data) => {
-        const res = data.data;
+      .then((resp) => {
+          console.log(resp.data)
+        const res = resp.data;
+
 
 
 
         const options = res.map((i) => ({
-          name: i.name,      
-          img: (i.image_uris ? i.image_uris.small : '')  ,
-          set_name: i.set_name,
-          stock: i.stock,
-          price: (i.prices.usd ? `$${i.prices.usd}` : '')
-        }));
+            productName: i.productName,      
+            img: (i.images[0] ? i.images[0].url : '')  ,
+            productCategory: i.productCategory,
+            stock: i.stock,
+            price: (i.price ? `$${i.price}` : '')
+          }));
 
         setResults(options);
         setSubmitted(false);
@@ -52,17 +50,17 @@ function CardSearch(props) {
   const handleClickSearch = async (q) => {
     
 
-    const searchName = (q[0] ? q[0].name :'')
+    const searchName = (q[0] ? q[0].productName :'')
     console.log(searchName)
 
     const body = {
-      name: searchName,
+        productName: searchName,
     };
 
     if (searchName.length !== 0) {
     await axios({
       method: "get",
-      url: `/mtgcards/card?name=${searchName}`,
+      url: `/products/product?productName=${searchName}`,
       data:body,
       headers: {
         "Content-Type": "application/json",
@@ -72,61 +70,38 @@ function CardSearch(props) {
         return JSON.stringify(response);
       })
       .then((data) => {
-        history.push("/cards/", { query: data });
+        history.push("/products/", { query: data });
         setSubmitted(true);
       })}
 
     if (submitted) {
-      return <Redirect to="/cards/" />;
+      return <Redirect to="/products/" />;
     }
   }
 
   const size = useWindowSize();
 
   return (
-    <Container fluid="xl">
-      <Row className="justify-content-center">
+    <Fragment>
 
-
-
-<Col className="mt-3 mb-3" xs={2} md={1}>
-
-<Dropdown>
-  <Dropdown.Toggle size='sm' variant="success" id="dropdown-basic">
-  <FontAwesomeIcon icon='search' size="1x"/>
-  </Dropdown.Toggle>
-
-  <Dropdown.Menu>
-    
-    {searchByCard?
-    <Dropdown.Item onClick={()=>toggleSearchByCard()} >Search By Product</Dropdown.Item>:
-    <Dropdown.Item onClick={()=>toggleSearchByCard()} >Search By Card</Dropdown.Item>
-  }
-    <Dropdown.Item onClick={()=>toggleSearchByCard()} >Search By Card Set</Dropdown.Item>
-    <Dropdown.Item onClick={()=>toggleSearchByCard()} >Search By Product Category</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>
-</Col> 
-
-    {searchByCard?  <Fragment> <Col className="mt-3 mb-3" style={size.width<500? {width:'300px'}: null} xs={9} md={6}>
+      <Col className="mt-3 mb-3" style={size.width<500? {width:'300px'}: null} xs={9} md={6}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"
         isLoading={submitted}
-        labelKey="name"
+        labelKey="productName"
         delay={1500}
         onChange={(q) => { handleClickSearch(q) }}
         minLength={4}
         maxResults={5}
         onSearch={handleSearch}
         options={results}
-        placeholder="Search for Magic Cards"
+        placeholder="Search for Products"
         renderMenuItemChildren={(option, props) => (
           <Fragment>
 
-          
             <img
-              alt={option.name}
+              alt={option.productName}
               src={option.img}
               style={{
                 height: "100px",
@@ -136,10 +111,10 @@ function CardSearch(props) {
             />
 
             {size.width<500? <span style={{fontSize:'0.9em'
-              }}>{option.name} {option.price} Stk:{option.stock} </span> 
+              }}>{option.productName} {option.price} Stk:{option.stock} </span> 
               
               
-              : <span>{option.name}/{option.set_name}/{option.price}/Stock:{option.stock} </span>}
+              : <span>{option.productName}/{option.productCategory}/{option.price}/Stock:{option.stock} </span>}
             
           </Fragment>
 
@@ -156,20 +131,13 @@ function CardSearch(props) {
 
       <Button onClick={() => { handleClickSearch(results) }}>
 
-        
-      Search
+      Search 
 
       </Button>
-      </Col> : null} 
+      </Col> : null}
       </Fragment>
-      : <ProductSearch/>}
-
-      
-
-    </Row>
-    </Container>
   );
 }
 
-export default CardSearch;
+export default ProductSearch;
 

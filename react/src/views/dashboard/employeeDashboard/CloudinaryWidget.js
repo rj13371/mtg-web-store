@@ -23,7 +23,7 @@ export default function CloudinaryWidget(props) {
 <>
       <WidgetLoader/>
     <Widget
-      sources={['local', 'camera']}
+      sources={['local', 'camera', 'url', 'facebook', 'image_search', 'google_drive']}
       cloudName={'dwxcp0a8j'} 
       uploadPreset={'pgqdbzeq'} 
       buttonText={'Upload images'}
@@ -39,6 +39,7 @@ export default function CloudinaryWidget(props) {
       onSuccess={(res) => addImage(res)}
       onFailure={(res) => console.log(res)}
       logging={true}
+      cropping={true}
       apiKey={''}
       accepts={'application/json'}
       contentType={'application/json'}

@@ -8,6 +8,7 @@ const catchAsync = func => {
     }
    }
 router.get('/card', catchAsync(MtgCards.searchMtgCard)) //SEARCH
+router.get('/set_name/:set_name', catchAsync(MtgCards.getMtgCardsBySet)) //SEARCH
 
 router.route('/:id')
 .get(catchAsync (MtgCards.getMtgCard))

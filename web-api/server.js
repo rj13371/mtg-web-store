@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require('express-jwt')
 
 // Bring in the app constants
-const { DB, PORT, JWTSECRET } = require('./config')
+const { DB, PORT } = require('./config')
 
 // Initialize the application
 const app = exp();
@@ -57,6 +57,7 @@ const productsRoute = require('./routes/Products');
 const usersRoute = require('./routes/Users');
 const authRoute = require('./routes/Auth');
 const orderRoute = require('./routes/Orders')
+const landingRoute = require('./routes/Landing')
 
 startApp();
 
@@ -65,3 +66,4 @@ app.use ('/products', productsRoute);
 app.use ('/users', usersRoute);
 app.use ('/auth', authRoute);
 app.use ('/orders', orderRoute);
+app.use ('/landingAssets', landingRoute);

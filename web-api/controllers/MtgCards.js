@@ -35,12 +35,28 @@ module.exports.getMtgCard = async (req, res, next)=>{
 }
 
 module.exports.editMtgCard = async (req,res, next)=>{
-    const {id} = req.params;
+    const {id} = req.params || req.body.id;
 
-    const editedCard = await MtgCard.findByIdAndUpdate(id, {...req.body})
+    console.log(req.body)
 
+    try{
+    const editedCard = await MtgCard.findByIdAndUpdate(id, {stock: req.body.stock, price: req.body.price})
 
     await editedCard.save();
 
-    res.send(editedCard)
+    res.json({ message:editedCard })
+}catch(e){
+    res.json({ message: e })
+}
+}
+
+module.exports.getMtgCardsBySet = async (req, res, next)=>{
+    const {set_name} = req.params
+    const foundCard = await MtgCard.find({set_name: new RegExp('.*'+set_name+'.*', "i")})
+
+    console.log (foundCard)
+    if (!foundCard) {
+    res.send('not found!')}
+
+    res.send(foundCard)
 }

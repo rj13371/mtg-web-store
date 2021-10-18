@@ -32,15 +32,22 @@ import './App.css'
 
 //FONT AWESOME
 import initFontAwesome from './icons/fontAwesomeConfig';
-import { Container,Col,Row} from 'react-bootstrap';
+import { Container,Col,Row, Button, Stack} from 'react-bootstrap';
 
 import useWindowSize from "./hooks/useWindowSize";
+import PasswordReset from './components/auth/PasswordReset';
+import RequestPasswordReset from './components/auth/RequestPasswordReset';
+import ProductSearch from './components/search/ProductSearch';
+import MtgCardDisplayBySetName from './views/mtgcards/MtgCardDisplayByCategory';
+
 
 
 
 initFontAwesome();
 
 function App() {
+
+  
 
   const {setAuthState, authState} = useContext(AuthContext)
 
@@ -94,8 +101,17 @@ function App() {
     <ShoppingCartProvider>
     <NavbarComponent/>
    {size.width>500? <NavbarCatagories/> : null }
-    <CardSearch/>
+
+
+<CardSearch />
+
+
+
+  
+    
     <SidebarComponent />
+
+
   <Route exact path='/' component={Landing}/>
    <Route exact path='/cards/' render={(props) => (<Mtgcardsindex  {...props}/>)}/>
 
@@ -112,9 +128,15 @@ function App() {
    <Route exact path='/logout/' component={Logout}/>
 
    <Route exact path='/products/catagory/:catagoryName' component={ProductDisplayByCatagory}/>
+   <Route exact path='/mtgcards/set_name/:set_name' component={MtgCardDisplayBySetName}/>
 
    <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
    <Route exact path='/products/:id' component={ProductDisplay}/>
+
+   <Route exact path='/reset/passwordResetPage/:token/:id' component={PasswordReset}/>
+   <Route exact path='/users/reset/requestPasswordReset' component={RequestPasswordReset}/>
+
+
    </ShoppingCartProvider>
    </Container>
    <FooterComponent/>

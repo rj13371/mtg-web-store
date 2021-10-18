@@ -1,14 +1,20 @@
 import React,{useState,Fragment,useContext} from 'react'
 import axiosClient from '../../utils/axios';
 import { AuthContext } from "../../context/AuthContext";
+import ModalAlert from '../../components/ModalAlert';
 
 export default function EditMtgCard(props) {
+  const [message, setMessage] = useState('')
+  const [header, setHeader] = useState('Success')
+
   const {authState} = useContext(AuthContext)
 
   const [formData, setFormData] = useState({
     stock: "",
     price: ""
   })
+
+  console.log(formData)
 
   const {
     stock,
@@ -24,7 +30,8 @@ export default function EditMtgCard(props) {
 
     const body = {
       stock: stock,
-      price: price
+      price: price,
+      id: props.id || ''
     };
 
     await axiosClient({
@@ -35,7 +42,15 @@ export default function EditMtgCard(props) {
         "Content-Type": "application/json",
       },
     }).then(response => {
-        console.log(response)
+      if(response.data.message.errors){
+        setHeader('Error')
+        setMessage(JSON.stringify (response.data.message))
+      }
+
+      else{
+        setHeader('Success')
+        setMessage(JSON.stringify (response.data.message))
+      }
          })
 
   };
@@ -49,6 +64,7 @@ export default function EditMtgCard(props) {
  
             
             <Fragment>
+              <ModalAlert header={header} message={message} />
       <form onSubmit={onSubmit}>
         <div>
           <input

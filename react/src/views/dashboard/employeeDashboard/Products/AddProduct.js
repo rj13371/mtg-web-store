@@ -4,12 +4,16 @@ import React, { useState, Fragment, useContext } from "react";
 import { Form, Input, Button,Row,Col, } from "react-bootstrap";
 
 import axiosClient from "../../../../utils/axios";
+import ModalAlert from "../../../../components/ModalAlert";
 
 import CloudinaryWidget from "../CloudinaryWidget";
 
 import { AuthContext } from "../../../../context/AuthContext";
 
 const AddProduct = () => {
+
+  const [message, setMessage] = useState('')
+  const [header, setHeader] = useState('Success')
 
   const [formData, setFormData] = useState({
     productName: "",
@@ -52,6 +56,8 @@ const AddProduct = () => {
       onSale: onSale,
       images: images
     };
+
+    try{
      
 
     await axiosClient({
@@ -62,11 +68,28 @@ const AddProduct = () => {
         "Content-Type": "application/json",
       },
     }).then(response => {
-        console.log(response)
+      console.log(response)
+
+      if(response.data.message.errors){
+        setHeader('Error')
+        setMessage(JSON.stringify (response.data.message))
+      }
+
+      else{
+        setHeader('Success')
+        setMessage(JSON.stringify (response.data.message))
+      }
+
+      
+
+
+
          })
+        }catch(e){
+          console.log(e)
+        }
 
-
-  };
+  }
 
 
 
@@ -83,6 +106,7 @@ const AddProduct = () => {
   return (
 
     <div>
+      <ModalAlert header={header} message={message} />
     <Form onSubmit={onSubmit}>
     <Row form>
       <Col md={6}>

@@ -72,9 +72,9 @@ export default function MtgCardDisplay(props) {
           <Card.Text>{card.oracle_text}</Card.Text>
           <Card.Text>{card.power? `${card.power} /` :''} {card.toughness? card.toughness:''} </Card.Text>
           <Card.Text>{card.stock}</Card.Text>
-          <Card.Text>{card.set_name} </Card.Text>
+          <Card.Text> {card.set_name} </Card.Text>
 
-          <Card.Text tag='h3'>{card.prices ? card.prices.usd : ""}</Card.Text>
+          <Card.Text tag='h3'>${card.price ? card.price : card.prices.usd}</Card.Text>
           <Card.Text tag='h3'>{card.stock ? card.stock : ""}</Card.Text>
 
           </Card.Body>
@@ -84,8 +84,7 @@ export default function MtgCardDisplay(props) {
       </Row>
       </Container>
 
-
-      {authState.authorization_level!="1" && <EditMtgCard id={card._id} />}
+      {authState.authorization_level==="1" && <EditMtgCard id={card._id} />}
     </div>
   );
 }

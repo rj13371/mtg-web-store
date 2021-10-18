@@ -16,6 +16,14 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    uniqueString:{
+        type: String,
+        required: true
+    },
+    isValid:{
+        type: Boolean,
+        required: true
+    },
     // 0: regular User, 1: Employee, 2: Admin
     authorization_level:{
         type: String,

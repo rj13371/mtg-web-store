@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import { Button, Container } from "react-bootstrap";
 import useWindowSize from "../../hooks/useWindowSize";

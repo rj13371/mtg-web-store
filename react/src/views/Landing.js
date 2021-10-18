@@ -1,56 +1,35 @@
-import React, {useState} from 'react'
-import { Carousel } from 'react-bootstrap'
+import React, {useState, Fragment} from 'react'
+import LandingCarousel from '../components/layouts/LandingCarousel'
+import { Container,Col,Row } from 'react-bootstrap'
+import useWindowSize from '../hooks/useWindowSize'
 
 export default function Landing() {
 
-    const [landingImgs, setLandingImgs] = useState([
-        {src:'https://magicstronghold-images.s3.amazonaws.com/sliders/574796403c0e173c5a004af659a10c844ebc9f09.jpg'},
-        {src:'https://magicstronghold-images.s3.amazonaws.com/sliders/574796403c0e173c5a004af659a10c844ebc9f09.jpg'},
-        {src:'https://magicstronghold-images.s3.amazonaws.com/sliders/574796403c0e173c5a004af659a10c844ebc9f09.jpg'}
-    ])
+    const size = useWindowSize()
 
     return (
-        <div>
-            <Carousel>
-  <Carousel.Item>
-    <img
-      className="d-block w-75"
-      src={landingImgs[0].src}
-      alt="First slide"
-    />
-    <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-75"
-      src={landingImgs[0].src}
-      alt="Second slide"
-    />
+        <Fragment>
+            <LandingCarousel maxWidth={'1500px'} maxHeight={'700px'} carousel={0}/>
 
-    <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-75"
-      src={landingImgs[0].src}
-      alt="Third slide"
-    />
+            <Container fluid style={{padding: '10px'}}>
+         <Row>
+    <Col lg>
+    
+    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FBastionGames%2F%3Fref%3Dpage_internal&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true&appId" width="370" height="500" lazy='true' scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+           </Col >
 
-    <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-</Carousel>
+           <Col lg>
+           <iframe src="https://discord.com/widget?id=883211912731574344&theme=dark" width="320" height="490" allowtransparency="true" frameborder="2" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        </Col>
 
-{/* <div class="fb-page" data-href="https://www.facebook.com/BastionGames" data-tabs="timeline, events" data-lazy="true" data-width="500" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false"><blockquote cite="https://www.facebook.com/BastionGames" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/BastionGames">Bastion Games</a></blockquote></div> */}
+        <Col lg>
+        <LandingCarousel maxWidth={'1000px'} maxHeight={'500px'} carousel={1}/>
+        </Col>
 
-        </div>
+  </Row>
+</Container>
+            </Fragment>
+       
     )
 }
+

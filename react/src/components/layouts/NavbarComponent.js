@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AuthContext } from "../../context/AuthContext";
 
+import logo from '../../logo.jpg'
+
 
 
 
@@ -29,7 +31,7 @@ export default function NavbarComponent(props) {
     <Container fluid >
   <Navbar sticky="top" className="p-1" bg="dark" variant="dark" expand='md' >
     
-    <Navbar.Brand href="/"> <img className="rounded" width="100" height="100" src="logo.jpg" alt="store logo" /> </Navbar.Brand>
+    <Navbar.Brand href="/"> <img className="rounded" width="100" height="100" src={logo} alt="store logo" /> </Navbar.Brand>
 
     <Navbar.Text >
     <ShoppingCartContainer/> 

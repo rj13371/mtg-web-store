@@ -2,17 +2,22 @@ const Product = require('../models/Products');
 
 module.exports.searchProductsByName = async (req, res, next) =>{
 
-    const foundProduct = await Product.find({productName: new RegExp('.*'+req.query.name+'.*', "i")})
+    const foundProduct = await Product.find({productName: new RegExp('.*'+req.query.productName+'.*', "i")})
     
       res.send(foundProduct)
 
 }
 
 module.exports.postProduct = async (req, res, next) =>{
+
+    try {
     const NewProduct = new Product(req.body);
     await NewProduct.save()
 
-    res.send('success')
+    res.json({ message:NewProduct })
+    }catch(e){
+        res.json({ message: e })
+    }
 
 }
 
