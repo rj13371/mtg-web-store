@@ -5,6 +5,7 @@ import ModalAlert from '../../components/ModalAlert';
 
 export default function EditMtgCard(props) {
   const [message, setMessage] = useState('')
+  const [messageCount, setMessageCount] = useState(0)
   const [header, setHeader] = useState('Success')
 
   const {authState} = useContext(AuthContext)
@@ -45,11 +46,13 @@ export default function EditMtgCard(props) {
       if(response.data.message.errors){
         setHeader('Error')
         setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
       }
 
       else{
         setHeader('Success')
         setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
       }
          })
 
@@ -64,7 +67,7 @@ export default function EditMtgCard(props) {
  
             
             <Fragment>
-              <ModalAlert header={header} message={message} />
+              <ModalAlert header={header} message={message} messageCount={messageCount} />
       <form onSubmit={onSubmit}>
         <div>
           <input

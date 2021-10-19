@@ -27,6 +27,12 @@ module.exports.registerUser = async (req, res) => {
         return res.status(409).send("User Already Exist. Please Login");
     }
 
+    const oldEmail = await User.findOne({ email });
+
+    if (oldEmail) {
+        return res.status(409).send("User Already Exist. Please Login");
+    }
+
     //generates unique string for email verify
     const uniqueString = crypto.randomBytes(20).toString('hex');
     const isValid = false;

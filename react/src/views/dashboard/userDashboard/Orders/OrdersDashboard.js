@@ -45,9 +45,12 @@ export default function OrdersDashboard() {
               <Card className="m-auto">
                 <Card.Body className="m-auto">
                     <Card.Subtitle>{'OrderID: '}{order._id} </Card.Subtitle>
-                  <Card.Subtitle >
-                    {'Date: '}{order.updatedAt}
-                  </Card.Subtitle>
+                    <Card.Subtitle >
+                  {'Date: '}{order.updatedAt}
+                  {'Total Cost: $ '}{order.total}
+                  {'Status: '}{ !order.isApproved ? 'Waiting for approval' : null } { order.isApproved && !order.isComplete ? 'Order approved! Please pickup in store' : null }
+                  { order.isApproved && order.isComplete ? 'Order Completed' : null }
+                </Card.Subtitle>
 
                   {order.products.map((product) => (
                     <Fragment>

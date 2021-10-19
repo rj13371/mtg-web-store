@@ -50,6 +50,87 @@ const sendEmail = async (action,email, subject, text, uniqueString ) => {
         });
         }
 
+        else if (action == 'orderCreatedEmployee'){
+
+            //create list to send as HTML with order details
+
+            let body = [];
+
+            for (const product of text.products){
+                body.push(`<li> ${product.name ? product.name : product.productName},
+                Category: ${product.set_name ? product.set_name : product.productCategory}
+                , Quantity: ${product.quantity} , Price:$ ${product.price} </li>`)
+            }
+
+            await transporter.sendMail({
+              from: MAIL_USERNAME,
+              to: MAIL_USERNAME,
+              subject: subject,
+              html: `User ${email}, has placed an order, please review it on the employee dashboard <br>
+              Created at: ${text.updatedAt} <br>
+               Order Id: ${text._id} <br>
+               Order Total: ${text.total} <br>
+               Products Ordered: 
+               <ul>
+               ${body.join('')}
+               </ul>
+              `
+            });
+            }
+
+            else if (action == 'orderCreatedCustomer'){
+
+                let body = [];
+
+                for (const product of text.products){
+                    body.push(`<li> ${product.name ? product.name : product.productName},
+                    Category: ${product.set_name ? product.set_name : product.productCategory}
+                    , Quantity: ${product.quantity} , Price:$ ${product.price} </li>`)
+                }
+
+                await transporter.sendMail({
+                  from: MAIL_USERNAME,
+                  to: email,
+                  subject: subject,
+                  html: `Thank you ${email}, your order has been submitted and will be reviewed by one of our employees shortly <br>
+                  Created at: ${text.updatedAt} <br>
+                   Order Id: ${text._id} <br>
+                     Order Total: ${text.total} <br>
+                     Products Ordered: 
+                     <ul>
+                     ${body.join('')}
+                     </ul>
+                  `
+                });
+                }
+
+                else if (action == 'orderApproval'){
+
+                    let body = [];
+
+                    for (const product of text.products){
+                        body.push(`<li> ${product.name ? product.name : product.productName},
+                        Category: ${product.set_name ? product.set_name : product.productCategory}
+                        , Quantity: ${product.quantity} , Price:$ ${product.price} </li>`)
+                    }
+
+    
+                    await transporter.sendMail({
+                      from: MAIL_USERNAME,
+                      to: email,
+                      subject: subject,
+                      html: `Your order has been approved! Please pick it up at our store at your earliest convenience<br>
+                      Order Approved : ${text.updatedAt} <br>
+                       Order Id: ${text._id} <br>
+                         Order Total: ${text.total} <br>
+                         Products Ordered: 
+                         <ul>
+                         ${body.join('')}
+                         </ul>
+                      `
+                    });
+                    }
+
 
     console.log("email sent sucessfully");
   } catch (error) {

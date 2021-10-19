@@ -8,6 +8,8 @@ import CheckoutOrder from "../../views/dashboard/userDashboard/Orders/CheckoutOr
 
 export default function Checkout() {
 
+  
+
     const {cart, addToCart, clearCart, removeItem, total} = useContext(ShoppingCartContext)
     const size = useWindowSize();
 

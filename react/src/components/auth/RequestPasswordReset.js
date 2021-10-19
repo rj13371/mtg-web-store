@@ -3,8 +3,15 @@ import { Form, Button, Container } from 'react-bootstrap'
 import useInputState from '../../hooks/useInputState'
 import axios from 'axios'
 import { Redirect } from 'react-router'
+import { useHistory } from 'react-router'
+import ModalAlert from '../ModalAlert'
 
 export default function RequestPasswordReset() {
+  const history = useHistory()
+
+  const [message, setMessage] = useState('')
+  const [messageCount, setMessageCount] = useState(0)
+  const [header, setHeader] = useState('Success')
 
   const [loginFormEmail, handleLoginFormEmail] = useInputState('')
   const [submitted, setSubmitted] = useState(false)
@@ -26,7 +33,15 @@ export default function RequestPasswordReset() {
       withCredentials:true
     })
       .then((response) => {
-        setSubmitted(!submitted)
+
+        setMessage(`If that email is associated with a username, please check your email! `)
+        setMessageCount(messageCount+1)
+     
+        setTimeout(() => {
+          history.push('/')
+        }, 2000)
+
+
       })
 
       
@@ -43,12 +58,13 @@ export default function RequestPasswordReset() {
   
       return (
         <Container className="d-flex justify-content-center" >
+          <ModalAlert header={header} message={message} messageCount={messageCount}/>
 <Form onSubmit={handleSubmit}>
 
 
   <Form.Group className="mb-3" controlId="formBasicUsername">
     <Form.Label>Email</Form.Label>
-    <Form.Control onChange={handleLoginFormEmail} value={loginFormEmail} type="text" placeholder="Enter username" />
+    <Form.Control onChange={handleLoginFormEmail} value={loginFormEmail} type="text" placeholder="Enter Email" />
   </Form.Group>
 
 

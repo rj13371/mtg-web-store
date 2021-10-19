@@ -2,15 +2,21 @@ import React,{useState} from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import axios from 'axios'
 import useInputState from '../../hooks/useInputState'
-import { Redirect } from 'react-router'
+import { useHistory } from 'react-router'
+
 import { Link } from 'react-router-dom'
+import ModalAlert from '../ModalAlert'
 
 
 export default function Login() {
+  const history = useHistory()
+
+  const [message, setMessage] = useState('')
+  const [messageCount, setMessageCount] = useState(0)
+  const [header, setHeader] = useState('Success')
 
   const [loginFormUserName, handleLoginFormUserName] = useInputState('')
   const [loginFormPassword, handleLoginFormPassword] = useInputState('')
-  const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
@@ -28,19 +34,39 @@ export default function Login() {
       withCredentials:true
     })
       .then((response) => {
-        setSubmitted(!submitted)
+
+
+        if (response.status === 200){
+
+          setMessage(`Welcome back, ${loginFormUserName}`)
+          setMessageCount(messageCount+1)
+       
+          setTimeout(() => {
+            history.push('/')
+          }, 2000)
+            
+          
+        }
+
+      }).catch((e)=>{
+        if (e){
+          setHeader('Login Fail')
+          setMessage(` Username: ${loginFormUserName} or password is incorrect`)
+          setMessageCount(messageCount+1)
+        }
       })
+
+
 
       
 
   }
 
-  if (submitted){
-    return <Redirect to='/' />
-  }
+
 
     return (
         <Container className="d-flex justify-content-center" >
+          <ModalAlert header={header} message={message} messageCount={messageCount}/>
 <Form onSubmit={handleSubmit}>
   <Form.Group className="mb-3" controlId="formBasicUsername">
     <Form.Label>Username</Form.Label>

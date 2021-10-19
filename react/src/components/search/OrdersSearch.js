@@ -1,22 +1,14 @@
 import React, { useState, Fragment } from "react";
-import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import axios from "axios";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useInputState from "../../hooks/useInputState";
 import axiosClient from "../../utils/axios";
+import ApproveOrder from "../../views/dashboard/employeeDashboard/Orders/ApproveOrder";
 
-export default function OrdersSearch(props) {
+export default function OrdersSearch() {
   const [query, setQuery] = useInputState();
   const [paramType, setParamType] = useInputState('');
   const [userOrders, setUserOrders] = useState([]);
-
-  console.log(paramType)
-
-  const history = useHistory();
-
-  // MUST BE ASYNC WHEN UNCOMMENT AXIOS CODE
 
   const getOrders = async (e) => {
     e.preventDefault()
@@ -33,7 +25,12 @@ export default function OrdersSearch(props) {
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      setUserOrders([...response.data]);
+
+      console.log(response.data)
+
+       setUserOrders([...response.data]);
+
+     
     });
   };
 
@@ -53,6 +50,7 @@ export default function OrdersSearch(props) {
 
 <Form.Select onChange={setParamType} aria-label="Default select example">
 <option>Search by Type</option>
+  <option value={'orderId'}> By order Id </option>
     <option value={'userName'}> By user name </option>
     <option value={'date'}> By date </option>
     <option value={'cost'}> By total cost </option>
@@ -86,6 +84,10 @@ export default function OrdersSearch(props) {
                   <Card.Subtitle>{'OrderID: '}{order._id} </Card.Subtitle>
                 <Card.Subtitle >
                   {'Date: '}{order.updatedAt}
+                  {'Total Cost: '}{order.total}
+                  {'is Approved?: '}{order.isApproved.toString()}
+                  {'is Completed?: '}{order.isComplete.toString()}
+                  <ApproveOrder orderId={order._id} />
                 </Card.Subtitle>
 
                 {order.products.map((product) => (
@@ -122,6 +124,8 @@ export default function OrdersSearch(props) {
                           {" "}
                           Details{" "}
                         </Button>
+
+                        
                       )}
                     </Card.Text>
                   </Fragment>

@@ -17,6 +17,10 @@ const OrderSchema = new Schema({
     }],
 
     updatedAt:{type: String, default: moment().format("dddd, MMMM Do YYYY, h:mm:ss a") },
+
+    isApproved:{type: Boolean, default: false },
+    isComplete:{type: Boolean, default: false },
+    total:{type: Number, default: 0 },
 });
 
 module.exports = mongoose.model('Order', OrderSchema)

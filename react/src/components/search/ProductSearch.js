@@ -8,7 +8,8 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useWindowSize from "../../hooks/useWindowSize";
 
-function ProductSearch(props) {
+
+function ProductSearch() {
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
 

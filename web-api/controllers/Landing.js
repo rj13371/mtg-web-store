@@ -16,7 +16,6 @@ module.exports.editLanding = async (req, res, next) =>{
         res.send('error, not authorized')
     }
 
-    console.log(req.body)
 
     const editedLanding = await Landing.findById(LANDING_ID)
 

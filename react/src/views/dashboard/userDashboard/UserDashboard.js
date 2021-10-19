@@ -1,14 +1,9 @@
 import React, {Fragment, useContext} from 'react'
 import DecklistsDashboard from './Decklists/DecklistsDashboard'
 import OrdersDashboard from './Orders/OrdersDashboard'
-//ADD ROUTES FOR EVENTS, ORDERS, AND DECKLISTS
-
-
+import { Alert } from 'react-bootstrap'
 import { AuthContext } from '../../../context/AuthContext'
 
-
-
-  
 
 export default function UserDashboard() {
 
@@ -22,7 +17,17 @@ export default function UserDashboard() {
                 <DecklistsDashboard/>
                 <OrdersDashboard/>
                 </Fragment> 
-                : <h6 style={{color:'white'}}>{'please login'}</h6>}
+                : 
+
+                <Alert variant='danger'>
+                  <Alert.Link href="/login">  Please Login or Register to see your Dashboard</Alert.Link>
+                 
+              </Alert>
+                
+
+
+
+                }
 
         </Fragment>
             
@@ -30,9 +35,3 @@ export default function UserDashboard() {
     )
 }
 
-// CREATE DECKLIST
-// PARAMS ARE DECKLIST, DATE CREATED, CHOSE FROM EVENT ENUM LIST GRABBED FROM DB, USER ID, 
-//SUBMIT DECKLIST
-
-// VIEW PREVIOS ORDERS, ORDERS HAVE PRODUCTS, DATE SUBMITTED, TOTAL COST
-//

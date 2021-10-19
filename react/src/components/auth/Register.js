@@ -2,10 +2,18 @@ import React,{useState} from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import useInputState from '../../hooks/useInputState'
 import axios from 'axios'
-import { Redirect } from 'react-router'
+import { useHistory } from 'react-router'
 import useStateWithValidation from '../../hooks/useStateWithValidation'
+import ModalAlert from '../ModalAlert'
 
 export default function Register() {
+
+  const history = useHistory()
+
+  const [message, setMessage] = useState('')
+  const [messageCount, setMessageCount] = useState(0)
+  const [header, setHeader] = useState('Success')
+  
 
   let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
@@ -26,13 +34,15 @@ export default function Register() {
   const handleSubmit = async (e) =>{
     e.preventDefault()
 
-    if (!isValidPw1 && !isValidPw2){
-      console.log('passwords must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter')
+    if (!isValidPw1){
+      setHeader('registration failed')
+      setMessage('passwords must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter')
       return 1
     }
 
     if(loginFormPassword!=loginFormPassword2){
-      console.log('passwords must match')
+      setHeader('registration failed')
+      setMessage('passwords must match')
       return 1
     }
 
@@ -50,16 +60,33 @@ export default function Register() {
       withCredentials:true
     })
       .then((response) => {
-        setSubmitted(!submitted)
-      })
 
+        console.log(response)
+
+
+         if (response.status === 200){
+          
+          setHeader('Registration Successful!')
+          setMessage(`Please check your email at ${loginFormEmail} to verify your account, ${loginFormUserName}`)
+          setMessageCount(messageCount+1)
+          
+          setTimeout(() => {
+            history.push('/')
+          }, 2000)
+            
+          
+        }
+      }).catch((e)=>{
+        if (e){
+          setHeader('Registration Fail')
+          setMessage(` ${loginFormEmail} or ${loginFormUserName} is already in use, please register with a different username and or email`)
+          setMessageCount(messageCount+1)
+        }
+      })
       
 
   }
 
-  if (submitted){
-    return <Redirect to='/' />
-  }
 
 
 
@@ -67,6 +94,7 @@ export default function Register() {
   
       return (
         <Container className="d-flex justify-content-center" >
+          <ModalAlert header={header} message={message} messageCount={messageCount}/>
 <Form onSubmit={handleSubmit}>
   <Form.Group className="mb-3" controlId="formBasicUsername">
     <Form.Label>Username</Form.Label>

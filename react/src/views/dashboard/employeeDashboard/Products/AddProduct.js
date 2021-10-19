@@ -13,6 +13,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 const AddProduct = () => {
 
   const [message, setMessage] = useState('')
+  const [messageCount, setMessageCount] = useState(0)
   const [header, setHeader] = useState('Success')
 
   const [formData, setFormData] = useState({
@@ -73,16 +74,14 @@ const AddProduct = () => {
       if(response.data.message.errors){
         setHeader('Error')
         setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
       }
 
       else{
         setHeader('Success')
         setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
       }
-
-      
-
-
 
          })
         }catch(e){
@@ -106,7 +105,7 @@ const AddProduct = () => {
   return (
 
     <div>
-      <ModalAlert header={header} message={message} />
+      <ModalAlert header={header} message={message} messageCount={messageCount}/>
     <Form onSubmit={onSubmit}>
     <Row form>
       <Col md={6}>

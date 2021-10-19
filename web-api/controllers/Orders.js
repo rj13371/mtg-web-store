@@ -2,7 +2,8 @@ const Order = require("../models/Orders");
 const User = require("../models/Users");
 const Product = require("../models/Products");
 const MtgCard = require("../models/MtgCard");
-const { checkout } = require("../routes/Users");
+const sendEmail = require('../utils/Nodemailer')
+const moment = require('moment')
 
 // creating a new order
 module.exports.createOrder = async (req, res) => {
@@ -49,10 +50,18 @@ module.exports.createOrder = async (req, res) => {
     }
 
     newOrder.customer = req.body.userId;
+    newOrder.total = req.body.total
     user.orders.push(newOrder);
 
     await user.save();
     await newOrder.save();
+
+    // sends email to employee with details of order waiting for approval
+
+    sendEmail('orderCreatedEmployee',user.email,`${user.email} has placed an order!`,newOrder,null);
+
+      // sends email to customer with details of order
+    sendEmail('orderCreatedCustomer',user.email,`Your order has been placed at Bastion Games, ${user.username}! `,newOrder,null);
 
     res.send(`Successful Orders: ${newOrder} `);
   }
@@ -86,7 +95,7 @@ module.exports.showOrders = async (req, res) => {
       res.send(orders)
       }
       else if (req.body.paramType === 'cost'){
-        const orders = await Order.find({ 'products.totalCost': req.body.query })
+        const orders = await Order.find({ 'products.total': req.body.query })
         res.send(orders)
         }
         else if (req.body.paramType === 'productName'){
@@ -97,6 +106,10 @@ module.exports.showOrders = async (req, res) => {
             const orders = await Order.find({ 'products.name': req.body.query })
             res.send(orders)
                     }
+                    else if (req.body.paramType === 'orderId'){
+                      const orders = await Order.findById(req.body.query)
+                      res.send([orders])
+                              }
 
 }else {
 
@@ -123,6 +136,11 @@ module.exports.checkout = async (req, res) => {
   const userId = req.body.userId;
   const orderId = req.body.orderId;
   const productArray = req.body.productArray;
+
+  const user = await User.findById(userId).populate('orders')
+
+  sendEmail('orderCreated',null,`${user.email} has placed an order! Order id#${orderId}`,user,null);
+
   res.send(
     `User: ${userId} \n OrderId: ${orderId} \n Products: ${productArray}`
   );
@@ -130,12 +148,29 @@ module.exports.checkout = async (req, res) => {
 
 // approve an order (Employee authorization required)
 module.exports.approveOrder = async (req, res) => {
-  console.log(req.body);
-  const userId = req.body.userId;
-  const orderId = req.body.orderId;
-  const productArray = req.body.productArray;
-  const employeeId = req.body.employeeId;
-  res.send(
-    `User: ${userId} \n OrderId: ${orderId} \n Products: ${productArray} \n EmployeeId: ${employeeId}`
-  );
+
+  if(req.body.authorizationLevel !== '1') {
+    return res.send('error, not authorized')
+}
+
+  const order = await Order.findById(req.body.orderId).populate('customer')
+
+  if(order.isApproved == true) {
+    return res.status(500).json({ message: 'error, is already approved!' })
+  }else {
+
+  order.isApproved = true;
+  order.updatedAt = moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+
+  await order.save()
+
+  console.log(order)
+
+  const user = await User.findById(order.customer).populate('orders')
+
+
+  sendEmail('orderApproval',user.email,`Your order has been approved! , ${user.username}! `,order,null);
+
+
+  res.send(order)}
 };
