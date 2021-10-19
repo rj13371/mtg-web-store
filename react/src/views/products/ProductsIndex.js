@@ -38,7 +38,7 @@ export default function ProductsIndex() {
         <Card.Subtitle tag='h3'>{product.productCategory} </Card.Subtitle>
           <Card.Text>${product.price || '0'}// In Stock: {product.stock} </Card.Text>
 
-        <Button href={`/products/${product._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart product={product}/>
+        <Button href={`/products/${product._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart stock={product.stock} product={product}/>
         {/* {authState.authorization_level==="1" && <EditMtgCard id={card._id} />} */}
         </Card.Body>
       </Card>

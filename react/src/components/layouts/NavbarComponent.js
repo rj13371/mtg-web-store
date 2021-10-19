@@ -1,28 +1,34 @@
-import React,{useContext, useState} from "react";
-
-import { ShoppingCartContext } from "../../context/ShoppingCartContext";
-
+import React,{useContext, useEffect, useState} from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import ShoppingCartContainer from "../../containers/ShoppingCartContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { AuthContext } from "../../context/AuthContext";
-
 import logo from '../../logo.jpg'
 
 
-
-
-
-export default function NavbarComponent(props) {
+export default function NavbarComponent() {
 
   const { authState } = useContext(AuthContext)
 
-  const {cart} = useContext(ShoppingCartContext)
+  console.log(authState)
+
 
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
+
+    const [loading, setLoading] = useState(true)
+
+    useEffect(()=>{
+
+      if (authState.email){
+
+        setLoading(false)
+
+      }
+
+
+    },[authState])
 
 
   return (
@@ -34,11 +40,11 @@ export default function NavbarComponent(props) {
     <Navbar.Brand href="/"> <img className="rounded" width="100" height="100" src={logo} alt="store logo" /> </Navbar.Brand>
 
     <Navbar.Text >
-    <ShoppingCartContainer/> 
+    <ShoppingCartContainer /> 
     </Navbar.Text>
 
 
-    {authState.email?
+    { !loading ?
     <Nav.Link href="/logout">
     <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
     </Nav.Link>:

@@ -70,8 +70,8 @@ function App() {
 
       else{
         setAuthState({
-          ...authState,
           _id: data.user._id,
+          username: data.user.username,
           email: data.user.email,
           authorization_level: data.user.authorization_level
         })

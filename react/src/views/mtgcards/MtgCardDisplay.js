@@ -58,7 +58,7 @@ export default function MtgCardDisplay(props) {
           src={`${card.image_uris.normal}`}
           alt="card image"
         />
-         <ShoppingCart product={card}/>
+         <ShoppingCart stock={card.stock} product={card}/>
       </Card>
       </Col>
 

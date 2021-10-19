@@ -52,7 +52,7 @@ export default function MtgCardDisplayBySetName() {
                 {" "}
                 Details{" "}
               </Button>{" "}
-              <ShoppingCart product={card} />
+              <ShoppingCart product={card} stock={card.stock}/>
             </Card.Body>
           </Card>
         ));

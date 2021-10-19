@@ -3,7 +3,6 @@ import React, { useContext, useState } from "react";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
 import { Nav, Navbar, Container } from "react-bootstrap";
-import ShoppingCartContainer from "../../containers/ShoppingCartContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function NavbarCatagories(props) {

@@ -1,16 +1,22 @@
-import React,{createContext, useState} from 'react'
+import React,{createContext, useState, useEffect} from 'react'
 
 export const AuthContext = createContext();
 
 export function AuthProvider(props) {
 
-    const [authState, setAuthState] = useState({
-        _id:'',
-        username:'',
-        email:'',
-        authorization_level:''
-    })
+    const [authState, setAuthState] = useState({})
 
+    useEffect(()=>{
+        setAuthState(
+            {
+                _id:'',
+                username:'',
+                email:'',
+                authorization_level:''
+            }
+
+        )
+    },[])
     
 
     console.log(authState)

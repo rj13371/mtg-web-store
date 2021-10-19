@@ -45,7 +45,7 @@ export default function ProductDisplayByCatagory() {
           <Card.Text>${product.price} </Card.Text>
           <Card.Text>In Stock: {product.stock} </Card.Text>
 
-        <Button href={`/products/${product._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart product={product}/>
+        <Button href={`/products/${product._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart stock={product.stock} product={product}/>
 
         </Card.Body>
       </Card>

@@ -47,7 +47,7 @@ export default function Mtgcardsindex() {
         <Card.Subtitle tag='h3'>{card.set_name} </Card.Subtitle>
           <Card.Text>${card.prices.usd || '0'}// In Stock: {card.stock} </Card.Text>
 
-        <Button href={`/mtgcards/${card._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart product={card}/>
+        <Button href={`/mtgcards/${card._id}`} variant="primary" size="lg">  Details </Button> <ShoppingCart stock={card.stock} product={card}/>
         {authState.authorization_level==="1" && <EditMtgCard id={card._id} />}
         </Card.Body>
       </Card>

@@ -1,4 +1,4 @@
-import React,{Component, useContext, useState} from "react";
+import React,{Component, useContext, useState,useRef, useEffect} from "react";
 import { Button, Modal, Image, Container, Col, Row } from "react-bootstrap";
 import { ShoppingCartContext } from "../context/ShoppingCartContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,7 +6,7 @@ import { Nav } from "react-bootstrap";
 
 //CHANGE CHECKOUT TO CHECKOUT ROUTE
 
-export default function ShoppingCartContainer() {
+export default function ShoppingCartContainer(props) {
 
     const {cart, addToCart, clearCart, removeItem, total} = useContext(ShoppingCartContext)
 
@@ -14,6 +14,9 @@ export default function ShoppingCartContainer() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
+ 
 
     return (
 <Container fluid>

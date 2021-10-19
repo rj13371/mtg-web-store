@@ -50,7 +50,7 @@ export default function ProductDisplay(props) {
           <Col lg>
       <Card style={{ width: '18rem', color:'white' }}>
         <Card.Img
-          src={`/test.png`}
+          src={product.images ? product.images[0].url: null}
           alt="card image"
         />
       </Card>
@@ -70,7 +70,7 @@ export default function ProductDisplay(props) {
 
       </Row>
 
-      <ShoppingCart product={product}/>
+      <ShoppingCart stock={product.stock} product={product}/>
       </Container>
 
     </div>
