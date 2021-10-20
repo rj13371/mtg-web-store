@@ -58,6 +58,8 @@ const usersRoute = require('./routes/Users');
 const authRoute = require('./routes/Auth');
 const orderRoute = require('./routes/Orders')
 const landingRoute = require('./routes/Landing')
+const decklistRoute = require('./routes/Decklist')
+const eventRoute = require('./routes/Event')
 
 startApp();
 
@@ -67,3 +69,5 @@ app.use ('/users', usersRoute);
 app.use ('/auth', authRoute);
 app.use ('/orders', orderRoute);
 app.use ('/landingAssets', landingRoute);
+app.use ('/decklist', decklistRoute);
+app.use ('/event', eventRoute);

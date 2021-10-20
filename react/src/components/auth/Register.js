@@ -1,10 +1,12 @@
-import React,{useState} from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
+import React,{useState, useEffect} from 'react'
+import {InputGroup, Form, Button, Container,Col ,Row} from 'react-bootstrap'
 import useInputState from '../../hooks/useInputState'
 import axios from 'axios'
 import { useHistory } from 'react-router'
 import useStateWithValidation from '../../hooks/useStateWithValidation'
 import ModalAlert from '../ModalAlert'
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+
 
 export default function Register() {
 
@@ -13,7 +15,10 @@ export default function Register() {
   const [message, setMessage] = useState('')
   const [messageCount, setMessageCount] = useState(0)
   const [header, setHeader] = useState('Success')
-  
+
+  const [isValidCaptcha, setisValidCaptcha] = useState(false)
+  const [formCaptcha, handleFormCaptcha] = useInputState('')
+
 
   let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
@@ -34,15 +39,25 @@ export default function Register() {
   const handleSubmit = async (e) =>{
     e.preventDefault()
 
+
+    if (!isValidCaptcha){
+      setHeader('registration failed')
+      setMessage('invalid captcha')
+      setMessageCount(messageCount+1)
+      return 1
+    }
+
     if (!isValidPw1){
       setHeader('registration failed')
       setMessage('passwords must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter')
+      setMessageCount(messageCount+1)
       return 1
     }
 
     if(loginFormPassword!=loginFormPassword2){
       setHeader('registration failed')
       setMessage('passwords must match')
+      setMessageCount(messageCount+1)
       return 1
     }
 
@@ -64,7 +79,7 @@ export default function Register() {
         console.log(response)
 
 
-         if (response.status === 200){
+         if (response.status === 201){
           
           setHeader('Registration Successful!')
           setMessage(`Please check your email at ${loginFormEmail} to verify your account, ${loginFormUserName}`)
@@ -88,13 +103,30 @@ export default function Register() {
   }
 
 
+  useEffect(() => {
+    loadCaptchaEnginge(6)
+  }, [])
 
+  const submitCaptcha = () => {   
+
+    
+           if (validateCaptcha(formCaptcha)==true) {
+            setisValidCaptcha(true)
+           }
+    
+           else {
+            setisValidCaptcha(false)
+           }
+       };
+    
 
 
   
       return (
-        <Container className="d-flex justify-content-center" >
+        <Container  style={{maxWidth:'500px',color:'white' }} className="d-flex justify-content-center" >
           <ModalAlert header={header} message={message} messageCount={messageCount}/>
+          <Col>
+          <Row>
 <Form onSubmit={handleSubmit}>
   <Form.Group className="mb-3" controlId="formBasicUsername">
     <Form.Label>Username</Form.Label>
@@ -119,7 +151,29 @@ export default function Register() {
   <Button variant="primary" type="submit">
     Register
   </Button>
+
+
+
 </Form>
+</Row>
+
+
+<Row>
+
+<InputGroup size="sm" className="mb-3">
+    <InputGroup.Text id="inputGroup-sizing-sm">{ isValidCaptcha? 'Valid ✓ ' : 'Captcha ❌'  }</InputGroup.Text>
+    <Form.Control onChange={handleFormCaptcha}  value={formCaptcha} type="text" placeholder="captcha" />
+    <Button onClick={submitCaptcha} variant="primary" type="submit">
+    I am human
+  </Button>
+  </InputGroup>
+  </Row>
+  
+  < LoadCanvasTemplate />
+  </Col>
+
+
+
 </Container>
     )
     

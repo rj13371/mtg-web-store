@@ -1,10 +1,12 @@
 import React, { Fragment, useState,useEffect, useContext } from "react";
-import EventsDashboard from "./Events/EventsDashboard";
 import OrdersDashboard from "./Orders/OrdersDashboard";
 import AddProduct from "./Products/AddProduct";
+import EventsDashboard from "./Events/EventsDashboard";
+import DecklistsDashboard from "../userDashboard/Decklists/DecklistsDashboard";
 
 import { AuthContext } from "../../../context/AuthContext";
 import EditLanding from "./EditLanding";
+import { Container } from "react-bootstrap";
 
 const EmployeeDashboard = () => {
 
@@ -19,10 +21,13 @@ const EmployeeDashboard = () => {
     
   return (
     <Fragment>
+      <Container style={{color:'white'}} >
     <AddProduct/>
-    <EventsDashboard/>
     <OrdersDashboard/>
     <EditLanding/>
+    <EventsDashboard/>
+    <DecklistsDashboard employee={true}/>
+    </Container>
     </Fragment>
   )
 }

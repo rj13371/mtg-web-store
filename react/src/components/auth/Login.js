@@ -65,7 +65,7 @@ export default function Login() {
 
 
     return (
-        <Container className="d-flex justify-content-center" >
+        <Container style={{color:'white'}} className="d-flex justify-content-center" >
           <ModalAlert header={header} message={message} messageCount={messageCount}/>
 <Form onSubmit={handleSubmit}>
   <Form.Group className="mb-3" controlId="formBasicUsername">

@@ -1,36 +1,105 @@
-import React from 'react'
-import { Container, Col, Row, Card, Button } from 'react-bootstrap'
+import React,{useState, useContext, useEffect} from 'react'
+import { Container, Form, Button } from 'react-bootstrap'
+import axiosClient from '../../../../utils/axios'
+import { AuthContext } from '../../../../context/AuthContext'
+import ModalAlert from '../../../../components/ModalAlert'
+import useInputState from '../../../../hooks/useInputState'
+
+
 
 export default function EventsDashboard() {
 
-    const sampleEvents = [
-        {eventName:'MTG PTQ Standard', eventId:'1', eventDate:'10/10/2021' },
-        {eventName:'MTG PTQ Modern', eventId:'2', eventDate:'10/20/2021' },
-        {eventName:'MTG PTQ Limited', eventId:'3', eventDate:'10/27/2021' }
-    ]
+    const [message, setMessage] = useState('')
+    const [messageCount, setMessageCount] = useState(0)
+    const [header, setHeader] = useState('Success')
+
+    const {authState} = useContext(AuthContext)
+    const [eventsOnLoad, setEventsOnLoad] = useState([''])
+
+    const [name, handleNameChange] = useInputState('')
+    const [description, handleDescriptionChange] = useInputState('')
+    const [dateAndTime, handleDateAndTimeChange] = useInputState('')
+
+    console.log(dateAndTime)
+
+
+
+  const submitNewEvent = async (e) =>{
+    e.preventDefault()
+    const body = {
+      name: name,
+      description: description,
+      dateAndTime: dateAndTime,
+      userId: authState._id
+    };
+
+
+    await axiosClient({
+      method: "post",
+      url: "/event/createEvent/",
+      data: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+
+      console.log(response.data)
+      setHeader(`Decklist submitted!`)
+      setMessage('Decklist will be reviewed before event is completed')
+      setMessageCount(messageCount+1)
+
+    }).catch((e)=>{
+         if (e){
+          setHeader('Decklist submission failed')
+          setMessage(` Something went wrong! ${e}`)
+          setMessageCount(messageCount+1)
+        }
+      })
+}
+
+
+    useEffect(async () => {
+      await axiosClient({
+          method: "get",
+          url: "/event/getAllEvents/",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+
+          setEventsOnLoad(response.data)
+    
+    
+        });
+
+  }, [])
 
     return (
-        <div>
-            
-            <Container>
 
-{sampleEvents.length === 0 ? 'no results': null}
+<Container className="d-flex justify-content-center" >
+<ModalAlert header={header} message={message} messageCount={messageCount}/>
+<Form onSubmit={submitNewEvent}>
 
-    <Row xs={1} md={3} className="g-4">
-  {sampleEvents.map((event) => (
-    <Col>
-      <Card>
-        <Card.Body>
-        <Card.Title tag="h5">{event.eventName}</Card.Title>
-        <Card.Subtitle tag='h3'>{event.eventDate} </Card.Subtitle>
-          <Button href={`/products/${event.eventId}`} variant="primary" size="lg">  Details </Button>
-        </Card.Body>
-      </Card>
-    </Col>
-  ))}
-</Row>
+  <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Label>Event Name</Form.Label>
+    <Form.Control onChange={handleNameChange} value={name} type="text" placeholder="Event Name" />
+  </Form.Group>
+
+  <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Label>Event Description</Form.Label>
+    <Form.Control onChange={handleDescriptionChange} value={description} type="text" placeholder="Event Description" />
+  </Form.Group>
+
+  <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Label>Event Time and Date</Form.Label>
+    <Form.Label>Example: 24/12/2019 09:15:00</Form.Label>
+    <Form.Control onChange={handleDateAndTimeChange} value={dateAndTime} type="text" placeholder="24/12/2019 09:15:00" />
+  </Form.Group>
+
+  <Button variant="primary" type="submit">
+    Create Event
+  </Button>
+</Form>
 </Container>
-
-        </div>
     )
 }

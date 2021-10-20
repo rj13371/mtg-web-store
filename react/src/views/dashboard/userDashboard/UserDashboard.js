@@ -1,7 +1,7 @@
 import React, {Fragment, useContext} from 'react'
 import DecklistsDashboard from './Decklists/DecklistsDashboard'
 import OrdersDashboard from './Orders/OrdersDashboard'
-import { Alert } from 'react-bootstrap'
+import { Alert, Container } from 'react-bootstrap'
 import { AuthContext } from '../../../context/AuthContext'
 
 
@@ -11,6 +11,7 @@ export default function UserDashboard() {
 
     return (
         <Fragment> 
+            <Container style={{color:'white'}} >
 
 {authState.email?
                 <Fragment> 
@@ -28,7 +29,7 @@ export default function UserDashboard() {
 
 
                 }
-
+</Container>
         </Fragment>
             
 

@@ -33,6 +33,14 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref:('Order')
     }],
+    events: [{
+        type: Schema.Types.ObjectId,
+        ref:('Event')
+    }],
+    decklists: [{
+        type: Schema.Types.ObjectId,
+        ref:('Decklist')
+    }]
 });
 
 

@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Fragment } from "react";
-import { Container, Button, Row,Col } from "react-bootstrap";
-import OrdersSearch from "../../../../components/search/OrdersSearch";
+import { Container, Button, Row,Col, Table, Dropdown, DropdownButton } from "react-bootstrap";
 import { AuthContext } from "../../../../context/AuthContext";
 import axiosClient from "../../../../utils/axios";
-import { Card } from "react-bootstrap";
+import useWindowSize from "../../../../hooks/useWindowSize";
 
 export default function OrdersDashboard() {
   const { authState } = useContext(AuthContext);
   const [userOrders, setUserOrders] = useState([]);
+  const size = useWindowSize()
 
   const getOrders = async () => {
     const body = {
@@ -35,66 +34,59 @@ export default function OrdersDashboard() {
 
   return (
     <Container>
-      <Button onClick={getOrders}>Get Orders</Button>
 
-      <Row xs={1} md={3} className="g-4">
-        
-          {userOrders.map((order) => (
+<Table style={ size.width>500? {fontSize:'medium'}: {fontSize:'small'}} striped bordered hover variant="dark">
+<Button onClick={getOrders}>Get Orders</Button>
+<thead>
+<tr>
+  <th>Order ID</th>
+  <th>Date</th>
+  <th>Total Cost</th>
+  <th>Status</th>
+  <th> Products Ordered  </th>
+</tr>
+</thead>
+<tbody>
 
-            <Col>
-              <Card className="m-auto">
-                <Card.Body className="m-auto">
-                    <Card.Subtitle>{'OrderID: '}{order._id} </Card.Subtitle>
-                    <Card.Subtitle >
-                  {'Date: '}{order.updatedAt}
-                  {'Total Cost: $ '}{order.total}
-                  {'Status: '}{ !order.isApproved ? 'Waiting for approval' : null } { order.isApproved && !order.isComplete ? 'Order approved! Please pickup in store' : null }
-                  { order.isApproved && order.isComplete ? 'Order Completed' : null }
-                </Card.Subtitle>
+{userOrders.map((order) => (
 
-                  {order.products.map((product) => (
-                    <Fragment>
-                      <Card.Text>
-                        {" "}
-                        {product.quantity}{" "}
-                        {product.productName
-                          ? product.productName
-                          : product.name}{" "}
-                  
-                        {product.mtgo_id
-                          ? product.set_name
-                          : product.productCategory }{" $"}
-                          {product.mtgo_id
-                          ? product.prices.usd
-                          : product.price }{""}
+<tr>
+  <td> {size.width<500? '...' + order._id.slice(-4) : order._id } </td>
+  <td>{order.updatedAt}</td>
+  <td>{"$"}{order.total}</td>
+  <td>{ !order.isApproved ? 'Waiting for approval' : null } { order.isApproved && !order.isComplete ? 'Ready for pickup' : null }
+                  { order.isApproved && order.isComplete ? 'Order Completed' : null }</td>
+  <td>
+    
+    <DropdownButton id="dropdown-basic-button" variant='secondary'  title={size.width<500? '' : 'Products Ordered' }>
 
-                        {product.mtgo_id ? (
-                          <Button
-                            href={`/mtgcards/${product._id}`}
-                            variant="primary"
-                            size='sm'
-                          >
-                            {" "}
-                            Details{" "}
-                          </Button>
-                        ) : (
-                          <Button
-                            href={`/products/${product._id}`}
-                            variant="primary"
-                            size="sm"
-                          >
-                            {" "}
-                            Details{" "}
-                          </Button>
-                        )}
-                      </Card.Text>
-                    </Fragment>
-                  ))}
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-    </Row>
+    {order.products.map((product) => (
+
+<Dropdown.Item>                      {product.quantity}{" "}
+                  {product.productName
+                    ? product.productName
+                    : product.name}{" "}
+            
+                  {product.mtgo_id
+                    ? product.set_name
+                    : product.productCategory }{" $"}
+                    {product.mtgo_id
+                    ? product.prices.usd
+                    : product.price }{""}</Dropdown.Item>
+    ))}
+
+
+
+</DropdownButton>
+
+</td>
+</tr>
+))}
+
+
+</tbody>
+</Table>
+
     </Container>
   );
 }

@@ -57,7 +57,7 @@ export default function RequestPasswordReset() {
 
   
       return (
-        <Container className="d-flex justify-content-center" >
+        <Container style={{color:'white'}} className="d-flex justify-content-center" >
           <ModalAlert header={header} message={message} messageCount={messageCount}/>
 <Form onSubmit={handleSubmit}>
 

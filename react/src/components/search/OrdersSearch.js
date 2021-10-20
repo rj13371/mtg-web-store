@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
-import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Card, Table,Dropdown, DropdownButton  } from "react-bootstrap";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useInputState from "../../hooks/useInputState";
 import axiosClient from "../../utils/axios";
@@ -74,27 +75,36 @@ export default function OrdersSearch() {
     </Container>
 
     <Container>
-            <Row xs={1} md={3} className="g-4">
+
+    <Table striped bordered hover variant="dark">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Date</th>
+      <th>Total Cost</th>
+      <th>Status</th>
+      <th>Approve</th>
+      <th>Products Ordered</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {userOrders.map((order) => (
+
+    <tr>
+      <td>{order._id}</td>
+      <td>{order.updatedAt}</td>
+      <td>{order.total}</td>
+      <td>{ !order.isApproved ? 'Waiting for approval' : null } { order.isApproved && !order.isComplete ? 'Approved! Waiting for Cust pickup' : null }
+                  { order.isApproved && order.isComplete ? 'Order Completed' : null }</td>
+      <td><ApproveOrder orderId={order._id} /></td>
+      <td>
         
-        {userOrders.map((order) => (
+        <DropdownButton id="dropdown-basic-button" variant='secondary' title="Products Ordered">
 
-          <Col>
-            <Card className="m-auto">
-              <Card.Body className="m-auto">
-                  <Card.Subtitle>{'OrderID: '}{order._id} </Card.Subtitle>
-                <Card.Subtitle >
-                  {'Date: '}{order.updatedAt}
-                  {'Total Cost: '}{order.total}
-                  {'is Approved?: '}{order.isApproved.toString()}
-                  {'is Completed?: '}{order.isComplete.toString()}
-                  <ApproveOrder orderId={order._id} />
-                </Card.Subtitle>
+        {order.products.map((product) => (
 
-                {order.products.map((product) => (
-                  <Fragment>
-                    <Card.Text>
-                      {" "}
-                      {product.quantity}{" "}
+  <Dropdown.Item>                      {product.quantity}{" "}
                       {product.productName
                         ? product.productName
                         : product.name}{" "}
@@ -104,37 +114,22 @@ export default function OrdersSearch() {
                         : product.productCategory }{" $"}
                         {product.mtgo_id
                         ? product.prices.usd
-                        : product.price }{""}
-
-                      {product.mtgo_id ? (
-                        <Button
-                          href={`/mtgcards/${product._id}`}
-                          variant="primary"
-                          size='sm'
-                        >
-                          {" "}
-                          Details{" "}
-                        </Button>
-                      ) : (
-                        <Button
-                          href={`/products/${product._id}`}
-                          variant="primary"
-                          size="sm"
-                        >
-                          {" "}
-                          Details{" "}
-                        </Button>
-
-                        
-                      )}
-                    </Card.Text>
-                  </Fragment>
-                ))}
-              </Card.Body>
-            </Card>
-          </Col>
+                        : product.price }{""}</Dropdown.Item>
         ))}
-  </Row>
+
+
+
+</DropdownButton>
+
+</td>
+    </tr>
+  ))}
+
+
+  </tbody>
+</Table>
+
+
 
     </Container>
     </Fragment>
