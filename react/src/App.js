@@ -26,20 +26,21 @@ import Landing from './views/Landing';
 import EventsIndex from './views/events/EventsIndex';
 import Logout from './components/auth/Logout';
 import Checkout from './components/cart/Checkout';
+import Loading from './components/Loading'
 
 import './App.css'
 
 
 //FONT AWESOME
 import initFontAwesome from './icons/fontAwesomeConfig';
-import { Container,Col,Row, Button, Stack} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 import useWindowSize from "./hooks/useWindowSize";
 import PasswordReset from './components/auth/PasswordReset';
 import RequestPasswordReset from './components/auth/RequestPasswordReset';
-import ProductSearch from './components/search/ProductSearch';
 import MtgCardDisplayBySetName from './views/mtgcards/MtgCardDisplayByCategory';
-
+import EventDisplay from './views/events/EventDisplay';
+import DecklistDisplay from './views/decklists/DecklistDisplay';
 
 
 
@@ -47,13 +48,12 @@ initFontAwesome();
 
 function App() {
 
-  
+  const {setAuthState, authState, loadingAuth, setLoadingAuth} = useContext(AuthContext)
+  console.log(authState, loadingAuth)
 
-  const {setAuthState, authState} = useContext(AuthContext)
-
-  const loadData = ()=>{
-    isAuthenticated()
-    .then(data=>{
+  const loadData = async ()=>{
+   const data =  await isAuthenticated()
+   setLoadingAuth(false)
 
       if (!data){
         console.log('error', data)
@@ -77,12 +77,24 @@ function App() {
         })
         
       }
-    })
+
+      
+      
+      
   }
 
+
   useEffect(()=>{
-    loadData()
-  },[])
+
+    if(loadingAuth) {
+      loadData()
+      
+  }else{
+    console.log('logged in')
+  }
+
+
+ },[authState,loadingAuth ])
 
   const isAuthenticated = async ()=>{
     return await fetch(`/auth/isAuth`)
@@ -92,6 +104,10 @@ function App() {
 
   
   const size = useWindowSize();
+
+  if (loadingAuth){
+    return ( <div className='App-background'><Loading/></div> )
+  }else if (!loadingAuth)
 
   return (
   <Fragment >
@@ -104,12 +120,8 @@ function App() {
 
 
 <CardSearch />
-
-
-
-  
-    
     <SidebarComponent />
+    <Switch>
 
 
   <Route exact path='/' component={Landing}/>
@@ -132,10 +144,13 @@ function App() {
 
    <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
    <Route exact path='/products/:id' component={ProductDisplay}/>
+   <Route exact path='/event/:id' component={EventDisplay}/>
+   <Route exact path='/decklist/:id' component={DecklistDisplay}/>
 
    <Route exact path='/reset/passwordResetPage/:token/:id' component={PasswordReset}/>
    <Route exact path='/users/reset/requestPasswordReset' component={RequestPasswordReset}/>
 
+   </Switch>
 
    </ShoppingCartProvider>
    </Container>

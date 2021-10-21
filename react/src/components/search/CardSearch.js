@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router-dom";
+import { BrowserRouter as Redirect } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Button,Dropdown } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";

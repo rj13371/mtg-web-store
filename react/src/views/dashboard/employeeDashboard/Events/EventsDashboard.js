@@ -1,5 +1,5 @@
 import React,{useState, useContext, useEffect} from 'react'
-import { Container, Form, Button } from 'react-bootstrap'
+import { Container,Row,Col, Form, Button, Table, Dropdown, DropdownButton, Nav } from 'react-bootstrap'
 import axiosClient from '../../../../utils/axios'
 import { AuthContext } from '../../../../context/AuthContext'
 import ModalAlert from '../../../../components/ModalAlert'
@@ -14,7 +14,7 @@ export default function EventsDashboard() {
     const [header, setHeader] = useState('Success')
 
     const {authState} = useContext(AuthContext)
-    const [eventsOnLoad, setEventsOnLoad] = useState([''])
+    const [eventsOnLoad, setEventsOnLoad] = useState([])
 
     const [name, handleNameChange] = useInputState('')
     const [description, handleDescriptionChange] = useInputState('')
@@ -43,7 +43,6 @@ export default function EventsDashboard() {
       },
     }).then((response) => {
 
-      console.log(response.data)
       setHeader(`Decklist submitted!`)
       setMessage('Decklist will be reviewed before event is completed')
       setMessageCount(messageCount+1)
@@ -59,7 +58,7 @@ export default function EventsDashboard() {
 
 
     useEffect(async () => {
-      await axiosClient({
+       axiosClient({
           method: "get",
           url: "/event/getAllEvents/",
           headers: {
@@ -72,12 +71,15 @@ export default function EventsDashboard() {
     
         });
 
-  }, [])
+  }, [eventsOnLoad])
 
     return (
 
 <Container className="d-flex justify-content-center" >
 <ModalAlert header={header} message={message} messageCount={messageCount}/>
+
+<Row>
+<Col md={4}>
 <Form onSubmit={submitNewEvent}>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -100,6 +102,52 @@ export default function EventsDashboard() {
     Create Event
   </Button>
 </Form>
+</Col>
+<Col md={8}>
+
+<Table striped bordered hover variant="dark">
+  <thead>
+    <tr>
+      <th>Event ID</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th># of Participants</th>
+      <th>Players</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {eventsOnLoad.map((event) => (
+
+    <tr>
+      <td>{event._id}</td>
+      <td>{event.name}</td>
+      <td>{event.dateAndTime}</td>
+      <td>{event.entrants? event.entrants.length : null}</td>
+      <td>
+        
+        <DropdownButton id="dropdown-basic-button" variant='secondary' title="Players">
+
+        {event.entrants.map((player) => (
+
+  <Dropdown.Item>  {player.username}       </Dropdown.Item>
+        ))}
+
+
+
+</DropdownButton>
+
+</td>
+<td><Nav.Link href={`/event/${event._id}`}> Details </Nav.Link></td>
+    </tr>
+  ))}
+
+  </tbody>
+</Table>
+</Col>
+</Row>
+
 </Container>
     )
 }

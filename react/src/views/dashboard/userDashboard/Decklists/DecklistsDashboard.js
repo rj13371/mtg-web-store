@@ -42,7 +42,6 @@ export default function DecklistsDashboard(props) {
 
         for(let i=0;i<splitDecklist.length;i++){
             
-
                 let quantityIndex = splitDecklist[i].search(regex);
 
                 let quantity = splitDecklist[i].slice(quantityIndex, quantityIndex+2);
@@ -50,8 +49,6 @@ export default function DecklistsDashboard(props) {
                 let name = splitDecklist[i].slice(quantityIndex + 2 );
 
                 res.push({name:name, quantity:quantity})
-
-                
 
         }
 

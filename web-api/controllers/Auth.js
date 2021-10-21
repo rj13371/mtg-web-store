@@ -4,7 +4,6 @@ const env = process.env;
 
 module.exports.checkToken = async (req, res, next) => {
 
-    console.log(req.cookies.token);
     const req_token = req.cookies.token 
 
 

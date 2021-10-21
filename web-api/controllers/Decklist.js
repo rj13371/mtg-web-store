@@ -61,3 +61,16 @@ module.exports.createDecklist = async (req, res) => {
     }
   };
 
+  module.exports.getDecklist = async (req, res) => {
+
+    const { id } = req.params
+
+    try {
+      const deck = await Decklist.findById(id).populate('user').populate('event')
+      res.send(deck)
+
+    }catch(e){
+      res.json({ message: e })
+    }
+
+    };

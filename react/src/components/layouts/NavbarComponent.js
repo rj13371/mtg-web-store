@@ -4,31 +4,20 @@ import ShoppingCartContainer from "../../containers/ShoppingCartContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext } from "../../context/AuthContext";
 import logo from '../../logo.jpg'
+import Loading from "../Loading";
 
 
 export default function NavbarComponent() {
 
-  const { authState } = useContext(AuthContext)
+  const { authState, loadingAuth } = useContext(AuthContext)
 
-  console.log(authState)
+  console.log('navbar', authState, loadingAuth)
 
 
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
 
-    const [loading, setLoading] = useState(true)
-
-    useEffect(()=>{
-
-      if (authState.email){
-
-        setLoading(false)
-
-      }
-
-
-    },[authState])
 
 
   return (
@@ -43,17 +32,19 @@ export default function NavbarComponent() {
     <ShoppingCartContainer /> 
     </Navbar.Text>
 
+    {loadingAuth? <Loading/>  : null }
 
-    { !loading ?
-    <Nav.Link href="/logout">
+    {!loadingAuth && authState.email ? <Nav.Link href="/logout">
     <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
-    </Nav.Link>:
+    </Nav.Link> : null }
 
-<Nav.Link href="/login">
+    {!loadingAuth && !authState.email ? <Nav.Link href="/login">
     <FontAwesomeIcon icon="user" size="lg" color='green' />
-    </Nav.Link>
+    </Nav.Link>  : null }
 
-  }
+
+
+
     
 
 

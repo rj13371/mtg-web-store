@@ -9,7 +9,7 @@ module.exports.getAllEvents = async (req, res) => {
   
   try {
 
-    const events = await Event.find({}).populate('entrants').populate('decklists')
+    const events = await Event.find({}).sort({'dateAndTime': 'desc'}).populate('entrants').populate('decklists')
 
     return res.status(201).send(events);
 }
@@ -17,6 +17,7 @@ module.exports.getAllEvents = async (req, res) => {
      return res.status(500).json({message: `${e}`});
     }
   };
+
 
   module.exports.createEvent = async (req, res) => {
 
@@ -40,3 +41,17 @@ module.exports.getAllEvents = async (req, res) => {
           res.json({ message: e })
       }
     };
+
+    module.exports.getEvent = async (req, res) => {
+
+      const { id } = req.params
+
+      try {
+        const event = await Event.findById(id).populate('entrants').populate('decklists')
+        res.send(event)
+
+      }catch(e){
+        res.json({ message: e })
+      }
+  
+      };
