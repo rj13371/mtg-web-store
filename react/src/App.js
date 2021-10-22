@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //GLOBAL COMPONENTS DISPLAY
 import NavbarComponent from './components/layouts/NavbarComponent';
 import FooterComponent from './components/layouts/FooterComponent';
-import CardSearch from './components/search/CardSearch';
+import Searchbar from './components/search/Searchbar';
 
 
 import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
@@ -118,8 +118,7 @@ function App() {
     <NavbarComponent/>
    {size.width>500? <NavbarCatagories/> : null }
 
-
-<CardSearch />
+<Searchbar />
     <SidebarComponent />
     <Switch>
 
@@ -141,6 +140,9 @@ function App() {
 
    <Route exact path='/products/catagory/:catagoryName' component={ProductDisplayByCatagory}/>
    <Route exact path='/mtgcards/set_name/:set_name' component={MtgCardDisplayBySetName}/>
+
+
+   <Route exact path='/card_name/:card_name' component={MtgCardDisplay}/>
 
    <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
    <Route exact path='/products/:id' component={ProductDisplay}/>

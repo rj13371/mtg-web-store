@@ -19,6 +19,8 @@ export default function DecklistsDashboard(props) {
 
     const [formdecklist, handleformDecklistChange, resetDecklist] = useInputState([])
     const [email, handleEmailChange] = useInputState()
+    const [deckName, handleDeckNameChange] = useInputState()
+    const [record, handleRecordChange] = useInputState()
 
     const [decklist, setDecklist] = useState([])
 
@@ -68,7 +70,9 @@ export default function DecklistsDashboard(props) {
           cardList: decklist,
           eventId: event,
           username: props.employee? null : authState.username,
-          email: email || null
+          email: email || null,
+          deckName: deckName,
+          record: record? record : '0-0'
         };
 
 
@@ -149,10 +153,20 @@ export default function DecklistsDashboard(props) {
       value={formdecklist}
     />
 
+  <Form.Group className="mb-3" controlId="formemail">
+    <Form.Label>Enter Deckname </Form.Label>
+    <Form.Control type="text" placeholder="Deckname" onChange={handleDeckNameChange} value={deckName} />
+  </Form.Group>
 
-{props.employee? <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Enter Decklist for Customer</Form.Label>
-    <Form.Control type="text" placeholder="Enter user email" onChange={handleEmailChange} value={email} />
+
+{props.employee? <Form.Group className="mb-3" controlId="formemail">
+    <Form.Label>Enter Email for Customer</Form.Label>
+    <Form.Control type="text" placeholder="email" onChange={handleEmailChange} value={email} />
+  </Form.Group>: null }
+
+  {props.employee? <Form.Group className="mb-3" controlId="formemail">
+    <Form.Label>Enter Record for Customer Example:3-0 (update all when event completed) </Form.Label>
+    <Form.Control type="text" placeholder="0-0" onChange={handleRecordChange} value={record} />
   </Form.Group>: null }
 
 

@@ -1,19 +1,18 @@
 import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import { BrowserRouter as Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
-import { Container, Row, Col, Button,Dropdown } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useWindowSize from "../../hooks/useWindowSize";
-import ProductSearch from "./ProductSearch";
-import useToggle from '../../hooks/useToggleState'
 
-function CardSearch(props) {
+// NEED TO CLEANUP 
+
+function SearchAll() {
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
-  const [searchByCard, toggleSearchByCard] = useToggle(true)
 
   const history = useHistory();
 
@@ -22,24 +21,24 @@ function CardSearch(props) {
 
     await axios({
       method: "get",
-      url: `/mtgcards/card?name=${query}`,
+      url: `/products/productsAndMtgCards?productName=${query}`,
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((resp) => resp)
-      .then((data) => {
-        const res = data.data;
-
+      .then((resp) => {
+          console.log(resp.data)
+        const res = resp.data;
+        // if(res.every((product) => product.images[0].url ))
 
 
         const options = res.map((i) => ({
-          name: i.name,      
-          img: (i.image_uris ? i.image_uris.small : '')  ,
-          set_name: i.set_name,
-          stock: i.stock,
-          price: (i.prices.usd ? `$${i.prices.usd}` : '')
-        }));
+            productName: i.productName || i.name,      
+            img: i.image_uris ? i.image_uris.small : i.images ? i.images[0].url : '' ,
+            productCategory: (i.productCategory? i.productCategory : i.set_name),
+            stock: i.stock,
+            price: (i.price ? `$${i.price}` : `${i.prices.usd}`)
+          }));
 
         setResults(options);
         setSubmitted(false);
@@ -52,58 +51,68 @@ function CardSearch(props) {
   const handleClickSearch = async (q) => {
     
 
-    const searchName = (q[0] ? q[0].name :'')
+    const searchName = (q[0] ? q[0].productName :'')
     console.log(searchName)
 
     const body = {
-      name: searchName,
+        productName: searchName,
     };
 
     if (searchName.length !== 0) {
     await axios({
       method: "get",
-      url: `/mtgcards/card?name=${searchName}`,
+      url: `/products/productsAndMtgCards?productName=${searchName}`,
       data:body,
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => {
-        return JSON.stringify(response);
-      })
-      .then((data) => {
-        history.push("/cards/", { query: data });
-        setSubmitted(true);
-      })}
 
-    if (submitted) {
-      return <Redirect to="/cards/" />;
-    }
+        if (response.data[0].set_name){
+            let data = JSON.stringify(response);
+
+            history.push("/cards/", { query: data });
+            setSubmitted(true);
+
+        }else{
+
+            let data = JSON.stringify(response);
+
+            history.push("/products/", { query: data });
+            setSubmitted(true);
+
+        }
+
+      })
+}
+
   }
 
   const size = useWindowSize();
 
   return (
-<Fragment> <Col className="mt-3 mb-3" style={size.width<500? {width:'300px'}: null} xs={9} md={6}>
+    <Fragment>
+
+      <Col className="mt-3 mb-3" style={size.width<500? {width:'300px'}: null} xs={9} md={6}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"
         isLoading={submitted}
-        labelKey="name"
+        labelKey="productName"
         delay={1500}
         onChange={(q) => { handleClickSearch(q) }}
         minLength={4}
         maxResults={5}
         onSearch={handleSearch}
         options={results}
-        placeholder="Search for Magic Cards"
+        placeholder="Search for Products and MTG Cards"
         renderMenuItemChildren={(option, props) => (
           <Fragment>
 
-          
             <img
-              alt={option.name}
-              src={option.img}
+              alt={option.productName}
+              src={option.img ? option.img : ''}
               style={{
                 height: "100px",
                 marginRight: "10px",
@@ -112,10 +121,10 @@ function CardSearch(props) {
             />
 
             {size.width<500? <span style={{fontSize:'0.9em'
-              }}>{option.name} {option.price} Stk:{option.stock} </span> 
+              }}>{option.productName } {option.price } Stk:{option.stock} </span> 
               
               
-              : <span>{option.name}/{option.set_name}/{option.price}/Stock:{option.stock} </span>}
+              : <span>{option.productName }/{option.productCategory }/{option.price }/Stock:{option.stock} </span>}
             
           </Fragment>
 
@@ -132,14 +141,13 @@ function CardSearch(props) {
 
       <Button onClick={() => { handleClickSearch(results) }}>
 
-        
-      Search
+      Search 
 
       </Button>
-      </Col> : null} 
+      </Col> : null}
       </Fragment>
   );
 }
 
-export default CardSearch;
+export default SearchAll;
 

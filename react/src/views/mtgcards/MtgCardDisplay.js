@@ -27,18 +27,26 @@ export default function MtgCardDisplay(props) {
 
 
   const location = useLocation();
-  const { id } = useParams();
+  const { id, card_name } = useParams();
 
   useEffect(() => {
     const grabCard = async () => {
+
+      const param = id || card_name
+
+      const url = id? '/mtgcards/' : '/mtgcards/card_name/'
+
+      console.log(param, url)
+
       if (!location.state) {
         await axios({
           method: "get",
-          url: `/mtgcards/${id}`,
+          url: `${url}${param}`,
           headers: {
             "Content-Type": "application/json",
           },
         }).then((response) => {
+          console.log(response.data)
           setCard({ ...response.data });
         });
       } else {
@@ -55,7 +63,7 @@ export default function MtgCardDisplay(props) {
           <Col lg>
       <Card style={{ width: '18rem' }}>
         <Card.Img
-          src={`${card.image_uris.normal}`}
+          src={`${card.image_uris ? card.image_uris.normal: ''}`}
           alt="card image"
         />
          <ShoppingCart stock={card.stock} product={card}/>

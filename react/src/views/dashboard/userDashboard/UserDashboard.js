@@ -1,8 +1,9 @@
 import React, {Fragment, useContext} from 'react'
 import DecklistsDashboard from './Decklists/DecklistsDashboard'
 import OrdersDashboard from './Orders/OrdersDashboard'
-import { Alert, Container } from 'react-bootstrap'
+import { Alert, Container, Tab, Tabs } from 'react-bootstrap'
 import { AuthContext } from '../../../context/AuthContext'
+import EventsDashboard from './Events/EventsDashboard'
 
 
 export default function UserDashboard() {
@@ -15,8 +16,22 @@ export default function UserDashboard() {
 
 {authState.email?
                 <Fragment> 
-                <DecklistsDashboard/>
-                <OrdersDashboard/>
+
+<Tabs defaultActiveKey="orders" id="uncontrolled-tab-example" className="mb-3">
+  <Tab eventKey="orders" title="Orders">
+  <OrdersDashboard/>
+  </Tab>
+  <Tab eventKey="events" title="Events">
+  <EventsDashboard/>
+  </Tab>
+  <Tab eventKey="decklists" title="Decklists">
+  <DecklistsDashboard/>
+  </Tab>
+</Tabs>
+
+
+
+
                 </Fragment> 
                 : 
 

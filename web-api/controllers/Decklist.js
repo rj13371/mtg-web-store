@@ -38,10 +38,14 @@ module.exports.createDecklist = async (req, res) => {
 
   try {
 
+    console.log(user)
+
   const newDecklist = new Decklist();
 
+  newDecklist.deckName = req.body.deckName;
+  newDecklist.record = req.body.record;
   newDecklist.cardList = req.body.cardList;
-  newDecklist.user = req.body.userId;
+  newDecklist.user = req.body.userId || user._id;
   newDecklist.event = req.body.eventId;
 
 

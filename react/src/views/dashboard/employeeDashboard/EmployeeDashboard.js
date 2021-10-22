@@ -6,7 +6,7 @@ import DecklistsDashboard from "../userDashboard/Decklists/DecklistsDashboard";
 
 import { AuthContext } from "../../../context/AuthContext";
 import EditLanding from "./EditLanding";
-import { Container } from "react-bootstrap";
+import { Container, Tab, Tabs } from "react-bootstrap";
 
 const EmployeeDashboard = () => {
 
@@ -22,11 +22,27 @@ const EmployeeDashboard = () => {
   return (
     <Fragment>
       <Container style={{color:'white'}} >
-    <AddProduct/>
-    <OrdersDashboard/>
-    <EditLanding/>
-    <EventsDashboard/>
-    <DecklistsDashboard employee={true}/>
+<Tabs defaultActiveKey="products" id="uncontrolled-tab-example" className="mb-3">
+  <Tab eventKey="products" title="Products">
+  <AddProduct/>
+  </Tab>
+  <Tab eventKey="orders" title="Orders">
+  <OrdersDashboard/>
+  </Tab>
+  <Tab eventKey="landing" title="Landing">
+  <EditLanding/>
+  </Tab>
+  <Tab eventKey="events" title="Events">
+  <EventsDashboard/>
+  </Tab>
+  <Tab eventKey="decklists" title="Decklists">
+  <DecklistsDashboard employee={true}/>
+  </Tab>
+</Tabs>
+
+
+
+
     </Container>
     </Fragment>
   )

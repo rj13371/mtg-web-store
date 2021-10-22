@@ -37,7 +37,7 @@ export default function EventDisplay() {
 
         <Container>
 
-<h1>{deckOnLoad.name}</h1>
+<h1>{deckOnLoad.deckName ? deckOnLoad.deckName : 'no decklist name' }</h1>
 <h1>{deckOnLoad.event? deckOnLoad.event.name : 'no event'}</h1>
 <h1>{deckOnLoad.user? deckOnLoad.user.username : 'no event'}</h1>
 
@@ -53,9 +53,10 @@ export default function EventDisplay() {
 {deckOnLoad.cardList? 
   <Fragment>
 {deckOnLoad.cardList.map((card) => (
+  
 
     <tr>
-      <td>{card.name}</td>
+     {card.name == ' Mainboard' || card.name == ' Sideboard'  ?<td>{card.name}</td>  : <td><a href={`/card_name/${card.name}`}> {card.name} </a> </td>} 
       <td>{card.quantity ? card.quantity : null}</td>
     </tr>
   ))}

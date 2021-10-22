@@ -3,16 +3,19 @@ import { Container, Button, Row,Col, Table, Dropdown, DropdownButton } from "rea
 import { AuthContext } from "../../../../context/AuthContext";
 import axiosClient from "../../../../utils/axios";
 import useWindowSize from "../../../../hooks/useWindowSize";
+import Loading from "../../../../components/Loading";
 
 export default function OrdersDashboard() {
   const { authState } = useContext(AuthContext);
   const [userOrders, setUserOrders] = useState([]);
   const size = useWindowSize()
+  const [loading, setLoading] = useState(false)
 
   const getOrders = async () => {
     const body = {
       userId: authState._id,
     };
+    setLoading(true)
 
     await axiosClient({
       method: "post",
@@ -23,20 +26,16 @@ export default function OrdersDashboard() {
       },
     }).then((response) => {
       setUserOrders([...response.data]);
+      setLoading(false)
     });
   };
 
-  // useEffect(()=>{
-
-  //         getOrders()
-
-  // },[])
 
   return (
     <Container>
+      <Button onClick={getOrders}>Get Orders</Button>
 
 <Table style={ size.width>500? {fontSize:'medium'}: {fontSize:'small'}} striped bordered hover variant="dark">
-<Button onClick={getOrders}>Get Orders</Button>
 <thead>
 <tr>
   <th>Order ID</th>
@@ -86,6 +85,7 @@ export default function OrdersDashboard() {
 
 </tbody>
 </Table>
+{loading? <Loading/> : null }
 
     </Container>
   );

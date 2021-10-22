@@ -21,6 +21,10 @@ const DecklistSchema = new Schema({
         required: true
     }],
 
+    deckName:{type: String, required:true },
+
+    record:{type: String, required:true },
+
 
     updatedAt:{type: String, default: moment().format("dddd, MMMM Do YYYY, h:mm:ss a") }
 

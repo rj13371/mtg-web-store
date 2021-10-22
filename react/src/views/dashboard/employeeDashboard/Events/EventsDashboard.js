@@ -43,13 +43,13 @@ export default function EventsDashboard() {
       },
     }).then((response) => {
 
-      setHeader(`Decklist submitted!`)
-      setMessage('Decklist will be reviewed before event is completed')
+      setHeader(`Success!`)
+      setMessage('Event Created!')
       setMessageCount(messageCount+1)
 
     }).catch((e)=>{
          if (e){
-          setHeader('Decklist submission failed')
+          setHeader('Event creation failed!')
           setMessage(` Something went wrong! ${e}`)
           setMessageCount(messageCount+1)
         }
@@ -71,7 +71,7 @@ export default function EventsDashboard() {
     
         });
 
-  }, [eventsOnLoad])
+  }, [messageCount])
 
     return (
 
@@ -106,6 +106,7 @@ export default function EventsDashboard() {
 <Col md={8}>
 
 <Table striped bordered hover variant="dark">
+<h1>Recent Events</h1>
   <thead>
     <tr>
       <th>Event ID</th>

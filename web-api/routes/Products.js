@@ -10,6 +10,8 @@ const catchAsync = func => {
         func(req,res,next).catch(e => next(e))
     }
    }
+
+router.get('/productsAndMtgCards', catchAsync(Products.searchAllMtgCardsAndProducts))  
 router.get('/product', catchAsync(Products.searchProductsByName)) //SEARCH
 router.post('/addproduct', catchAsync (Products.postProduct)) //ADD CARD
 
