@@ -114,7 +114,7 @@ function App() {
   <Fragment >
     <div className='App-background'>
     <Container fluid > 
-    <Router forceRefresh={true} >
+    <Router >
     
     <ShoppingCartProvider>
     <NavbarComponent/>
