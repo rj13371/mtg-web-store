@@ -76,9 +76,7 @@ function CardSearch(props) {
         setSubmitted(true);
       })}
 
-    if (submitted) {
-      return <Redirect to="/cards/" />;
-    }
+
   }
 
   const size = useWindowSize();

@@ -75,9 +75,6 @@ function ProductSearch() {
         setSubmitted(true);
       })}
 
-    if (submitted) {
-      return <Redirect to="/products/" />;
-    }
   }
 
   const size = useWindowSize();
