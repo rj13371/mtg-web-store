@@ -19,9 +19,6 @@ export function AuthProvider(props) {
     //     )
     // },[])
     
-
-    console.log(authState)
-
     return (
         <AuthContext.Provider value={{authState, setAuthState,loadingAuth, setLoadingAuth }}>
             {props.children}

@@ -11,7 +11,6 @@ export default function NavbarComponent() {
 
   const { authState, loadingAuth } = useContext(AuthContext)
 
-  console.log('navbar', authState, loadingAuth)
 
 
     const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +31,7 @@ export default function NavbarComponent() {
     <ShoppingCartContainer /> 
     </Navbar.Text>
 
-    {loadingAuth? <Loading/>  : null }
+    {loadingAuth? <Navbar.Text> <Loading navbar={true}/> </Navbar.Text>  : null }
 
     {!loadingAuth && authState.email ? <Nav.Link href="/logout">
     <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
@@ -41,11 +40,6 @@ export default function NavbarComponent() {
     {!loadingAuth && !authState.email ? <Nav.Link href="/login">
     <FontAwesomeIcon icon="user" size="lg" color='green' />
     </Nav.Link>  : null }
-
-
-
-
-    
 
 
     <Navbar.Toggle> <FontAwesomeIcon icon="chevron-circle-down" size="2x" /> </Navbar.Toggle >

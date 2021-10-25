@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavbarComponent from './components/layouts/NavbarComponent';
 import FooterComponent from './components/layouts/FooterComponent';
 import Searchbar from './components/search/Searchbar';
+import { createBrowserHistory } from 'history';
 
 
 import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
@@ -44,28 +45,31 @@ import DecklistDisplay from './views/decklists/DecklistDisplay';
 
 
 
+
 initFontAwesome();
 
 function App() {
 
+
+
   const {setAuthState, authState, loadingAuth, setLoadingAuth} = useContext(AuthContext)
-  console.log(authState, loadingAuth)
 
   const loadData = async ()=>{
    const data =  await isAuthenticated()
-   setLoadingAuth(false)
-
+   
       if (!data){
         console.log('error', data)
+        setLoadingAuth(false)
         return 1
       }
 
       if(data.error){
         console.log('error', data.error)
+        setLoadingAuth(false)
       }
 
       if(!data.user){
-        return 1
+        setLoadingAuth(false)
       }
 
       else{
@@ -75,12 +79,9 @@ function App() {
           email: data.user.email,
           authorization_level: data.user.authorization_level
         })
-        
-      }
 
-      
-      
-      
+        setLoadingAuth(false)
+      }
   }
 
 
@@ -105,14 +106,12 @@ function App() {
   
   const size = useWindowSize();
 
-  if (loadingAuth){
-    return ( <div className='App-background'><Loading/></div> )
-  }else if (!loadingAuth)
 
   return (
   <Fragment >
     <div className='App-background'>
     <Container fluid > 
+    <Router forceRefresh={true} >
     
     <ShoppingCartProvider>
     <NavbarComponent/>
@@ -120,6 +119,9 @@ function App() {
 
 <Searchbar />
     <SidebarComponent />
+
+ {loadingAuth? <Loading/> :    
+
     <Switch>
 
 
@@ -153,8 +155,10 @@ function App() {
    <Route exact path='/users/reset/requestPasswordReset' component={RequestPasswordReset}/>
 
    </Switch>
+   } 
 
    </ShoppingCartProvider>
+   </Router>
    </Container>
    <FooterComponent/>
    </div>
