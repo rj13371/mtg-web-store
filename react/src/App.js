@@ -57,30 +57,34 @@ function App() {
   const {setAuthState, authState, loadingAuth, setLoadingAuth} = useContext(AuthContext)
 
   const loadData = async ()=>{
-   const data =  await isAuthenticated()
-   console.log(data)
+   const response =  await axiosClient({
+    method: "get",
+    url: 'auth/isAuth',
+    withCredentials:true
+  })
+  console.log(response.data)
    
-      if (!data){
-        console.log('error', data)
+      if (!response.data){
+        console.log('error', response.data)
         setLoadingAuth(false)
         return 1
       }
 
-      if(data.error){
-        console.log('error', data.error)
+      if(response.data.error){
+        console.log('error', response.data.error)
         setLoadingAuth(false)
       }
 
-      if(!data.user){
+      if(!response.data.user){
         setLoadingAuth(false)
       }
 
       else{
         setAuthState({
-          _id: data.user._id,
-          username: data.user.username,
-          email: data.user.email,
-          authorization_level: data.user.authorization_level
+          _id: response.data.user._id,
+          username: response.data.user.username,
+          email: response.data.user.email,
+          authorization_level: response.data.user.authorization_level
         })
 
         setLoadingAuth(false)
@@ -100,12 +104,7 @@ function App() {
 
  },[authState,loadingAuth ])
 
-  const isAuthenticated = async ()=>{
 
-    return await fetch('https://mtg-card-store.herokuapp.com/auth/isAuth', { credentials: 'include'})
-    .then(response=>console.log(response))
-    .catch(err=>console.log(err))
-    }
 
   
   const size = useWindowSize();

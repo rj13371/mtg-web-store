@@ -63,6 +63,27 @@ const eventRoute = require('./routes/Event')
 
 startApp();
 
+app.use = (req, res, next) => {
+    var origin = req.headers.origin;
+  
+    res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
+  
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE, PUT, PATCH');
+    res.setHeader('Access-Control-Allow-Headers', ['Authorization', 'Content-Type',
+      'membership-id', 'account-id','X-Requested-With', 'Accept', 'Origin'].join(','));
+    res.setHeader('Access-Control-Expose-Headers', 'x-pagination, Content-Length');
+  
+    if (req.method.toUpperCase() === "OPTIONS") {
+      return res.status(200).send();
+    }
+    
+    next();
+  }
+  
+
 app.use ('/mtgcards', mtgCardsRoute);
 app.use ('/products', productsRoute);
 app.use ('/users', usersRoute);

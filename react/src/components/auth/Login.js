@@ -34,6 +34,7 @@ export default function Login() {
       withCredentials:true
     })
       .then((response) => {
+        console.log(response.data)
         if (response.status === 200){
 
           setMessage(`Welcome back, ${loginFormUserName}`)
