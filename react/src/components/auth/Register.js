@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import {InputGroup, Form, Button, Container,Col ,Row} from 'react-bootstrap'
 import useInputState from '../../hooks/useInputState'
-import axios from 'axios'
+import axiosClient from '../../utils/axios'
 import { useHistory } from 'react-router'
 import useStateWithValidation from '../../hooks/useStateWithValidation'
 import ModalAlert from '../ModalAlert'
@@ -68,7 +68,7 @@ export default function Register() {
     }
     console.log(body)
 
-    const login = await axios({
+    const login = await axiosClient({
       method: "post",
       url: '/users/register',
       data:body,

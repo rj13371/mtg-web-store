@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import useInputState from '../../hooks/useInputState'
-import axios from 'axios'
+import axiosClient from '../../utils/axios'
 import { Redirect } from 'react-router'
 import { useHistory } from 'react-router'
 import ModalAlert from '../ModalAlert'
@@ -26,7 +26,7 @@ export default function RequestPasswordReset() {
     }
     console.log(body)
 
-    const login = await axios({
+    const login = await axiosClient({
       method: "post",
       url: '/users/reset/requestResetPassword/',
       data:body,

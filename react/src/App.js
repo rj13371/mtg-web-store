@@ -5,6 +5,7 @@ import NavbarComponent from './components/layouts/NavbarComponent';
 import FooterComponent from './components/layouts/FooterComponent';
 import Searchbar from './components/search/Searchbar';
 import { createBrowserHistory } from 'history';
+import axiosClient from './utils/axios';
 
 
 import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
@@ -42,6 +43,7 @@ import RequestPasswordReset from './components/auth/RequestPasswordReset';
 import MtgCardDisplayBySetName from './views/mtgcards/MtgCardDisplayByCategory';
 import EventDisplay from './views/events/EventDisplay';
 import DecklistDisplay from './views/decklists/DecklistDisplay';
+import axios from 'axios';
 
 
 
@@ -56,6 +58,7 @@ function App() {
 
   const loadData = async ()=>{
    const data =  await isAuthenticated()
+   console.log(data)
    
       if (!data){
         console.log('error', data)
@@ -98,8 +101,9 @@ function App() {
  },[authState,loadingAuth ])
 
   const isAuthenticated = async ()=>{
-    return await fetch(`/auth/isAuth`)
-    .then(response=>response.json() )
+
+    return await fetch('https://mtg-card-store.herokuapp.com/auth/isAuth', { credentials: 'include'})
+    .then(response=>console.log(response))
     .catch(err=>console.log(err))
     }
 

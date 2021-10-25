@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ShoppingCart from "../../components/cart/ShoppingCart";
 import { Card, Container, Col, Row, Button } from "react-bootstrap";
-import axios from "axios";
+import axiosClient from "../../utils/axios";
 import { useParams } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import EditMtgCard from "./EditMtgCard";
@@ -21,7 +21,7 @@ export default function MtgCardDisplayBySetName() {
 
   useEffect(() => {
     const grabProducts = async () => {
-      await axios({
+      await axiosClient({
         method: "get",
         url: `/mtgcards/set_name/${set_name}`,
         headers: {

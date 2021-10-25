@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import axios from "axios";
+import axiosClient from "../../utils/axios";
 import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
 import ShoppingCart from "../../components/cart/ShoppingCart";
 
@@ -26,7 +26,7 @@ export default function ProductDisplay(props) {
   useEffect(() => {
     const grabProduct = async () => {
       if (!location.state) {
-        await axios({
+        await axiosClient({
           method: "get",
           url: `/products/${id}`,
           headers: {

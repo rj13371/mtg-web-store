@@ -1,7 +1,7 @@
 import React,{useEffect, useState, Fragment} from 'react'
 import { useParams } from 'react-router';
 import { Table, Container, Nav, Card } from 'react-bootstrap';
-import axios from 'axios';
+import axiosClient from '../../utils/axios';
 
 
 export default function EventDisplay() {
@@ -17,7 +17,7 @@ export default function EventDisplay() {
     useEffect(() => {
        const getEvent = async () => { 
            
-        await axios({
+        await axiosClient({
             method: "get",
             url: `/decklist/${id}`,
             headers: {

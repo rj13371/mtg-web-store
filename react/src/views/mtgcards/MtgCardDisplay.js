@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import EditMtgCard from "./EditMtgCard";
-import axios from "axios";
+import axiosClient from "../../utils/axios";
 import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -39,7 +39,7 @@ export default function MtgCardDisplay(props) {
       console.log(param, url)
 
       if (!location.state) {
-        await axios({
+        await axiosClient({
           method: "get",
           url: `${url}${param}`,
           headers: {

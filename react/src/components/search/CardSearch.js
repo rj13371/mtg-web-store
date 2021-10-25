@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import { BrowserRouter as Redirect } from "react-router-dom";
-import axios from "axios";
+import axiosClient from "../../utils/axios";
 import { Container, Row, Col, Button,Dropdown } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
@@ -20,7 +20,7 @@ function CardSearch(props) {
   const handleSearch = async (query) => {
     setSubmitted(true);
 
-    await axios({
+    await axiosClient({
       method: "get",
       url: `/mtgcards/card?name=${query}`,
       headers: {
@@ -60,7 +60,7 @@ function CardSearch(props) {
     };
 
     if (searchName.length !== 0) {
-    await axios({
+    await axiosClient({
       method: "get",
       url: `/mtgcards/card?name=${searchName}`,
       data:body,

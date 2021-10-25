@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
-import axios from 'axios'
+import axiosClient from '../../utils/axios'
 import useInputState from '../../hooks/useInputState'
 import { useHistory } from 'react-router'
 
@@ -27,15 +27,13 @@ export default function Login() {
     }
     console.log(body)
 
-    const login = await axios({
+    const login = await axiosClient({
       method: "post",
-      url: '/users/login',
+      url: 'users/login',
       data:body,
       withCredentials:true
     })
       .then((response) => {
-
-
         if (response.status === 200){
 
           setMessage(`Welcome back, ${loginFormUserName}`)

@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
+import axiosClient from "../../utils/axios";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
@@ -18,7 +18,7 @@ function ProductSearch() {
   const handleSearch = async (query) => {
     setSubmitted(true);
 
-    await axios({
+    await axiosClient({
       method: "get",
       url: `/products/product?productName=${query}`,
       headers: {
@@ -59,7 +59,7 @@ function ProductSearch() {
     };
 
     if (searchName.length !== 0) {
-    await axios({
+    await axiosClient({
       method: "get",
       url: `/products/product?productName=${searchName}`,
       data:body,

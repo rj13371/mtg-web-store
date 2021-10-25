@@ -154,7 +154,7 @@ module.exports.requestResetPassword = async (req,res) => {
       createdAt: Date.now(),
     }).save();
   
-    const link = `http://localhost:3000/reset/passwordResetPage/${resetToken}/${user._id}`;
+    const link = `https://mtg-card-store.herokuapp.com/reset/passwordResetPage/${resetToken}/${user._id}`;
     sendEmail('resetPassword',user.email,"Password Reset Request",link,null);
     res.status(200).json(link);
   };

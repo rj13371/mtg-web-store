@@ -24,7 +24,7 @@ const sendEmail = async (action,email, subject, text, uniqueString ) => {
             from: MAIL_USERNAME,
             to: email,
             subject: subject,
-            html: `Press <a href=http://localhost:5000/users/verify/${uniqueString}> here </a> to verify your email at Bastion Games. Thank you`,
+            html: `Press <a href=https://mtg-card-store.herokuapp.com/users/verify/${uniqueString}> here </a> to verify your email at Bastion Games. Thank you`,
           });
           console.log("email sent sucessfully");
 

@@ -4,7 +4,7 @@ import {
     BrowserRouter as Router,
     Redirect
   } from "react-router-dom";
-import axios from 'axios'
+import axiosClient from '../../utils/axios';
 import { AuthContext } from '../../context/AuthContext'
 
 export default function Logout() {
@@ -19,7 +19,15 @@ export default function Logout() {
             email:'',
             authorization_level:''
         })
-       axios.get('/users/logout')
+
+        const logout = async () => {
+            await axiosClient({
+                method: "get",
+                url: '/users/logout',
+                withCredentials:true
+              })
+        }
+        logout();
 
     }, [])
 

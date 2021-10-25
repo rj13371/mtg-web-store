@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import ShoppingCart from '../../components/cart/ShoppingCart';
 import { Card, Container, Col, Row, Button } from "react-bootstrap";
-import axios from 'axios';
+import axiosClient from '../../utils/axios';
 import { useParams } from 'react-router';
 
 export default function ProductDisplayByCatagory() {
@@ -14,7 +14,7 @@ export default function ProductDisplayByCatagory() {
       useEffect(() => {
         const grabProducts = async () => {
 
-            await axios({
+            await axiosClient({
               method: "get",
               url: `/products/catagory/${catagoryName}`,
               headers: {
