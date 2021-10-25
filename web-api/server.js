@@ -16,7 +16,7 @@ const app = exp();
 // Middlewares
 app.use(
     cors({
-      origin: "*",
+      origin: "http://localhost:3000",
       methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
       credentials: true,
     })

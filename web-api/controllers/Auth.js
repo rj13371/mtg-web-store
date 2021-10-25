@@ -4,6 +4,8 @@ const env = process.env;
 
 module.exports.checkToken = async (req, res, next) => {
 
+    console.log(req.cookies)
+
     const req_token = req.cookies.token 
     let auth = false;
     let dateNow = new Date();
