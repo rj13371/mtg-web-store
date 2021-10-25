@@ -16,7 +16,7 @@ const app = exp();
 // Middlewares
 app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "https://mtgwebstore.herokuapp.com/",
       methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
       credentials: true,
     })

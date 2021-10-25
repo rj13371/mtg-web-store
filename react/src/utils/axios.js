@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import * as tunnel from 'tunnel';
 
-axios.defaults.withCredentials = true
 
 const agent = tunnel.httpsOverHttp({
     proxy: {
