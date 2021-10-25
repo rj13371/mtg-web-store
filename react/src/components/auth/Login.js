@@ -31,6 +31,7 @@ export default function Login() {
       method: "post",
       url: 'users/login',
       data:body,
+      withCredentials:true
     })
       .then((response) => {
         console.log(response.data)
@@ -39,7 +40,10 @@ export default function Login() {
           setMessage(`Welcome back, ${loginFormUserName}`)
           setMessageCount(messageCount+1)
        
-
+          setTimeout(() => {
+            history.push('/')
+          }, 2000)
+            
           
         }
 

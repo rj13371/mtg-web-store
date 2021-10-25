@@ -107,8 +107,9 @@ module.exports.login = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
 
+    const cookie = req.cookies.token
 
-    res.clearCookie('token', {  secure: true, sameSite: 'none' });
+    res.clearCookie(cookie, {  secure: true, sameSite: 'none' });
 
     res
         .status(200)
