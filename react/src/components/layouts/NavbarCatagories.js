@@ -22,7 +22,7 @@ export default function NavbarCatagories(props) {
 <Navbar.Toggle> <FontAwesomeIcon icon="chevron-circle-down" size="1x" /> </Navbar.Toggle >
 
 <Navbar.Collapse>
-            <Nav className='m-auto' style={{ fontSize: "22px",  fontWeight:'bold',fontFamily: 'Fantasy, Copperplate, Papyrus' }}>
+            <Nav className='m-auto' style={{ fontSize: "22px",  fontWeight:'bold' }}>
               <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Warhammer%2040k">
                 Warhammer 40k
               </Nav.Link>
