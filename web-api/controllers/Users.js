@@ -93,7 +93,7 @@ module.exports.login = async (req, res) => {
 
             const cookie = req.cookies.token
             if (cookie == undefined){
-                res.cookie('token', token, { httpOnly: true, secure: true });
+                res.cookie('token', token, {  secure: true, sameSite: 'none' });
                 }
 
             res.status(200).json(user);

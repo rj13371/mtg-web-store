@@ -40,9 +40,6 @@ export default function Login() {
           setMessage(`Welcome back, ${loginFormUserName}`)
           setMessageCount(messageCount+1)
        
-          setTimeout(() => {
-            history.push('/')
-          }, 2000)
             
           
         }
