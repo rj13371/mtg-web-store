@@ -27,14 +27,11 @@ export default function Logout() {
             await axiosClient({
                 method: "get",
                 url: '/users/logout',
-                withCredentials:true
+                withCredentials:true,
+                exposedHeaders: ["set-cookie"]
               })
         }
-        logout().then(
-            setTimeout(() => {
-                history.push('/')
-              }, 2000)
-        )
+        logout()
 
     }, [])
 
