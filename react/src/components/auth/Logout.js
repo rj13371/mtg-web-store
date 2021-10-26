@@ -34,7 +34,7 @@ export default function Logout() {
         logout().then(
             setTimeout(() => {
                 history.push('/')
-              }, 100)
+              }, 500)
         )
 
     }, [])
