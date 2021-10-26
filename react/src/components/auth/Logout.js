@@ -32,9 +32,9 @@ export default function Logout() {
               })
         }
         logout().then(
-            setTimeout(() => {
+
                 history.push('/')
-              }, 2000)
+
         )
 
     }, [])
