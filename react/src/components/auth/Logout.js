@@ -26,15 +26,15 @@ export default function Logout() {
         const logout = async () => {
             await axios({
                 method: "get",
-                url: 'https://mtg-card-store.herokuapp.com/users/logout',
+                url: 'users/logout',
                 withCredentials:true,
                 exposedHeaders: ["set-cookie"]
               })
         }
         logout().then(
-
+            setTimeout(() => {
                 history.push('/')
-
+              }, 100)
         )
 
     }, [])
