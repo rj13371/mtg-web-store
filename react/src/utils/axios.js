@@ -1,7 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
 import * as tunnel from 'tunnel';
-
-
 const agent = tunnel.httpsOverHttp({
     proxy: {
         host: 'http://localhost/',
@@ -10,7 +8,8 @@ const agent = tunnel.httpsOverHttp({
 });
 
 const axiosClient = axios.create({
-    baseURL: 'https://mtg-card-store.herokuapp.com/'
+    baseURL: 'http://localhost:5000/', 
+    httpsAgent: agent,
 });
 
 export default axiosClient
