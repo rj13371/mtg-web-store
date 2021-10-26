@@ -63,7 +63,8 @@ module.exports.registerUser = async (req, res) => {
 
 // logging in
 module.exports.login = async (req, res) => {
-    res.clearCookie('token');
+    res.clearCookie('token', {  secure: true, sameSite: 'none' });
+
     var {username, password} = req.body
     console.log(req.body)
 
@@ -107,7 +108,7 @@ module.exports.login = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
 
-    res.clearCookie('token');
+    res.clearCookie('token', {  secure: true, sameSite: 'none' });
 
     res
         .status(200)

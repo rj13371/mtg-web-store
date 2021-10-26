@@ -15,8 +15,6 @@ router.post('/register', catchAsync(Users.registerUser)) //register a new user
 
 router.post('/login', catchAsync(Users.login))
 
-router.get('/logout', catchAsync(Users.logout))
-
 
 router.get('/logout', catchAsync(Users.logout)) //logging out
 
