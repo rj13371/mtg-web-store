@@ -1,5 +1,5 @@
 import React,{useEffect, useContext} from 'react'
-
+import axios from 'axios';
 
 import {
     BrowserRouter as Router,
@@ -24,14 +24,18 @@ export default function Logout() {
         })
 
         const logout = async () => {
-            await axiosClient({
+            await axios({
                 method: "get",
-                url: '/users/logout',
+                url: 'https://mtg-card-store.herokuapp.com/users/logout',
                 withCredentials:true,
                 exposedHeaders: ["set-cookie"]
               })
         }
-        logout()
+        logout().then(
+            setTimeout(() => {
+                history.push('/')
+              }, 2000)
+        )
 
     }, [])
 
