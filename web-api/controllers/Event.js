@@ -55,3 +55,34 @@ module.exports.getAllEvents = async (req, res) => {
       }
   
       };
+
+      module.exports.editEvent = async (req,res, next)=>{
+        const {id} = req.params || req.body.id;
+        const { name, description, dateAndTime} = req.body
+    
+        console.log(req.body)
+    
+        try{
+        const editedEvent = await Event.findByIdAndUpdate(id, {name: name, description: description, dateAndTime: dateAndTime})
+    
+        await editedEvent.save();
+    
+        res.json({ message:editedEvent })
+    }catch(e){
+        res.json({ message: e })
+    }
+    }
+  
+    module.exports.deleteEvent = async (req,res, next)=>{
+      const {id} = req.params || req.body.id;
+  
+      console.log(req.body)
+  
+      try{
+      const deletedEvent = await Event.findByIdAndDelete(id)
+  
+      res.json({ message:'successfully deleted' })
+  }catch(e){
+      res.json({ message: e })
+  }
+  }

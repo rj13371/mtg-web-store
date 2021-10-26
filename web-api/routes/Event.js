@@ -10,7 +10,11 @@ const catchAsync = func => {
 
 router.get('/getAllEvents', catchAsync(Event.getAllEvents)) 
 router.post('/createEvent', catchAsync(Event.createEvent)) 
-router.get('/:id', catchAsync(Event.getEvent)) 
+
+router.route('/:id')
+.get(catchAsync (Event.getEvent))
+.put(catchAsync (Event.editEvent))
+.delete(catchAsync (Event.deleteEvent))
 
 
 module.exports = router;

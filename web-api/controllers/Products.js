@@ -30,7 +30,9 @@ module.exports.searchAllMtgCardsAndProducts = async (req, res, next) =>{
 
 module.exports.searchProductsByName = async (req, res, next) =>{
 
-    const foundProduct = await Product.find({productName: new RegExp('.*'+req.query.productName+'.*', "i")}).sort({'stock': 'desc'})
+    const {productName} = req.params
+
+    const foundProduct = await Product.find({productName: new RegExp('.*'+productName+'.*', "i")}).sort({'stock': 'desc'})
     
       res.send(foundProduct)
 

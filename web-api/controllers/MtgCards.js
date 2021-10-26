@@ -7,7 +7,9 @@ const MtgCard = require('../models/MtgCard');
 // need to refactor this to change search dynamically based on color, manacost, set etc
 module.exports.searchMtgCard = async (req, res, next) =>{
 
-    const foundCard = await MtgCard.find({name: new RegExp('.*'+req.query.name+'.*', "i")}).sort({'stock': 'desc'})
+    const {cardName} = req.params
+
+    const foundCard = await MtgCard.find({name: new RegExp('.*'+cardName+'.*', "i")}).sort({'stock': 'desc'})
     console.log (req.query, foundCard)
     
       res.send(foundCard)

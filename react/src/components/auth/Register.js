@@ -115,6 +115,9 @@ export default function Register() {
            }
     
            else {
+            setHeader('Invalid Captcha')
+            setMessage('Please try again!')
+            setMessageCount(messageCount+1)
             setisValidCaptcha(false)
            }
        };

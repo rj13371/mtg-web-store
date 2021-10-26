@@ -10,17 +10,19 @@ import useWindowSize from "../../hooks/useWindowSize";
 
 
 function ProductSearch() {
+
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
+  const [redirecting, setRedirecting] = useState(false)
+  const [productName, setProductName] = useState()
 
-  const history = useHistory();
 
   const handleSearch = async (query) => {
     setSubmitted(true);
 
     await axiosClient({
       method: "get",
-      url: `/products/product?productName=${query}`,
+      url: `/products/productName/${query}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,9 +30,6 @@ function ProductSearch() {
       .then((resp) => {
           console.log(resp.data)
         const res = resp.data;
-
-
-
 
         const options = res.map((i) => ({
             productName: i.productName,      
@@ -49,35 +48,19 @@ function ProductSearch() {
 
 
   const handleClickSearch = async (q) => {
-    
 
-    const searchName = (q[0] ? q[0].productName :'')
-    console.log(searchName)
-
-    const body = {
-        productName: searchName,
-    };
-
-    if (searchName.length !== 0) {
-    await axiosClient({
-      method: "get",
-      url: `/products/product?productName=${searchName}`,
-      data:body,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return JSON.stringify(response);
-      })
-      .then((data) => {
-        history.push("/products/", { query: data });
-        setSubmitted(true);
-      })}
-
+    setProductName(q[0] ? q[0].productName :'')
+   
+      setRedirecting(true)
+  
   }
 
   const size = useWindowSize();
+  console.log(productName, results)
+
+  if(redirecting){
+    return (<Redirect to={`/products/${productName}`} />) 
+}
 
   return (
     <Fragment>

@@ -169,11 +169,11 @@ LinksC
 
     <Button type="submit">Edit Landing</Button>
   </Form>
-
+  <Form.Label for="image1">Change Image 1</Form.Label>
   <CloudinaryWidget images={imagesA} onChange={onChangeImageA}/>
-
+  <Form.Label for="image2">Change Image 2</Form.Label>
   <CloudinaryWidget images={imagesB} onChange={onChangeImageB}/>
-
+  <Form.Label for="image3">Change Image 3</Form.Label>
   <CloudinaryWidget images={imagesC} onChange={onChangeImageC}/>
 
   </div>

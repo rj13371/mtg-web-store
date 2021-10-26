@@ -4,6 +4,7 @@ import useInputState from '../../../../hooks/useInputState'
 import axiosClient from '../../../../utils/axios'
 import { AuthContext } from '../../../../context/AuthContext'
 import ModalAlert from '../../../../components/ModalAlert'
+import useStateWithValidation from '../../../../hooks/useStateWithValidation'
 
 // ADD VALIDATION 
 // ADD USE EFFECT TO GRAB EVENTS FROM DB, EMPLOYEE WILL HAVE CRUD IN DASHBOARD
@@ -17,7 +18,7 @@ export default function DecklistsDashboard(props) {
 
     const {authState} = useContext(AuthContext)
 
-    const [formdecklist, handleformDecklistChange, resetDecklist] = useInputState([])
+    const [formdecklist, handleformDecklistChange, isValidDecklist] = useInputState([])
     const [email, handleEmailChange] = useInputState()
     const [deckName, handleDeckNameChange] = useInputState()
     const [record, handleRecordChange] = useInputState()
@@ -54,12 +55,18 @@ export default function DecklistsDashboard(props) {
 
         }
 
+        if(res[0].name.toLowerCase().includes('mainboard') && res.some(obj => obj.name.toLowerCase() == ' sideboard') ){
+          setDecklist(res)
 
-        setDecklist(res)
+          setHeader('Please confirm before submitting')
+          setMessage(JSON.stringify(res))
+          setMessageCount(messageCount+1)
+        }else{
+          setHeader('Invalid Decklist')
+          setMessage('Please include a Mainboard Quantity at the top and a Sideboard quantity within the textfield')
+          setMessageCount(messageCount+1)
+        }
 
-        setHeader('Please confirm before submitting')
-        setMessage(JSON.stringify(res))
-        setMessageCount(messageCount+1)
 
     }
 

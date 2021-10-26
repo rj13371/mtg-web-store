@@ -26,7 +26,7 @@ export default function CloudinaryWidget(props) {
       sources={['local', 'camera', 'url', 'facebook', 'image_search', 'google_drive']}
       cloudName={'dwxcp0a8j'} 
       uploadPreset={'pgqdbzeq'} 
-      buttonText={'Upload images'}
+      buttonText={'Upload image'}
       style={{
         color: 'white',
         border: 'none',

@@ -1,19 +1,19 @@
 import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import { BrowserRouter as Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axiosClient from "../../utils/axios";
 import { Container, Row, Col, Button,Dropdown } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useWindowSize from "../../hooks/useWindowSize";
-import ProductSearch from "./ProductSearch";
-import useToggle from '../../hooks/useToggleState'
+
 
 function CardSearch(props) {
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
-  const [searchByCard, toggleSearchByCard] = useToggle(true)
+  const [redirecting, setRedirecting] = useState(false)
+  const [cardName, setCardName] = useState()
 
   const history = useHistory();
 
@@ -22,7 +22,7 @@ function CardSearch(props) {
 
     await axiosClient({
       method: "get",
-      url: `/mtgcards/card?name=${query}`,
+      url: `/mtgcards/cardSearch/${query}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -50,39 +50,26 @@ function CardSearch(props) {
 
 
   const handleClickSearch = async (q) => {
-    
 
-    const searchName = (q[0] ? q[0].name :'')
-    console.log(searchName)
-
-    const body = {
-      name: searchName,
-    };
-
-    if (searchName.length !== 0) {
-    await axiosClient({
-      method: "get",
-      url: `/mtgcards/card?name=${searchName}`,
-      data:body,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return JSON.stringify(response);
-      })
-      .then((data) => {
-        history.push("/cards/", { query: data });
-        setSubmitted(true);
-      })}
-
-
+    setCardName(q[0] ? q[0].name :'')
+   
+      setRedirecting(true)
+  
   }
+  console.log(cardName)
 
   const size = useWindowSize();
 
+  if(redirecting){
+    return (<Redirect to={`/cards/${cardName}`} />) 
+}
+
   return (
-<Fragment> <Col className="mt-3 mb-3" style={size.width<500? {width:'300px'}: null} xs={9} md={6}>
+<Fragment>
+  
+
+  
+   <Col className="mt-3 mb-3" style={size.width<500? {width:'300px'}: null} xs={9} md={6}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"

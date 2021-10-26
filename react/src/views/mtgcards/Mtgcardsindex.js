@@ -1,11 +1,12 @@
 import React, { useState, useEffect,useContext } from "react";
-import { useLocation } from "react-router-dom";
+import axiosClient from "../../utils/axios";
 import EditMtgCard from "./EditMtgCard";
-
+import { useParams } from "react-router";
+import Loading from "../../components/Loading";
 import { Card, Container, Col, Row, Button } from "react-bootstrap";
 import ShoppingCart from "../../components/cart/ShoppingCart";
-
 import { AuthContext } from "../../context/AuthContext";
+import { Fragment } from "react";
 
  
 
@@ -13,25 +14,41 @@ import { AuthContext } from "../../context/AuthContext";
 export default function Mtgcardsindex() {
   const {authState} = useContext(AuthContext)
   const [cards, setCards] = useState([]);
-  const [auth, setAuth] = useState(true) //login auth for later for edit button
-  // const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setisLoading] = useState(false);
 
-  const location = useLocation();
-  const query = JSON.parse(location.state.query);
-  const res = query.data;
+  const {cardName} = useParams()
+
 
 
   useEffect(() => {
-    setCards(res);
-    console.log(cards);
+
+    setisLoading(true)
+
+    const grabCards = async () => {
+
+      await axiosClient({
+        method: "get",
+        url: `/mtgcards/cardSearch/${cardName}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        console.log(response)
+        setCards([...response.data]);
+        setisLoading(false)
+      });
+
+  };
+  grabCards();
   }, []);
 
 
   return (
 
-    <div>
+    <Fragment>
+      {isLoading? <Loading/> : 
       
-<Container>
+      <Container>
 
 {cards.length === 0 ? 'no results': null}
 
@@ -56,26 +73,11 @@ export default function Mtgcardsindex() {
 </Row>
 </Container>
 
-
-    {cards
-          .filter(function (card) {
-            return !card.image_uris;
-          })
-          .map((card) => (
-            <tr>
-              <td>{card.name}</td>
-              <td>{card.set_name}</td>
-              <td>{card.rarity}</td>
-              <td>{card.oracle_text}</td>
-              <td>{card.prices.usd}</td>
-              <td>{card.stock}</td>
-              <td>{card.artist}</td>
-            </tr>
-          ))}
-
+      }
       
+
      
-    </div>
+    </Fragment>
   
   );
 }

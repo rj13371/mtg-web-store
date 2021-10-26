@@ -12,7 +12,7 @@ const catchAsync = func => {
    }
 
 router.get('/productsAndMtgCards', catchAsync(Products.searchAllMtgCardsAndProducts))  
-router.get('/product', catchAsync(Products.searchProductsByName)) //SEARCH
+router.get('/productName/:productName', catchAsync(Products.searchProductsByName)) //SEARCH
 router.post('/addproduct', catchAsync (Products.postProduct)) //ADD CARD
 
 

@@ -57,7 +57,7 @@ export default function EventsDashboard() {
   {eventsOnLoad.map((event) => (
 
     <tr>
-      <td>{event.name}</td>
+      <td >{event.name}</td>
       <td>{event.dateAndTime}</td>
       <td>{event.entrants? event.entrants.length : null}</td>
       <td>

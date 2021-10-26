@@ -5,7 +5,6 @@ import axiosClient from "../../utils/axios";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useWindowSize from "../../hooks/useWindowSize";
 
 // NEED TO CLEANUP 
@@ -13,6 +12,9 @@ import useWindowSize from "../../hooks/useWindowSize";
 function SearchAll() {
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
+  const [redirecting, setRedirecting] = useState(false)
+  const [param, setParam] = useState()
+  const [paramIsCard, setParamIsCard] = useState(false)
 
   const history = useHistory();
 
@@ -29,7 +31,6 @@ function SearchAll() {
       .then((resp) => {
           console.log(resp.data)
         const res = resp.data;
-        // if(res.every((product) => product.images[0].url ))
 
 
         const options = res.map((i) => ({
@@ -37,7 +38,8 @@ function SearchAll() {
             img: i.image_uris ? i.image_uris.small : i.images ? i.images[0].url : '' ,
             productCategory: (i.productCategory? i.productCategory : i.set_name),
             stock: i.stock,
-            price: (i.price ? `$${i.price}` : `${i.prices.usd}`)
+            price: (i.price ? `$${i.price}` : `${i.prices.usd}`),
+            set_name: i.set_name? i.set_name : null
           }));
 
         setResults(options);
@@ -49,47 +51,28 @@ function SearchAll() {
 
 
   const handleClickSearch = async (q) => {
-    
+
+    if (q[0].set_name){
+      setParamIsCard(true)
+    }
 
     const searchName = (q[0] ? q[0].productName :'')
-    console.log(searchName)
+    console.log(q[0])
 
-    const body = {
-        productName: searchName,
-    };
-
-    if (searchName.length !== 0) {
-    await axiosClient({
-      method: "get",
-      url: `/products/productsAndMtgCards?productName=${searchName}`,
-      data:body,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-
-        if (response.data[0].set_name){
-            let data = JSON.stringify(response);
-
-            history.push("/cards/", { query: data });
-            setSubmitted(true);
-
-        }else{
-
-            let data = JSON.stringify(response);
-
-            history.push("/products/", { query: data });
-            setSubmitted(true);
-
-        }
-
-      })
-}
+    setParam(searchName)
+    setRedirecting(true)
 
   }
 
+
   const size = useWindowSize();
+
+
+  if(redirecting && paramIsCard){
+    return (<Redirect to={`/cards/${param}`} />) 
+}else if (redirecting){
+  return (<Redirect to={`/products/${param}`} />) 
+}
 
   return (
     <Fragment>

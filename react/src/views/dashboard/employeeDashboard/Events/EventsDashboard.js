@@ -4,11 +4,16 @@ import axiosClient from '../../../../utils/axios'
 import { AuthContext } from '../../../../context/AuthContext'
 import ModalAlert from '../../../../components/ModalAlert'
 import useInputState from '../../../../hooks/useInputState'
+import DeleteEvent from './DeleteEvent'
+import useToggle from '../../../../hooks/useToggleState'
 
 
 
 export default function EventsDashboard() {
 
+
+    const [showDelete, toggleShowDelete] = useToggle()
+    
     const [message, setMessage] = useState('')
     const [messageCount, setMessageCount] = useState(0)
     const [header, setHeader] = useState('Success')
@@ -114,7 +119,7 @@ export default function EventsDashboard() {
       <th>Date</th>
       <th># of Participants</th>
       <th>Players</th>
-      <th>Details</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -122,7 +127,7 @@ export default function EventsDashboard() {
   {eventsOnLoad.map((event) => (
 
     <tr>
-      <td>{event._id}</td>
+      <td> <Nav.Link href={`/event/${event._id}`}> {event._id} </Nav.Link> </td>
       <td>{event.name}</td>
       <td>{event.dateAndTime}</td>
       <td>{event.entrants? event.entrants.length : null}</td>
@@ -140,7 +145,10 @@ export default function EventsDashboard() {
 </DropdownButton>
 
 </td>
-<td><Nav.Link href={`/event/${event._id}`}> Details </Nav.Link></td>
+<td> <DeleteEvent id={event._id} /> </td>
+
+
+
     </tr>
   ))}
 

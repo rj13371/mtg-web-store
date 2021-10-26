@@ -78,3 +78,33 @@ module.exports.createDecklist = async (req, res) => {
     }
 
     };
+
+    module.exports.editDecklist = async (req,res, next)=>{
+      const {id} = req.params || req.body.id;
+  
+      console.log(req.body)
+  
+      try{
+      const editedDecklist = await Decklist.findByIdAndUpdate(id, {record: req.body.record, cardList: req.body.cardList, deckName: req.body.deckName})
+  
+      await editedDecklist.save();
+  
+      res.json({ message:editedDecklist })
+  }catch(e){
+      res.json({ message: e })
+  }
+  }
+
+  module.exports.deleteDecklist = async (req,res, next)=>{
+    const {id} = req.params || req.body.id;
+
+    console.log(req.body)
+
+    try{
+    const editedDecklist = await Decklist.findByIdAndDelete(id)
+
+    res.json({ message:'successfully deleted' })
+}catch(e){
+    res.json({ message: e })
+}
+}

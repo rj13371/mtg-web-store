@@ -1,20 +1,24 @@
 import React,{useContext} from "react";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
-import { Container, Row, Col, Button, Table } from "react-bootstrap";
+import { Container, Row, Col, Button, Table, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useWindowSize from "../../hooks/useWindowSize";
 import { Image } from "react-bootstrap";
 import CheckoutOrder from "../../views/dashboard/userDashboard/Orders/CheckoutOrder";
+import { AuthContext } from "../../context/AuthContext";
+import { Fragment } from "react";
 
 export default function Checkout() {
 
-  
+  const {authState} = useContext(AuthContext)
 
     const {cart, addToCart, clearCart, removeItem, total} = useContext(ShoppingCartContext)
     const size = useWindowSize();
 
     return (
         <Container >
+          {authState.email? 
+          <Fragment>
 
     <Table fluid='xl' variant="dark" striped bordered hover size="sm" style={ size.width>500? {fontSize:'medium'}: {fontSize:'small'} }>
   <thead>
@@ -51,6 +55,13 @@ export default function Checkout() {
   </tbody>
 </Table>
 <CheckoutOrder/>
+</Fragment>
+:
+
+<Alert variant='danger'>
+                  <Alert.Link href="/login">  Please Login or Register to Checkout your Order</Alert.Link>
+                 
+              </Alert>}
 
     </Container>
     )

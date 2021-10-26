@@ -11,7 +11,6 @@ export default function EventDisplay() {
     const { id } = useParams();
 
     const [ eventsOnLoad, setEventsOnLoad ] = useState({
-
     })
 
 
