@@ -19,6 +19,7 @@ app.use(
       origin: "https://mtgwebstore.herokuapp.com",
       methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
       credentials: true,
+      exposedHeaders:['set-cookie']
     })
   );
 app.use(cookieParser());
