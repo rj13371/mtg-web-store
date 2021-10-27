@@ -25,7 +25,7 @@ export default function Logout() {
 
         const logout = async () => {
             await axios({
-                method: "get",
+                method: "post",
                 url: 'users/logout',
                 withCredentials:true,
                 exposedHeaders: ["set-cookie"]
@@ -34,7 +34,7 @@ export default function Logout() {
         logout().then(
             setTimeout(() => {
                 history.push('/')
-              }, 500)
+              }, 1000)
         )
 
     }, [])
