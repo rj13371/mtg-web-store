@@ -9,6 +9,8 @@ const catchAsync = func => {
 }
 
 router.post('/createDecklist', catchAsync(Decklist.createDecklist)) // approve an order (Employees Authorization)
+router.put('/editRecord/:id', catchAsync(Decklist.editRecord))
+router.put('/editPlace/:id', catchAsync(Decklist.editPlace))
 
 router.route('/:id')
 .get(catchAsync (Decklist.getDecklist))

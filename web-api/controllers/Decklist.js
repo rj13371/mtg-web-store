@@ -108,3 +108,36 @@ module.exports.createDecklist = async (req, res) => {
     res.json({ message: e })
 }
 }
+
+module.exports.editRecord = async (req,res, next)=>{
+  const {id} = req.params || req.body.id;
+  const { record } = req.body
+
+  console.log(req.body)
+
+  try{
+  const editedDecklist = await Decklist.findByIdAndUpdate(id, {record: record})
+
+  await editedDecklist.save();
+
+  res.send(editedDecklist)
+}catch(e){
+  res.json({ message: e })
+}
+}
+
+module.exports.editPlace = async (req,res, next)=>{
+  const {id} = req.params || req.body.id;
+
+  console.log(req.body.place)
+
+  try{
+  const editedDecklist = await Decklist.findByIdAndUpdate(id, {place: req.body.place})
+
+  await editedDecklist.save();
+
+  res.send(editedDecklist)
+}catch(e){
+  res.json({ message: e })
+}
+}

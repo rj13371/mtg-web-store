@@ -45,7 +45,7 @@ module.exports.getAllEvents = async (req, res) => {
       const { id } = req.params
 
       try {
-        const event = await Event.findById(id).populate('entrants').populate('decklists')
+        const event = await Event.findById(id).populate('entrants').populate({path: 'decklists', options: {sort:{"place": "ascending"}}})
         res.send(event)
 
       }catch(e){
@@ -102,3 +102,4 @@ module.exports.getAllEvents = async (req, res) => {
     res.json({ message: e })
 }
 }
+

@@ -1,11 +1,17 @@
-import React,{useEffect, useState, Fragment} from 'react'
+import React,{useEffect, useState, Fragment, useContext} from 'react'
 import { useParams } from 'react-router';
 import { Table, Container, Nav, Card } from 'react-bootstrap';
 import axiosClient from '../../utils/axios';
 import useWindowSize from '../../hooks/useWindowSize';
+import EditRecord from './EditRecord';
+import { AuthContext } from '../../context/AuthContext';
+import EditPlace from './EditPlace';
 
 
 export default function EventDisplay() {
+
+  const {authState} = useContext(AuthContext)
+
   const size = useWindowSize()
 
     const { id } = useParams();
@@ -60,10 +66,10 @@ export default function EventDisplay() {
 
     <tr>
       <td>{player.username}</td>
-      <td>{eventsOnLoad.decklists? eventsOnLoad.decklists[index].record : ''}</td>
+      <td>{eventsOnLoad.decklists? eventsOnLoad.decklists[index].record  : ''} {eventsOnLoad.decklists && authState.authorization_level=='1' ? <EditRecord id={eventsOnLoad.decklists[index]._id}/> : ''}  </td>
       <td>{eventsOnLoad.decklists? eventsOnLoad.decklists[index].deckName : 'no name entered'}</td>
 <td><Nav.Link href={`/decklist/${eventsOnLoad.decklists[index]._id}`}> Details </Nav.Link></td>
-<td>{index + 1}</td>
+<td>{eventsOnLoad.decklists? eventsOnLoad.decklists[index].place  : ''}{eventsOnLoad.decklists && authState.authorization_level=='1' ? <EditPlace id={eventsOnLoad.decklists[index]._id}/> : ''} </td>
 
     </tr>
   ))}

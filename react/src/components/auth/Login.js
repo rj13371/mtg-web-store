@@ -99,16 +99,3 @@ export default function Login() {
     )
 }
 
-// <Form onSubmit={(e)=>handleSubmit(e)}>
-// <Form.Label> Decklist</Form.Label>
-// <Form.Control
-// as="textarea"
-// placeholder="Enter decklist here"
-// className='w-100'
-// style={{ height: '600px'}}
-// onChange={handleDecklistChange}
-// value={decklist}
-// />
-// <Button type="submit"> Login </Button>
-
-// </Form>
