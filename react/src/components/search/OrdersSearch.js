@@ -1,59 +1,47 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import axios from "axios";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import React, { useState, Fragment } from "react";
+import { Container, Row, Col, Button, Form, Card, Table,Dropdown, DropdownButton  } from "react-bootstrap";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useInputState from "../../hooks/useInputState";
+import axiosClient from "../../utils/axios";
+import ApproveOrder from "../../views/dashboard/employeeDashboard/Orders/ApproveOrder";
 
-export default function OrdersSearch(props) {
-  const [submitted, setSubmitted] = useState(false);
+export default function OrdersSearch() {
   const [query, setQuery] = useInputState();
   const [paramType, setParamType] = useInputState('');
+  const [userOrders, setUserOrders] = useState([]);
 
-  console.log(paramType)
+  const getOrders = async (e) => {
+    e.preventDefault()
+    const body = {
+      paramType: paramType,
+      query: query,
+    };
 
-  const history = useHistory();
+    await axiosClient({
+      method: "post",
+      url: "/orders/showorders/",
+      data: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
 
-  // MUST BE ASYNC WHEN UNCOMMENT AXIOS CODE
+      console.log(response.data)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+       setUserOrders([...response.data]);
 
-    console.log(query, paramType);
-    //     if (searchName.length !== 0) {
-    //     await axios({
-    //       method: "get",
-    //       url: `/orders/orderCustomerUsername?name=${searchName}`,
-    //       data:body,
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     })
-    //       .then((response) => {
-    //         return JSON.stringify(response);
-    //       })
-    //       .then((data)=>{
-    //           console.log(data)
-    //       })
-
-    //     //   .then((data) => {
-    //     //     history.push("/orders/", { query: data });
-    //     //     setSubmitted(true);
-    //     //   })}
-
-    //     // if (submitted) {
-    //     //   return <Redirect to="/orders/" />;
-    //     // }
-    //   }
+     
+    });
   };
 
   return (
+    <Fragment>
     <Container fluid>
       <Row className="justify-content-center">
         
           <Col className="mt-3 mb-3" xs={9} md={6}>
-          <Form onSubmit={(e) => handleSubmit(e)}>
+          <Form onSubmit={(e) => getOrders(e)}>
             <Form.Control
               as="textarea"
               placeholder="enter customer name"
@@ -63,6 +51,7 @@ export default function OrdersSearch(props) {
 
 <Form.Select onChange={setParamType} aria-label="Default select example">
 <option>Search by Type</option>
+  <option value={'orderId'}> By order Id </option>
     <option value={'userName'}> By user name </option>
     <option value={'date'}> By date </option>
     <option value={'cost'}> By total cost </option>
@@ -74,13 +63,75 @@ export default function OrdersSearch(props) {
           </Col>
 
           <Col className="mt-3 mb-3" xs={1} md={1}>
-          <Button onClick={(e) => { handleSubmit(e) }}>
+          <Button onClick={(e) => { getOrders(e) }}>
               <FontAwesomeIcon icon="search" size="1x" />
             </Button>
           </Col>
 
         
       </Row>
+
+
     </Container>
+
+    <Container>
+
+    <Table striped bordered hover variant="dark">
+  <thead>
+    <tr>
+      <th>Order ID and Username</th>
+      <th>Date</th>
+      <th>Total Cost</th>
+      <th>Status</th>
+      <th>Approve</th>
+      <th>Products Ordered</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {userOrders.map((order) => (
+
+    <tr>
+      <td>{order._id} {'/'} {order.customer.username} </td>
+      <td>{order.updatedAt}</td>
+      <td>{order.total}</td>
+      <td>{ !order.isApproved ? 'Waiting for approval' : null } { order.isApproved && !order.isComplete ? 'Approved! Waiting for Cust pickup' : null }
+                  { order.isApproved && order.isComplete ? 'Order Completed' : null }</td>
+      <td><ApproveOrder orderId={order._id} /></td>
+      <td>
+        
+        <DropdownButton id="dropdown-basic-button" variant='secondary' title="Products Ordered">
+
+        {order.products.map((product) => (
+
+  <Dropdown.Item>                      {product.quantity}{" "}
+                      {product.productName
+                        ? product.productName
+                        : product.name}{" "}
+                
+                      {product.mtgo_id
+                        ? product.set_name
+                        : product.productCategory }{" $"}
+                        {product.mtgo_id
+                        ? product.prices.usd
+                        : product.price }{""}</Dropdown.Item>
+        ))}
+
+
+
+</DropdownButton>
+
+</td>
+    </tr>
+  ))}
+
+
+  </tbody>
+</Table>
+
+
+
+    </Container>
+    </Fragment>
   );
 }

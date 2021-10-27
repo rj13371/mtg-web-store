@@ -1,36 +1,91 @@
-import React from 'react'
-import { Container, Col, Row, Card, Button } from 'react-bootstrap'
+import React,{useState, useContext, useEffect} from 'react'
+import { Container,Row,Col, Table, Dropdown, DropdownButton, Nav } from 'react-bootstrap'
+import axiosClient from '../../../../utils/axios'
+import ModalAlert from '../../../../components/ModalAlert'
+import useWindowSize from '../../../../hooks/useWindowSize'
+import moment from 'moment'
+
 
 export default function EventsDashboard() {
+  const size = useWindowSize()
 
-    const sampleEvents = [
-        {eventName:'MTG PTQ Standard', eventId:'1', eventDate:'10/10/2021' },
-        {eventName:'MTG PTQ Modern', eventId:'2', eventDate:'10/20/2021' },
-        {eventName:'MTG PTQ Limited', eventId:'3', eventDate:'10/27/2021' }
-    ]
+    const [message, setMessage] = useState('')
+    const [messageCount, setMessageCount] = useState(0)
+    const [header, setHeader] = useState('Success')
+
+    const [eventsOnLoad, setEventsOnLoad] = useState([])
+
+    console.log(moment(Date.now()))
+
+
+    useEffect(async () => {
+       axiosClient({
+          method: "get",
+          url: "/event/getAllEvents/",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+
+          setEventsOnLoad(response.data)
+    
+    
+        });
+
+  }, [])
 
     return (
-        <div>
-            
-            <Container>
 
-{sampleEvents.length === 0 ? 'no results': null}
+<Container className="d-flex justify-content-center" >
+<ModalAlert header={header} message={message} messageCount={messageCount}/>
 
-    <Row xs={1} md={3} className="g-4">
-  {sampleEvents.map((event) => (
-    <Col>
-      <Card>
-        <Card.Body>
-        <Card.Title tag="h5">{event.eventName}</Card.Title>
-        <Card.Subtitle tag='h3'>{event.eventDate} </Card.Subtitle>
-          <Button href={`/products/${event.eventId}`} variant="primary" size="lg">  Details </Button>
-        </Card.Body>
-      </Card>
-    </Col>
+<Row>
+
+<Col>
+<h1>Recent Events</h1>
+
+<Table style={ size.width>500? {fontSize:'medium'}: {fontSize:'70%' }} striped bordered hover variant="dark">
+
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th># of Participants</th>
+      <th>Players</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {eventsOnLoad.map((event) => (
+
+    <tr>
+      <td >{event.name}</td>
+      <td>{event.dateAndTime}</td>
+      <td>{event.entrants? event.entrants.length : null}</td>
+      <td>
+        
+        <DropdownButton id="dropdown-basic-button" variant='secondary' title="Players">
+
+        {event.entrants.map((player) => (
+
+  <Dropdown.Item>  {player.username}       </Dropdown.Item>
+        ))}
+
+
+
+</DropdownButton>
+
+</td>
+<td><Nav.Link href={`/event/${event._id}`}> Details </Nav.Link></td>
+    </tr>
   ))}
-</Row>
-</Container>
 
-        </div>
+  </tbody>
+</Table>
+</Col>
+</Row>
+
+</Container>
     )
 }

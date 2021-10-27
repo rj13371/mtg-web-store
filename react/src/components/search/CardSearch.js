@@ -1,24 +1,28 @@
 import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import axiosClient from "../../utils/axios";
+import { Container, Row, Col, Button,Dropdown } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useWindowSize from "../../hooks/useWindowSize";
+
 
 function CardSearch(props) {
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState([]);
+  const [redirecting, setRedirecting] = useState(false)
+  const [cardName, setCardName] = useState()
 
   const history = useHistory();
 
   const handleSearch = async (query) => {
     setSubmitted(true);
 
-    await axios({
+    await axiosClient({
       method: "get",
-      url: `/mtgcards/card?name=${query}`,
+      url: `/mtgcards/cardSearch/${query}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,41 +50,26 @@ function CardSearch(props) {
 
 
   const handleClickSearch = async (q) => {
-    
 
-    const searchName = (q[0] ? q[0].name :'')
-    console.log(searchName)
-
-    const body = {
-      name: searchName,
-    };
-
-    if (searchName.length !== 0) {
-    await axios({
-      method: "get",
-      url: `/mtgcards/card?name=${searchName}`,
-      data:body,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return JSON.stringify(response);
-      })
-      .then((data) => {
-        history.push("/cards/", { query: data });
-        setSubmitted(true);
-      })}
-
-    if (submitted) {
-      return <Redirect to="/cards/" />;
-    }
+    setCardName(q[0] ? q[0].name :'')
+   
+      setRedirecting(true)
+  
   }
+  console.log(cardName)
+
+  const size = useWindowSize();
+
+  if(redirecting){
+    return (<Redirect to={`/cards/${cardName}`} />) 
+}
 
   return (
-    <Container fluid="xl">
-      <Row className="justify-content-center">
-      <Col className="mt-3 mb-3" xs={9} md={6}>
+<Fragment>
+  
+
+  
+   <Col className="mt-3 mb-3" style={size.width<500? {width:'300px'}: null} xs={9} md={6}>
       <AsyncTypeahead
         filterBy={filterBy}
         id="async-example"
@@ -95,6 +84,8 @@ function CardSearch(props) {
         placeholder="Search for Magic Cards"
         renderMenuItemChildren={(option, props) => (
           <Fragment>
+
+          
             <img
               alt={option.name}
               src={option.img}
@@ -104,7 +95,13 @@ function CardSearch(props) {
                 width: "75px",
               }}
             />
-            <span>{option.name}/{option.set_name}/{option.price}/Stock:{option.stock} </span>
+
+            {size.width<500? <span style={{fontSize:'0.9em'
+              }}>{option.name} {option.price} Stk:{option.stock} </span> 
+              
+              
+              : <span>{option.name}/{option.set_name}/{option.price}/Stock:{option.stock} </span>}
+            
           </Fragment>
 
         )}
@@ -112,15 +109,20 @@ function CardSearch(props) {
 
       </Col>
 
+      {size.width>500? 
+
       <Col className="mt-3 mb-3" xs={1} md={1}>
+
+              
+
       <Button onClick={() => { handleClickSearch(results) }}>
 
-      <FontAwesomeIcon icon='search' size="1x" />
+        
+      Search
 
       </Button>
-      </Col>
-    </Row>
-    </Container>
+      </Col> : null} 
+      </Fragment>
   );
 }
 

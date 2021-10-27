@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, Fragment, useContext } from "react";
 // import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
 // import { Redirect } from "react-router-dom";
 import { Form, Input, Button,Row,Col, } from "react-bootstrap";
 
 import axiosClient from "../../../../utils/axios";
+import ModalAlert from "../../../../components/ModalAlert";
 
 import CloudinaryWidget from "../CloudinaryWidget";
 
+import { AuthContext } from "../../../../context/AuthContext";
+
 const AddProduct = () => {
+
+  const [message, setMessage] = useState('')
+  const [messageCount, setMessageCount] = useState(0)
+  const [header, setHeader] = useState('Success')
 
   const [formData, setFormData] = useState({
     productName: "",
@@ -50,6 +57,8 @@ const AddProduct = () => {
       onSale: onSale,
       images: images
     };
+
+    try{
      
 
     await axiosClient({
@@ -60,23 +69,43 @@ const AddProduct = () => {
         "Content-Type": "application/json",
       },
     }).then(response => {
-        console.log(response)
+      console.log(response)
+
+      if(response.data.message.errors){
+        setHeader('Error')
+        setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
+      }
+
+      else{
+        setHeader('Success')
+        setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
+      }
+
          })
-        // .then(data =>{
-        //   history.push("/", { query: data });
-        //   setSubmitted(true);
-        // })
+        }catch(e){
+          console.log(e)
+        }
 
-        // if (submitted) {
-        //     return <Redirect to='/' /> 
-        //   }
+  }
 
 
-  };
+
+
+  const { authState } = useContext(AuthContext)
+
+
+
+    if(authState.authorization_level=='0' || !authState.authorization_level ){
+      return <Fragment>Unauthorized</Fragment>
+    }
+
 
   return (
 
     <div>
+      <ModalAlert header={header} message={message} messageCount={messageCount}/>
     <Form onSubmit={onSubmit}>
     <Row form>
       <Col md={6}>

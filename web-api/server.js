@@ -4,6 +4,8 @@ const exp = require('express');
 const bp = require('body-parser');
 const { success, error } = require('consola')
 const { connect } = require('mongoose');
+const cookieParser = require("cookie-parser");
+const jwt = require('express-jwt')
 
 // Bring in the app constants
 const { DB, PORT } = require('./config')
@@ -12,11 +14,21 @@ const { DB, PORT } = require('./config')
 const app = exp();
 
 // Middlewares
-app.use(cors());
+app.use(
+    cors({
+        origin: "https://mtgwebstore.herokuapp.com",
+      methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", 'DELETE'],
+      credentials: true,
+      exposedHeaders:['set-cookie']
+    })
+  );
+app.use(cookieParser());
 app.use(bp.json());
 app.use(bp.urlencoded(
     {extended:true}
 ));
+
+
 
 const startApp = async () => {
     try {
@@ -44,9 +56,21 @@ const startApp = async () => {
 const mtgCardsRoute = require('./routes/MtgCards');
 const productsRoute = require('./routes/Products');
 const usersRoute = require('./routes/Users');
+const authRoute = require('./routes/Auth');
+const orderRoute = require('./routes/Orders')
+const landingRoute = require('./routes/Landing')
+const decklistRoute = require('./routes/Decklist')
+const eventRoute = require('./routes/Event')
 
 startApp();
+
+
 
 app.use ('/mtgcards', mtgCardsRoute);
 app.use ('/products', productsRoute);
 app.use ('/users', usersRoute);
+app.use ('/auth', authRoute);
+app.use ('/orders', orderRoute);
+app.use ('/landingAssets', landingRoute);
+app.use ('/decklist', decklistRoute);
+app.use ('/event', eventRoute);

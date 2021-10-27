@@ -10,16 +10,16 @@ const catchAsync = func => {
         func(req,res,next).catch(e => next(e))
     }
    }
-router.get('/product', catchAsync(Products.searchProductsByName)) //SEARCH
+
+router.get('/productsAndMtgCards', catchAsync(Products.searchAllMtgCardsAndProducts))  
+router.get('/productName/:productName', catchAsync(Products.searchProductsByName)) //SEARCH
 router.post('/addproduct', catchAsync (Products.postProduct)) //ADD CARD
 
 
 router.route('/:id')
 .get(catchAsync (Products.getProductsById))
 
-router.route('/catagory/:catagoryName')
-.get(catchAsync (Products.getProductsByCatagoryName))
-
+router.get('/catagory/:catagoryName', catchAsync (Products.getProductsByCatagoryName))
 
 router.put('/:productId', catchAsync (Products.editProduct)) //ADD CARD
 router.delete('/:productId',catchAsync (Products.deleteProduct))// 

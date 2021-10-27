@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react'
+import React, {createContext, useEffect, useState, useRef} from 'react'
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 export const ShoppingCartContext = createContext();
@@ -8,6 +8,7 @@ export function ShoppingCartProvider(props) {
     const [cart, setCart] = useLocalStorageState("item", [])
 
     const [total, setTotal] = useState(0)
+
 
 
     useEffect(()=>{
@@ -43,6 +44,8 @@ export function ShoppingCartProvider(props) {
 
         setCart(newCart)
     }
+
+
 
     return (
         <ShoppingCartContext.Provider value={{cart, addToCart, clearCart, removeItem, total}}>

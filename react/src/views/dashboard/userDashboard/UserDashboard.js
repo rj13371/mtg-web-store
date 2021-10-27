@@ -1,18 +1,53 @@
-import React from 'react'
+import React, {Fragment, useContext} from 'react'
 import DecklistsDashboard from './Decklists/DecklistsDashboard'
-//ADD ROUTES FOR EVENTS, ORDERS, AND DECKLISTS
+import OrdersDashboard from './Orders/OrdersDashboard'
+import { Alert, Container, Tab, Tabs } from 'react-bootstrap'
+import { AuthContext } from '../../../context/AuthContext'
+import EventsDashboard from './Events/EventsDashboard'
+
 
 export default function UserDashboard() {
+
+    const { authState } = useContext(AuthContext)
+
     return (
-        <div>
-            <DecklistsDashboard/>
-        </div>
+        <Fragment> 
+            <Container style={{color:'white'}} >
+
+{authState.email?
+                <Fragment> 
+
+<Tabs defaultActiveKey="orders" id="uncontrolled-tab-example" className="mb-3">
+  <Tab eventKey="orders" title="Orders">
+  <OrdersDashboard/>
+  </Tab>
+  <Tab eventKey="events" title="Events">
+  <EventsDashboard/>
+  </Tab>
+  <Tab eventKey="decklists" title="Decklists">
+  <DecklistsDashboard/>
+  </Tab>
+</Tabs>
+
+
+
+
+                </Fragment> 
+                : 
+
+                <Alert variant='danger'>
+                  <Alert.Link href="/login">  Please Login or Register to see your Dashboard</Alert.Link>
+                 
+              </Alert>
+                
+
+
+
+                }
+</Container>
+        </Fragment>
+            
+
     )
 }
 
-// CREATE DECKLIST
-// PARAMS ARE DECKLIST, DATE CREATED, CHOSE FROM EVENT ENUM LIST GRABBED FROM DB, USER ID, 
-//SUBMIT DECKLIST
-
-// VIEW PREVIOS ORDERS, ORDERS HAVE PRODUCTS, DATE SUBMITTED, TOTAL COST
-//

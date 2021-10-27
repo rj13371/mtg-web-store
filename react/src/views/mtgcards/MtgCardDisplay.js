@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import EditMtgCard from "./EditMtgCard";
-import axios from "axios";
+import axiosClient from "../../utils/axios";
 import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
+import { AuthContext } from "../../context/AuthContext";
 
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
@@ -22,20 +23,30 @@ export default function MtgCardDisplay(props) {
     _id: "",
   });
 
+  const {authState} = useContext(AuthContext)
+
 
   const location = useLocation();
-  const { id } = useParams();
+  const { id, card_name } = useParams();
 
   useEffect(() => {
     const grabCard = async () => {
+
+      const param = id || card_name
+
+      const url = id? '/mtgcards/' : '/mtgcards/card_name/'
+
+      console.log(param, url)
+
       if (!location.state) {
-        await axios({
+        await axiosClient({
           method: "get",
-          url: `/mtgcards/${id}`,
+          url: `${url}${param}`,
           headers: {
             "Content-Type": "application/json",
           },
         }).then((response) => {
+          console.log(response.data)
           setCard({ ...response.data });
         });
       } else {
@@ -52,10 +63,10 @@ export default function MtgCardDisplay(props) {
           <Col lg>
       <Card style={{ width: '18rem' }}>
         <Card.Img
-          src={`${card.image_uris.normal}`}
+          src={`${card.image_uris ? card.image_uris.normal: ''}`}
           alt="card image"
         />
-         <ShoppingCart product={card}/>
+         <ShoppingCart stock={card.stock} product={card}/>
       </Card>
       </Col>
 
@@ -69,9 +80,9 @@ export default function MtgCardDisplay(props) {
           <Card.Text>{card.oracle_text}</Card.Text>
           <Card.Text>{card.power? `${card.power} /` :''} {card.toughness? card.toughness:''} </Card.Text>
           <Card.Text>{card.stock}</Card.Text>
-          <Card.Text>{card.set_name} </Card.Text>
+          <Card.Text> {card.set_name} </Card.Text>
 
-          <Card.Text tag='h3'>{card.prices ? card.prices.usd : ""}</Card.Text>
+          <Card.Text tag='h3'>${card.price ? card.price : card.prices.usd}</Card.Text>
           <Card.Text tag='h3'>{card.stock ? card.stock : ""}</Card.Text>
 
           </Card.Body>
@@ -81,8 +92,7 @@ export default function MtgCardDisplay(props) {
       </Row>
       </Container>
 
-
-      {location.state && <EditMtgCard id={card._id} />}
+      {authState.authorization_level==="1" && <EditMtgCard id={card._id} />}
     </div>
   );
 }

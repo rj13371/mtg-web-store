@@ -1,12 +1,21 @@
-import React,{useState,Fragment} from 'react'
+import React,{useState,Fragment,useContext} from 'react'
 import axiosClient from '../../utils/axios';
+import { AuthContext } from "../../context/AuthContext";
+import ModalAlert from '../../components/ModalAlert';
 
 export default function EditMtgCard(props) {
+  const [message, setMessage] = useState('')
+  const [messageCount, setMessageCount] = useState(0)
+  const [header, setHeader] = useState('Success')
+
+  const {authState} = useContext(AuthContext)
 
   const [formData, setFormData] = useState({
     stock: "",
     price: ""
   })
+
+  console.log(formData)
 
   const {
     stock,
@@ -22,7 +31,8 @@ export default function EditMtgCard(props) {
 
     const body = {
       stock: stock,
-      price: price
+      price: price,
+      id: props.id || ''
     };
 
     await axiosClient({
@@ -33,16 +43,31 @@ export default function EditMtgCard(props) {
         "Content-Type": "application/json",
       },
     }).then(response => {
-        console.log(response)
+      if(response.data.message.errors){
+        setHeader('Error')
+        setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
+      }
+
+      else{
+        setHeader('Success')
+        setMessage(JSON.stringify (response.data.message))
+        setMessageCount(messageCount+1)
+      }
          })
 
   };
+
+  if(authState.authorization_level=='0' || !authState.authorization_level ){
+    return <Fragment></Fragment>
+  }
 
 
     return (
  
             
             <Fragment>
+              <ModalAlert header={header} message={message} messageCount={messageCount} />
       <form onSubmit={onSubmit}>
         <div>
           <input
@@ -60,7 +85,7 @@ export default function EditMtgCard(props) {
             onChange={onChange}
           />
         </div>
-        <input type="submit" value="EditMtgCard" />
+         <input type="submit" value="EditMtgCard" /> 
       </form>
     </Fragment>
 
