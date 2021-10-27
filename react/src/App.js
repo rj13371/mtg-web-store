@@ -131,9 +131,6 @@ function App() {
   <Route exact path='/' component={Landing}/>
    {/* <Route exact path='/cards/' render={(props) => (<Mtgcardsindex  {...props}/>)}/> */}
 
-  
-
-   
 
    <Route exact path='/events/' component={EventsIndex}/>
    <Route exact path='/dashboard/' component={UserDashboard}/>
