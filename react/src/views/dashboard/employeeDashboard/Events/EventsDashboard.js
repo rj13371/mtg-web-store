@@ -6,7 +6,9 @@ import ModalAlert from '../../../../components/ModalAlert'
 import useInputState from '../../../../hooks/useInputState'
 import DeleteEvent from './DeleteEvent'
 import useToggle from '../../../../hooks/useToggleState'
-
+import ToggleComplete from './ToggleComplete'
+import moment from 'moment'
+import useStateWithValidation from '../../../../hooks/useStateWithValidation'
 
 
 export default function EventsDashboard() {
@@ -21,16 +23,30 @@ export default function EventsDashboard() {
     const {authState} = useContext(AuthContext)
     const [eventsOnLoad, setEventsOnLoad] = useState([])
 
+    const validDate = (date) =>{
+      return moment(date).isValid()
+    }
+
     const [name, handleNameChange] = useInputState('')
     const [description, handleDescriptionChange] = useInputState('')
-    const [dateAndTime, handleDateAndTimeChange] = useInputState('')
+    const [dateAndTime, handleDateAndTimeChange, isValidDate] = useStateWithValidation(
+      date => validDate(date) ,
+      ""
+    )
 
-    console.log(dateAndTime)
 
 
 
   const submitNewEvent = async (e) =>{
     e.preventDefault()
+
+    if (!isValidDate){
+      setHeader(`Invalid Date!`)
+      setMessage('Please Format Date Like in the Example!!')
+      setMessageCount(messageCount+1)
+      return 
+    }
+
     const body = {
       name: name,
       description: description,
@@ -99,8 +115,8 @@ export default function EventsDashboard() {
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Event Time and Date</Form.Label>
-    <Form.Label>Example: 24/12/2019 09:15:00</Form.Label>
-    <Form.Control onChange={handleDateAndTimeChange} value={dateAndTime} type="text" placeholder="24/12/2019 09:15:00" />
+    <Form.Label>Example: 2019-12-25 09:30 </Form.Label>
+    <Form.Control onChange={e =>  handleDateAndTimeChange(e.target.value)} value={dateAndTime} type="text" placeholder="24/12/2019 09:15:00" />
   </Form.Group>
 
   <Button variant="primary" type="submit">
@@ -145,7 +161,7 @@ export default function EventsDashboard() {
 </DropdownButton>
 
 </td>
-<td> <DeleteEvent id={event._id} /> </td>
+<td> <DeleteEvent id={event._id} /> <ToggleComplete id={event._id}/> </td>
 
 
 

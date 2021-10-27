@@ -26,12 +26,12 @@ export default function PasswordReset() {
     ""
   )
 
-  const [loginFormPassword2, handleLoginFormPassword2, isValidPw2] = useStateWithValidation(
+  const [loginFormPassword2, handleLoginFormPassword2] = useStateWithValidation(
     name => name.match(passw),
     ""
   )
 
-
+  console.log(loginFormPassword)
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
@@ -39,12 +39,14 @@ export default function PasswordReset() {
     if (!isValidPw1){
       setHeader('Password Reset Failed')
       setMessage('passwords must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter')
+      setMessageCount(messageCount+1)
       return 1
     }
 
     if(loginFormPassword!=loginFormPassword2){
       setHeader('Password Reset Failed')
       setMessage('Passwords must match')
+      setMessageCount(messageCount+1)
       return 1
     }
 
@@ -95,14 +97,14 @@ export default function PasswordReset() {
           <ModalAlert header={header} message={message} messageCount={messageCount}/>
 <Form onSubmit={handleSubmit}>
 
-  <Form.Group className="mb-3" controlId="formBasicPassword">
+<Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
-    <Form.Control onChange={handleLoginFormPassword} value={loginFormPassword} type="password" placeholder="Password" />
+    <Form.Control onChange={e => handleLoginFormPassword(e.target.value)} value={loginFormPassword} type="password" placeholder="Password" />
   </Form.Group>
 
-  <Form.Group className="mb-3" controlId="formBasicPassword">
+  <Form.Group className="mb-3" controlId="formPasswordConfirm">
     <Form.Label>Confirm Password</Form.Label>
-    <Form.Control onChange={handleLoginFormPassword2} value={loginFormPassword2} type="password" placeholder="Password" />
+    <Form.Control onChange={e => handleLoginFormPassword2(e.target.value)}  value={loginFormPassword2} type="password" placeholder="Password" />
   </Form.Group>
 
   <Button variant="primary" type="submit">

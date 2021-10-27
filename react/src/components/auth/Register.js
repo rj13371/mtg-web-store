@@ -27,7 +27,7 @@ export default function Register() {
     ""
   )
 
-  const [loginFormPassword2, handleLoginFormPassword2, isValidPw2] = useStateWithValidation(
+  const [loginFormPassword2, handleLoginFormPassword2] = useStateWithValidation(
     name => name.match(passw),
     ""
   )
@@ -36,8 +36,11 @@ export default function Register() {
   const [loginFormEmail, handleLoginFormEmail] = useInputState('')
   const [submitted, setSubmitted] = useState(false)
 
+  console.log(loginFormPassword)
+
   const handleSubmit = async (e) =>{
     e.preventDefault()
+
 
 
     if (!isValidCaptcha){
@@ -66,7 +69,7 @@ export default function Register() {
       password: loginFormPassword,
       email: loginFormEmail
     }
-    console.log(body)
+
 
     const login = await axiosClient({
       method: "post",
@@ -146,7 +149,7 @@ export default function Register() {
     <Form.Control onChange={e => handleLoginFormPassword(e.target.value)} value={loginFormPassword} type="password" placeholder="Password" />
   </Form.Group>
 
-  <Form.Group className="mb-3" controlId="formBasicPassword">
+  <Form.Group className="mb-3" controlId="formBasicPasswordConfirm">
     <Form.Label>Confirm Password</Form.Label>
     <Form.Control onChange={e => handleLoginFormPassword2(e.target.value)}  value={loginFormPassword2} type="password" placeholder="Password" />
   </Form.Group>

@@ -190,5 +190,5 @@ module.exports.resetPassword = async (req,res) => {
         user.username,
     );
     await passwordResetToken.deleteOne();
-    return true;
+    return res.status(200).json({message:'successfully reset!'});;
   };

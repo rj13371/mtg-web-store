@@ -79,7 +79,7 @@ export default function OrdersSearch() {
     <Table striped bordered hover variant="dark">
   <thead>
     <tr>
-      <th>Order ID</th>
+      <th>Order ID and Username</th>
       <th>Date</th>
       <th>Total Cost</th>
       <th>Status</th>
@@ -92,7 +92,7 @@ export default function OrdersSearch() {
   {userOrders.map((order) => (
 
     <tr>
-      <td>{order._id}</td>
+      <td>{order._id} {'/'} {order.customer.username} </td>
       <td>{order.updatedAt}</td>
       <td>{order.total}</td>
       <td>{ !order.isApproved ? 'Waiting for approval' : null } { order.isApproved && !order.isComplete ? 'Approved! Waiting for Cust pickup' : null }

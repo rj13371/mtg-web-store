@@ -50,7 +50,6 @@ export default function Mtgcardsindex() {
       
       <Container>
 
-{cards.length === 0 ? 'no results': null}
 
     <Row xs={1} md={3} className="g-4">
   {cards.filter(function (card) {

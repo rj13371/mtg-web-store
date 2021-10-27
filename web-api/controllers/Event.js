@@ -29,10 +29,8 @@ module.exports.getAllEvents = async (req, res) => {
     try {
       const newEvent = new Event({ name, description});
 
-      const date = moment(dateAndTime,'DD/MM/YYYY[-]HH:mm').format('YYYY-MM-DD[-]HH:mm') 
 
-
-      newEvent.dateAndTime = date
+      newEvent.dateAndTime = dateAndTime
 
       await newEvent.save()
   
@@ -86,3 +84,21 @@ module.exports.getAllEvents = async (req, res) => {
       res.json({ message: e })
   }
   }
+
+  module.exports.toggleComplete = async (req,res, next)=>{
+    const {id} = req.params || req.body.id;
+
+    console.log(req.body)
+
+    try{
+    const event = await Event.findById(id);
+
+    event.isFinished = !event.isFinished;
+
+    await event.save()
+
+    res.json({ message:'successfully deleted' })
+}catch(e){
+    res.json({ message: e })
+}
+}

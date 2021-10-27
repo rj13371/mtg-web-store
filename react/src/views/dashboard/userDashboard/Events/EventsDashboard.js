@@ -3,6 +3,7 @@ import { Container,Row,Col, Table, Dropdown, DropdownButton, Nav } from 'react-b
 import axiosClient from '../../../../utils/axios'
 import ModalAlert from '../../../../components/ModalAlert'
 import useWindowSize from '../../../../hooks/useWindowSize'
+import moment from 'moment'
 
 
 export default function EventsDashboard() {
@@ -13,6 +14,8 @@ export default function EventsDashboard() {
     const [header, setHeader] = useState('Success')
 
     const [eventsOnLoad, setEventsOnLoad] = useState([])
+
+    console.log(moment(Date.now()))
 
 
     useEffect(async () => {

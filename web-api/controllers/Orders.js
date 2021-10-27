@@ -87,27 +87,28 @@ module.exports.showOrders = async (req, res) => {
   if (req.body.paramType) {
 
     if (req.body.paramType === 'userName') {
-      const user = await User.findOne({username: req.body.query}).populate('orders')
+      const user = await User.find({username: req.body.query}).populate('orders')
+      console.log(user)
       res.send(user.orders)
       }
     else if (req.body.paramType === 'date'){
-      const orders = await Order.find({updatedAt: req.body.query})
+      const orders = await Order.find({updatedAt: req.body.query}).populate('customer')
       res.send(orders)
       }
       else if (req.body.paramType === 'cost'){
-        const orders = await Order.find({ 'products.total': req.body.query })
+        const orders = await Order.find({ 'products.total': req.body.query }).populate('customer')
         res.send(orders)
         }
         else if (req.body.paramType === 'productName'){
-         const orders = await Order.find({ 'products.productName': req.body.query })
+         const orders = await Order.find({ 'products.productName': req.body.query }).populate('customer')
           res.send(orders)
           }
           else if (req.body.paramType === 'cardName'){
-            const orders = await Order.find({ 'products.name': req.body.query })
+            const orders = await Order.find({ 'products.name': req.body.query }).populate('customer')
             res.send(orders)
                     }
                     else if (req.body.paramType === 'orderId'){
-                      const orders = await Order.findById(req.body.query)
+                      const orders = await Order.findById(req.body.query).populate('customer')
                       res.send([orders])
                               }
 

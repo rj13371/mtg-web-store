@@ -51,7 +51,7 @@ export default function ShoppingCart(props) {
             {props.stock ?  <Button variant="success"  onClick={() => addToCartAndPopUp()  }>
             <FontAwesomeIcon icon='cart-plus' size="lg" />
             </Button> : 
-                        <Button variant="success"  disabled='true' onClick={() => console.log('your not supposed to click this!')  }>
+                        <Button variant="success"  disabled={true} onClick={() => console.log('your not supposed to click this!')  }>
                         <FontAwesomeIcon icon='cart-plus' size="lg" />
                         </Button>
             }

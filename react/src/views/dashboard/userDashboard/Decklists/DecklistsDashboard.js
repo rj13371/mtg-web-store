@@ -58,8 +58,12 @@ export default function DecklistsDashboard(props) {
         if(res[0].name.toLowerCase().includes('mainboard') && res.some(obj => obj.name.toLowerCase() == ' sideboard') ){
           setDecklist(res)
 
+
+
           setHeader('Please confirm before submitting')
-          setMessage(JSON.stringify(res))
+          setMessage( <pre>
+            {JSON.stringify(res, null, 2) }
+          </pre>)
           setMessageCount(messageCount+1)
         }else{
           setHeader('Invalid Decklist')
