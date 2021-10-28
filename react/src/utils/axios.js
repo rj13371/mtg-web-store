@@ -8,8 +8,7 @@ const agent = tunnel.httpsOverHttp({
 });
 
 const axiosClient = axios.create({
-    baseURL: 'http://localhost:5000/', 
-    httpsAgent: agent,
+    baseURL: 'https://mtg-card-store.herokuapp.com/'
 });
 
 export default axiosClient
