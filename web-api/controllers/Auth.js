@@ -22,7 +22,7 @@ module.exports.checkToken = async (req, res, next) => {
 
         if (token.exp < (dateNow/1000)){
 
-            res.clearCookie('token');
+            res.clearCookie('token', {  secure: true, sameSite: 'none' });
 
 
         }
