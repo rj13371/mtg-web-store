@@ -27,6 +27,11 @@ export default function UserDashboard() {
   <Tab eventKey="decklists" title="Decklists">
   <DecklistsDashboard/>
   </Tab>
+
+{ authState.email && authState.authorization_level === '1'?  <Tab eventKey="employee" title="Employee">
+  <a href='https://mtgwebstore.herokuapp.com/employeedashboard'>Employee Dashboard Link </a>
+  </Tab>:null }
+
 </Tabs>
 
 
