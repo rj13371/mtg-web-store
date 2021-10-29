@@ -15,6 +15,12 @@ export default function FooterComponent() {
         </Nav.Item>
 
         <Nav.Item>
+          
+          <Nav.Link> Made with ❤️</Nav.Link>
+  
+          </Nav.Item>
+
+        <Nav.Item>
 
         <Nav.Link ><FontAwesomeIcon icon={['fab', 'cc-paypal']} size="2x" /></Nav.Link>
         

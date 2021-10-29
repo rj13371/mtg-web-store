@@ -16,7 +16,7 @@ const app = exp();
 // Middlewares
 app.use(
     cors({
-      origin: "https://mtgwebstore.herokuapp.com",
+        origin: "https://mtgwebstore.herokuapp.com",
       methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", 'DELETE'],
       credentials: true,
       exposedHeaders:['set-cookie']

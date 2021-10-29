@@ -41,7 +41,7 @@ export default function EventDisplay() {
 
     return (
 
-        <Container fluid='sm'>
+        <Container style={{color:'white'}} fluid='sm'>
 
 <h1>{eventsOnLoad.name}</h1>
 <h1>{eventsOnLoad.dateAndTime}</h1>

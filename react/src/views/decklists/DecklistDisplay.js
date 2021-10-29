@@ -35,7 +35,7 @@ export default function EventDisplay() {
 
     return (
 
-        <Container>
+        <Container style={{color:'white'}}>
 
 <h1>{deckOnLoad.deckName ? deckOnLoad.deckName : 'no decklist name' }</h1>
 <h1>{deckOnLoad.event? deckOnLoad.event.name : 'no event'}</h1>

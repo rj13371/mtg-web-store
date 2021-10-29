@@ -1,44 +1,39 @@
 import React,{useEffect, useContext} from 'react'
-import axios from 'axios';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     BrowserRouter as Router,
     Redirect,
     useHistory
   } from "react-router-dom";
 import axiosClient from '../../utils/axios';
-import { AuthContext } from '../../context/AuthContext'
+import { Button } from 'react-bootstrap';
 
 export default function Logout() {
     const history = useHistory()
 
+    const logout = async () => {
+        await axiosClient({
+            method: "get",
+            url: 'users/logout',
+            withCredentials:true,
+            exposedHeaders: ["set-cookie"]
+          })
 
-    const {setAuthState, authState} = useContext(AuthContext)
+          setTimeout(() => {
+            history.push('/')
+          }, 1000)
+        
 
-    useEffect(() => {
-        setAuthState({
-            _id:'',
-            username:'',
-            email:'',
-            authorization_level:''
-        })
+    }
+    
 
-        const logout = async () => {
-            await axios({
-                method: "get",
-                url: 'users/logout',
-                withCredentials:true,
-                exposedHeaders: ["set-cookie"]
-              })
-        }
-        logout().then(
-            setTimeout(() => {
-                history.push('/')
-              }, 500)
-        )
 
-    }, [])
 
-    return (<></>
+    return (
+    
+    <Button variant="dark" onClick={()=>logout()} >
+    <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
+    </Button>
+
     )
 }

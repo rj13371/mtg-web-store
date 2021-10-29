@@ -126,7 +126,7 @@ export default function EventsDashboard() {
 </Col>
 <Col md={8}>
 
-<Table striped bordered hover variant="dark">
+<Table style={{color:'white'}} striped bordered hover variant="dark">
 <h1>Recent Events</h1>
   <thead>
     <tr>

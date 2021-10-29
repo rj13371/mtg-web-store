@@ -9,7 +9,7 @@ export default function Landing() {
 
     return (
         <Fragment>
-            <LandingCarousel maxWidth={'1500px'} maxHeight={'700px'} carousel={0}/>
+            <LandingCarousel  minWidth={'1300px'} minHeight={'700px'}  maxWidth={'1500px'} maxHeight={'700px'} carousel={0}/>
 
             <Container fluid style={{padding: '10px'}}>
          <Row>
@@ -23,7 +23,7 @@ export default function Landing() {
         </Col>
 
         <Col lg>
-        <LandingCarousel maxWidth={'1000px'} maxHeight={'500px'} carousel={1}/>
+        <LandingCarousel minWidth={'666px'} minHeight={'500px'} maxWidth={'666px'} maxHeight={'500px'} carousel={1}/>
         </Col>
 
   </Row>

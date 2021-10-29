@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext } from "../../context/AuthContext";
 import logo from '../../logo.jpg'
 import Loading from "../Loading";
+import Logout from "../auth/Logout";
 
 
 export default function NavbarComponent() {
@@ -33,9 +34,7 @@ export default function NavbarComponent() {
 
     {loadingAuth? <Navbar.Text> <Loading navbar={true}/> </Navbar.Text>  : null }
 
-    {!loadingAuth && authState.email ? <Nav.Link href="/logout">
-    <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
-    </Nav.Link> : null }
+    {!loadingAuth && authState.email ? <Logout /> : null }
 
     {!loadingAuth && !authState.email ? <Nav.Link href="/login">
     <FontAwesomeIcon icon="user" size="lg" color='green' />
@@ -60,4 +59,3 @@ export default function NavbarComponent() {
 
   );
 }
-
