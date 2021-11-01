@@ -1,12 +1,12 @@
-# MTG Web Store Application
+# MTG Web Store Application Demo
 
-A fully fleshed out e-commerce website for a local hobby store. Uses MongoDB, NodeJS/Express and React. DB has over 30,000 products using scryfall API. Features include user registration/verification via email, admin dashboard including CRUD for all products, events, and decks. Event and deck registration for customers, product creation, image upload and checkout.
+A fully fleshed out e-commerce website for a local hobby store. Uses MongoDB, NodeJS/Express and React. DB has over 30,000 products using scryfall API. Features include user registration/verification via email, admin dashboard including CRUD for all products, events, and decks. Event and deck registration for customers, product creation, image upload and checkout. (still in development)
 
 See here: https://mtgwebstore.herokuapp.com/
 
 <b> Tech used: </b> 
 <ul>
-  <li>React</ol>
+  <li>React</li>
     <li>NodeJS/Express</li>
     <li>MongoDB</li>
     <li>Mongoose</li>
