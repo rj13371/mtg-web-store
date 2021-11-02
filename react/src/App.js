@@ -129,8 +129,6 @@ function App() {
 
 
   <Route exact path='/' component={Landing}/>
-   {/* <Route exact path='/cards/' render={(props) => (<Mtgcardsindex  {...props}/>)}/> */}
-
   
 
    
@@ -144,8 +142,6 @@ function App() {
    <Route exact path='/register/' component={Register}/>
    <Route exact path='/login/' component={Login}/>
    <Route exact path='/logout/' component={Logout}/>
-
-   <Route exact path='/products/:productName' component={ProductsIndex} />
 
    <Route exact path='/cards/:cardName' component={Mtgcardsindex}/>
    <Route exact path='/products/catagory/:catagoryName' component={ProductDisplayByCatagory}/>
