@@ -15,7 +15,8 @@ const EditLanding = () => {
     TextsC:'',
 LinksA:'',
 LinksB:'',
-LinksC:''
+LinksC:'',
+CarouselNumber:'0'
   })
 
   console.log(formData)
@@ -36,7 +37,8 @@ LinksC:''
     TextsC,
 LinksA,
 LinksB,
-LinksC
+LinksC,
+CarouselNumber
   } = formData;
 
   const onChange = (e) => {
@@ -52,7 +54,8 @@ LinksC
       Images: [imagesA[0], imagesB[0], imagesC[0]],
       Texts:[formData.TextsA, formData.TextsB, formData.TextsC],
       Links:[formData.LinksA, formData.LinksB, formData.LinksC],
-      authorizationLevel: authState.authorization_level
+      authorizationLevel: authState.authorization_level,
+      carouselNumber: formData.CarouselNumber
     };
      
 
@@ -88,6 +91,19 @@ LinksC
     <Form onSubmit={onSubmit}>
     <Row form>
       <Col md={6}>
+
+      <Form.Group>
+          <Form.Label for="CarouselNumber">Carousel Number? </Form.Label>
+          <Form.Control
+          width='100px'
+          type="number"
+          placeholder="ENTER 0 OR 1"
+          name="CarouselNumber"
+          value={CarouselNumber}
+          onChange={onChange}
+        />
+        </Form.Group>
+
         <Form.Group>
           <Form.Label for="TextsA">Carousel Text 1</Form.Label>
           <Form.Control

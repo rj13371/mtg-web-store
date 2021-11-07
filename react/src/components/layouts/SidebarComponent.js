@@ -33,10 +33,11 @@ export default function SidebarComponent() {
         </Button>
         <a href="/products/catagory/Warhammer%2040k">Warhammer 40k</a>
         <a href="/products/catagory/board%20games">Board Games</a>
-        <a href="/products/catagory/board%20games">Role Playing Games</a>
-        <a href="/products/catagory/board%20games">Other TCG and Dice Games</a>
-        <a href="/products/catagory/board%20games">Card Accessories</a>
-        <a href="/products/catagory/board%20games">Comic Books</a>
+        <a href="/products/catagory/role%20playing%20games">Role Playing Games</a>
+        <a href="/products/catagory/other%20tcg%20and%20dice%20games">Other TCG and Dice Games</a>
+        <a href="/products/catagory/card%20accessories">Card Accessories</a>
+        <a href="/products/catagory/misc">Misc</a>
+        <a href="/products/catagory/Comic%20books">Comic Books</a>
 
       </div>
 

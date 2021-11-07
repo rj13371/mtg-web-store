@@ -2,12 +2,11 @@ import React, { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axiosClient from "../../utils/axios";
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import useWindowSize from "../../hooks/useWindowSize";
 
-// NEED TO CLEANUP 
 
 function SearchAll() {
   const [submitted, setSubmitted] = useState(false);

@@ -11,7 +11,7 @@ export default function ShoppingCart(props) {
   const [header, setHeader] = useState('Success')
 
 
-    const { cart, addToCart, clearCart } = useContext(ShoppingCartContext);
+    const {  addToCart } = useContext(ShoppingCartContext);
 
     const [product, setProduct] = useState();
 

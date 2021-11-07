@@ -7,6 +7,7 @@ module.exports = {
     PORT: process.env.PORT || process.env.APP_PORT,
     JWTSECRET: process.env.JWTSECRET,
     LANDING_ID: process.env.LANDING_ID,
+    LANDING_ID_SMALL: process.env.LANDING_ID_SMALL,
     MAIL_USERNAME: process.env.MAIL_USERNAME ,
     MAIL_PASSWORD: process.env.MAIL_PASSWORD,
     OAUTH_CLIENTID: process.env.OAUTH_CLIENTID,

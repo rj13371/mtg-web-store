@@ -27,27 +27,27 @@ export default function NavbarCatagories(props) {
                 Warhammer 40k
               </Nav.Link>
 
-              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Warhammer%2040k">
+              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/board%20games">
                 Board Games 
               </Nav.Link>
 
-              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Warhammer%2040k">
+              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/role%20playing%20games">
                 Role Playing Games 
               </Nav.Link>
 
-              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Warhammer%2040k">
+              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/other%20tcg%20and%20dice%20games">
                 Other TCG Games and Dice Games 
               </Nav.Link>
 
-              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Warhammer%2040k">
+              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/card%20accessories">
                 Card accessories 
               </Nav.Link>
 
-              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Warhammer%2040k">
+              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/misc">
                 Misc
               </Nav.Link>
 
-              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Warhammer%2040k">
+              <Nav.Link style={{ paddingLeft: 20, paddingRight: 20 }} href="/products/catagory/Comic%20books">
                 Comic Books
               </Nav.Link>
 

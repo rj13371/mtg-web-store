@@ -42,7 +42,7 @@ export default function EventsDashboard() {
 <Row>
 
 <Col>
-<h1>Recent Events</h1>
+<h1 style={{color:'white'}} >Recent Events</h1>
 
 <Table style={ size.width>500? {fontSize:'medium'}: {fontSize:'70%' }} striped bordered hover variant="dark">
 

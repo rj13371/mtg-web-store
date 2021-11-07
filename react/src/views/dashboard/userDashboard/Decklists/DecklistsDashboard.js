@@ -4,11 +4,7 @@ import useInputState from '../../../../hooks/useInputState'
 import axiosClient from '../../../../utils/axios'
 import { AuthContext } from '../../../../context/AuthContext'
 import ModalAlert from '../../../../components/ModalAlert'
-import useStateWithValidation from '../../../../hooks/useStateWithValidation'
 
-// ADD VALIDATION 
-// ADD USE EFFECT TO GRAB EVENTS FROM DB, EMPLOYEE WILL HAVE CRUD IN DASHBOARD
-//WHEN USER SUBMITS DECKLIST, AXIOS POST WITH EVENT ID AND DECKLIST , AND USER ID, POPULATE
 
 export default function DecklistsDashboard(props) {
 

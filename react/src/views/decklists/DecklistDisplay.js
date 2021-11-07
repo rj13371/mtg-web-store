@@ -35,11 +35,13 @@ export default function EventDisplay() {
 
     return (
 
-        <Container>
+        <Container style={{color:'white'}}>
 
 <h1>{deckOnLoad.deckName ? deckOnLoad.deckName : 'no decklist name' }</h1>
 <h1>{deckOnLoad.event? deckOnLoad.event.name : 'no event'}</h1>
 <h1>{deckOnLoad.user? deckOnLoad.user.username : 'no event'}</h1>
+<h1>Record: {deckOnLoad.record? deckOnLoad.record : ''}</h1>
+<h1>Place {deckOnLoad.place? deckOnLoad.place : ''}</h1>
 
 <Table striped bordered hover variant="dark">
   <thead>

@@ -43,7 +43,7 @@ export default function LandingCarousel(props) {
         <Carousel.Item >
         <a href={landingLinks[0]}>
           <img
-            style={size.width>500?{maxWidth:props.maxWidth, maxHeight:props.maxHeight}:{width:'100%', height:'100%'}}
+            style={size.width>500?{minWidth:props.minWidth, minHeight:props.minHeight, maxWidth:props.maxWidth, maxHeight:props.maxHeight}:{width:'100%', height:'100%'}}
             src={landingImgs[0].url}
             alt="First slide"
           /></a>
@@ -54,7 +54,7 @@ export default function LandingCarousel(props) {
         <Carousel.Item>
         <a href={landingLinks[1]}>
           <img
-          style={size.width>500?{maxWidth: props.maxWidth, maxHeight:props.maxHeight}:{width:'100%', height:'100%'}}
+          style={size.width>500?{minWidth:props.minWidth, minHeight:props.minHeight,maxWidth: props.maxWidth, maxHeight:props.maxHeight}:{width:'100%', height:'100%'}}
             src={landingImgs[1].url}
             alt="Second slide"
           />
@@ -66,7 +66,7 @@ export default function LandingCarousel(props) {
         <Carousel.Item>
         <a href={landingLinks[2]}>
           <img
-          style={size.width>500?{maxWidth:props.maxWidth, maxHeight:props.maxHeight}:{width:'100%', height:'100%'}}
+          style={size.width>500?{minWidth:props.minWidth, minHeight:props.minHeight,maxWidth:props.maxWidth, maxHeight:props.maxHeight}:{width:'100%', height:'100%'}}
             src={landingImgs[2].url}
             alt="Third slide"
           />

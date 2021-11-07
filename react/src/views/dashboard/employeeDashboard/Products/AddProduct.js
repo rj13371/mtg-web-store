@@ -1,7 +1,5 @@
 import React, { useState, Fragment, useContext } from "react";
-// import { useHistory, useLocation, useRouteMatch } from "react-router-dom"
-// import { Redirect } from "react-router-dom";
-import { Form, Input, Button,Row,Col, } from "react-bootstrap";
+import { Form, Button,Row,Col, } from "react-bootstrap";
 
 import axiosClient from "../../../../utils/axios";
 import ModalAlert from "../../../../components/ModalAlert";

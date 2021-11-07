@@ -31,7 +31,9 @@ export default function Logout() {
 
     return (
     
-    <Button onClick={()=>logout()} >
+
+    <Button variant="dark" onClick={()=>logout()} >
+
     <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
     </Button>
 
