@@ -1,9 +1,9 @@
 
 const User = require("../models/Users");
 const Event = require("../models/Event");
-const Decklist = require("../models/Decklist");
-const sendEmail = require('../utils/Nodemailer')
-const moment = require('moment')
+// const Decklist = require("../models/Decklist");
+// const sendEmail = require('../utils/Nodemailer')
+// const moment = require('moment')
 
 module.exports.getAllEvents = async (req, res) => {
   

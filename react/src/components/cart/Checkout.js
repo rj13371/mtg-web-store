@@ -1,6 +1,6 @@
 import React,{useContext} from "react";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
-import { Container, Row, Col, Button, Table, Alert } from "react-bootstrap";
+import { Container, Button, Table, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useWindowSize from "../../hooks/useWindowSize";
 import { Image } from "react-bootstrap";
@@ -12,7 +12,7 @@ export default function Checkout() {
 
   const {authState} = useContext(AuthContext)
 
-    const {cart, addToCart, clearCart, removeItem, total} = useContext(ShoppingCartContext)
+    const {cart, removeItem} = useContext(ShoppingCartContext)
     const size = useWindowSize();
 
     return (

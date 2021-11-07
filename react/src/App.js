@@ -4,12 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavbarComponent from './components/layouts/NavbarComponent';
 import FooterComponent from './components/layouts/FooterComponent';
 import Searchbar from './components/search/Searchbar';
-import { createBrowserHistory } from 'history';
 import axiosClient from './utils/axios';
 
 
 import Mtgcardsindex from './views/mtgcards/Mtgcardsindex';
-import ProductsIndex from './views/products/ProductsIndex';
 import ProductDisplay from './views/products/ProductDisplay';
 import ProductDisplayByCatagory from './views/products/ProductDisplayByCatagory';
 import MtgCardDisplay from './views/mtgcards/MtgCardDisplay';
@@ -43,7 +41,6 @@ import RequestPasswordReset from './components/auth/RequestPasswordReset';
 import MtgCardDisplayBySetName from './views/mtgcards/MtgCardDisplayByCategory';
 import EventDisplay from './views/events/EventDisplay';
 import DecklistDisplay from './views/decklists/DecklistDisplay';
-import axios from 'axios';
 
 
 
