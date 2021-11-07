@@ -45,6 +45,7 @@ import DecklistDisplay from './views/decklists/DecklistDisplay';
 
 
 
+
 initFontAwesome();
 
 function App() {
@@ -126,9 +127,7 @@ function App() {
 
 
   <Route exact path='/' component={Landing}/>
-  
 
-   
 
    <Route exact path='/events/' component={EventsIndex}/>
    <Route exact path='/dashboard/' component={UserDashboard}/>
