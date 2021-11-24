@@ -1,36 +1,37 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const moment = require('moment');
+const moment = require("moment");
 
 // TODO: add required properties
 const DecklistSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  event: {
+    type: Schema.Types.ObjectId,
+    ref: "Event",
+  },
 
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+  cardList: [
+    {
+      type: Object,
+      ref: "Card",
+      required: true,
     },
-    event: {
-        type: Schema.Types.ObjectId,
-        ref:('Event')
-    },
+  ],
 
-    cardList: [{
-        type: Object,
-        ref: 'Card',
-        required: true
-    }],
+  deckName: { type: String, required: true },
 
-    deckName:{type: String, required:true },
+  record: { type: String, required: true },
 
-    record:{type: String, required:true },
+  place: { type: String, required: true, default: "0" },
 
-    place:{type: String, required:true, default: '0'},
-
-
-    updatedAt:{type: String, default: moment().format("dddd, MMMM Do YYYY, h:mm:ss a") }
-
-
+  updatedAt: {
+    type: String,
+    default: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
+  },
 });
 
-module.exports = mongoose.model('Decklist', DecklistSchema)
+module.exports = mongoose.model("Decklist", DecklistSchema);

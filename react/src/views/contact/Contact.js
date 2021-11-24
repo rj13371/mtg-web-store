@@ -1,9 +1,8 @@
 import React from "react";
 import { Col, Row, Jumbotron, Container } from "reactstrap";
-import "./Contact.css";
 export default function Contact() {
   return (
-    <div className="textColor">
+    <div style={{color:'white'}}>
       <Container fluid>
         <Jumbotron>
           <p className="lead"> Feel free to contact us @</p>

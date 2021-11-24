@@ -1,10 +1,9 @@
 import React from "react";
 import { Jumbotron, Container } from "reactstrap";
-import "./Contact.css";
 
 export default function About() {
   return (
-    <div className="textColor">
+    <div style={{color:'white'}} >
       <Container>
         <Jumbotron>
           <h1 className="display-3">Your premier Chilliwack Hobby Store!</h1>
