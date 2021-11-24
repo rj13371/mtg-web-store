@@ -8,24 +8,32 @@ import axiosClient from "../../utils/axios";
 import { Button } from "react-bootstrap";
 
 export default function Logout() {
-  const history = useHistory();
+    const history = useHistory()
 
-  const logout = async () => {
-    await axiosClient({
-      method: "get",
-      url: "users/logout",
-      withCredentials: true,
-      exposedHeaders: ["set-cookie"],
-    });
+    const logout = async () => {
+        await axiosClient({
+            method: "get",
+            url: 'users/logout',
+            withCredentials:true,
+            exposedHeaders: ["set-cookie"]
+          })
 
-    setTimeout(() => {
-      history.push("/");
-    }, 1000);
-  };
+          setTimeout(() => {
+            history.push('/')
+          }, 1000)
+        
 
-  return (
-    <Button variant="dark" onClick={() => logout()}>
-      <FontAwesomeIcon icon="sign-out-alt" size="lg" color="red" />
+    }
+    
+
+
+
+    return (
+    
+
+    <Button variant="dark" onClick={()=>logout()} >
+
+    <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
     </Button>
   );
 }

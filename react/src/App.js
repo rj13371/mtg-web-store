@@ -40,6 +40,7 @@ import MtgCardDisplayBySetName from "./views/mtgcards/MtgCardDisplayByCategory";
 import EventDisplay from "./views/events/EventDisplay";
 import DecklistDisplay from "./views/decklists/DecklistDisplay";
 
+
 initFontAwesome();
 
 function App() {
@@ -90,94 +91,60 @@ function App() {
   const size = useWindowSize();
 
   return (
-    <Fragment>
-      <div className="App-background">
-        <Container fluid>
-          <Router forceRefresh={true}>
-            <ShoppingCartProvider>
-              <NavbarComponent />
-              {size.width > 500 ? <NavbarCatagories /> : null}
+  <Fragment >
+    <div className='App-background'>
+    <Container fluid > 
+    <Router forceRefresh={true} >
+    
+    <ShoppingCartProvider>
+    <NavbarComponent/>
+   {size.width>500? <NavbarCatagories/> : null }
 
-              <Searchbar />
-              <SidebarComponent />
+<Searchbar />
+    <SidebarComponent />
 
-              {loadingAuth ? (
-                <Loading />
-              ) : (
-                <Switch>
-                  <Route exact path="/" component={Landing} />
+ {loadingAuth? <Loading/> :    
 
-                  <Route exact path="/events/" component={EventsIndex} />
-                  <Route exact path="/dashboard/" component={UserDashboard} />
-                  <Route
-                    exact
-                    path="/employeedashboard/"
-                    component={EmployeeDashboard}
-                  />
-                  <Route exact path="/checkout/" component={Checkout} />
-                  <Route exact path="/contact/" component={Contact} />
-                  <Route exact path="/about/" component={About} />
-                  <Route exact path="/register/" component={Register} />
-                  <Route exact path="/login/" component={Login} />
-                  <Route exact path="/logout/" component={Logout} />
+    <Switch>
 
-                  <Route
-                    exact
-                    path="/cards/:cardName"
-                    component={Mtgcardsindex}
-                  />
-                  <Route
-                    exact
-                    path="/products/catagory/:catagoryName"
-                    component={ProductDisplayByCatagory}
-                  />
-                  <Route
-                    exact
-                    path="/mtgcards/set_name/:set_name"
-                    component={MtgCardDisplayBySetName}
-                  />
 
-                  <Route
-                    exact
-                    path="/card_name/:card_name"
-                    component={MtgCardDisplay}
-                  />
+  <Route exact path='/' component={Landing}/>
 
-                  <Route
-                    exact
-                    path="/mtgcards/:id"
-                    component={MtgCardDisplay}
-                  />
-                  <Route
-                    exact
-                    path="/products/:id"
-                    component={ProductDisplay}
-                  />
-                  <Route exact path="/event/:id" component={EventDisplay} />
-                  <Route
-                    exact
-                    path="/decklist/:id"
-                    component={DecklistDisplay}
-                  />
 
-                  <Route
-                    exact
-                    path="/reset/passwordResetPage/:token/:id"
-                    component={PasswordReset}
-                  />
-                  <Route
-                    exact
-                    path="/users/reset/requestPasswordReset"
-                    component={RequestPasswordReset}
-                  />
-                </Switch>
-              )}
-            </ShoppingCartProvider>
-          </Router>
-        </Container>
-        <FooterComponent />
-      </div>
-    </Fragment>
+   <Route exact path='/events/' component={EventsIndex}/>
+   <Route exact path='/dashboard/' component={UserDashboard}/>
+   <Route exact path='/employeedashboard/' component={EmployeeDashboard}/>
+   <Route exact path='/checkout/' component={Checkout}/>
+   <Route exact path='/contact/' component={Contact}/>
+   <Route exact path='/about/' component={About}/>
+   <Route exact path='/register/' component={Register}/>
+   <Route exact path='/login/' component={Login}/>
+   <Route exact path='/logout/' component={Logout}/>
+
+   <Route exact path='/cards/:cardName' component={Mtgcardsindex}/>
+   <Route exact path='/products/catagory/:catagoryName' component={ProductDisplayByCatagory}/>
+   <Route exact path='/mtgcards/set_name/:set_name' component={MtgCardDisplayBySetName}/>
+
+
+   <Route exact path='/card_name/:card_name' component={MtgCardDisplay}/>
+
+   <Route exact path='/mtgcards/:id' component={MtgCardDisplay}/>
+   <Route exact path='/products/:id' component={ProductDisplay}/>
+   <Route exact path='/event/:id' component={EventDisplay}/>
+   <Route exact path='/decklist/:id' component={DecklistDisplay}/>
+
+   <Route exact path='/reset/passwordResetPage/:token/:id' component={PasswordReset}/>
+   <Route exact path='/users/reset/requestPasswordReset' component={RequestPasswordReset}/>
+
+   </Switch>
+   } 
+
+   </ShoppingCartProvider>
+   </Router>
+   </Container>
+   <FooterComponent/>
+   </div>
+  </Fragment>
   );
 }
 

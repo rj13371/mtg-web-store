@@ -107,10 +107,10 @@ module.exports.login = async (req, res) => {
 module.exports.logout = async (req, res) => {
   res.clearCookie("token", { secure: true, sameSite: "none" });
 
-  res
-    .status(200)
-    .json({ success: true, message: "User logged out successfully" });
-};
+    res.clearCookie('token', {  secure: true, sameSite: 'none' });
+
+    res.status(200).json({ success: true, message: 'User logged out successfully' })
+}
 
 module.exports.verify = async (req, res) => {
   const { uniqueString } = req.params;
