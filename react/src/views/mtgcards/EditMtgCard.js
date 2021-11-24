@@ -1,26 +1,23 @@
-import React,{useState,Fragment,useContext} from 'react'
-import axiosClient from '../../utils/axios';
+import React, { useState, Fragment, useContext } from "react";
+import axiosClient from "../../utils/axios";
 import { AuthContext } from "../../context/AuthContext";
-import ModalAlert from '../../components/ModalAlert';
+import ModalAlert from "../../components/ModalAlert";
 
 export default function EditMtgCard(props) {
-  const [message, setMessage] = useState('')
-  const [messageCount, setMessageCount] = useState(0)
-  const [header, setHeader] = useState('Success')
+  const [message, setMessage] = useState("");
+  const [messageCount, setMessageCount] = useState(0);
+  const [header, setHeader] = useState("Success");
 
-  const {authState} = useContext(AuthContext)
+  const { authState } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     stock: "",
-    price: ""
-  })
+    price: "",
+  });
 
-  console.log(formData)
+  console.log(formData);
 
-  const {
-    stock,
-    price,
-  } = formData;
+  const { stock, price } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +29,7 @@ export default function EditMtgCard(props) {
     const body = {
       stock: stock,
       price: price,
-      id: props.id || ''
+      id: props.id || "",
     };
 
     await axiosClient({
@@ -42,32 +39,30 @@ export default function EditMtgCard(props) {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(response => {
-      if(response.data.message.errors){
-        setHeader('Error')
-        setMessage(JSON.stringify (response.data.message))
-        setMessageCount(messageCount+1)
+    }).then((response) => {
+      if (response.data.message.errors) {
+        setHeader("Error");
+        setMessage(JSON.stringify(response.data.message));
+        setMessageCount(messageCount + 1);
+      } else {
+        setHeader("Success");
+        setMessage(JSON.stringify(response.data.message));
+        setMessageCount(messageCount + 1);
       }
-
-      else{
-        setHeader('Success')
-        setMessage(JSON.stringify (response.data.message))
-        setMessageCount(messageCount+1)
-      }
-         })
-
+    });
   };
 
-  if(authState.authorization_level=='0' || !authState.authorization_level ){
-    return <Fragment></Fragment>
+  if (authState.authorization_level == "0" || !authState.authorization_level) {
+    return <Fragment></Fragment>;
   }
 
-
-    return (
- 
-            
-            <Fragment>
-              <ModalAlert header={header} message={message} messageCount={messageCount} />
+  return (
+    <Fragment>
+      <ModalAlert
+        header={header}
+        message={message}
+        messageCount={messageCount}
+      />
       <form onSubmit={onSubmit}>
         <div>
           <input
@@ -85,9 +80,8 @@ export default function EditMtgCard(props) {
             onChange={onChange}
           />
         </div>
-         <input type="submit" value="EditMtgCard" /> 
+        <input type="submit" value="EditMtgCard" />
       </form>
     </Fragment>
-
-    )
+  );
 }

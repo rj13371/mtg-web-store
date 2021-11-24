@@ -1,95 +1,88 @@
-const Product = require('../models/Products');
-const MtgCard = require('../models/MtgCard')
+const Product = require("../models/Products");
+const MtgCard = require("../models/MtgCard");
 
-module.exports.searchAllMtgCardsAndProducts = async (req, res, next) =>{
+module.exports.searchAllMtgCardsAndProducts = async (req, res, next) => {
+  const foundProduct = await Product.find({
+    productName: new RegExp(".*" + req.query.productName + ".*", "i"),
+  }).sort({ stock: "desc" });
+  console.log(foundProduct);
+  if (foundProduct.length >= 1) {
+    return res.send(foundProduct);
+  }
 
+  const foundCard = await MtgCard.find({
+    name: new RegExp(".*" + req.query.productName + ".*", "i"),
+  }).sort({ stock: "desc" });
+  if (foundCard) {
+    return res.send(foundCard);
+  }
 
+  if (!foundProduct && !foundProduct) {
+    return res.json({ message: "no products found" });
+  }
+};
 
-    const foundProduct = await Product.find({productName: new RegExp('.*'+req.query.productName+'.*', "i")}).sort({'stock': 'desc'})
-            console.log(foundProduct)
-        if (foundProduct.length>=1){
-          return res.send(foundProduct)
-        }
+module.exports.searchProductsByName = async (req, res, next) => {
+  const { productName } = req.params;
 
+  const foundProduct = await Product.find({
+    productName: new RegExp(".*" + productName + ".*", "i"),
+  }).sort({ stock: "desc" });
 
-        const foundCard = await MtgCard.find({name: new RegExp('.*'+req.query.productName+'.*', "i")}).sort({'stock': 'desc'})
-           if (foundCard){
-            return res.send(foundCard)
-           } 
+  res.send(foundProduct);
+};
 
-           if (!foundProduct && !foundProduct){
-               return res.json({message:'no products found'})
-           }
-
-        
-
-
-    
-
-}
-
-module.exports.searchProductsByName = async (req, res, next) =>{
-
-    const {productName} = req.params
-
-    const foundProduct = await Product.find({productName: new RegExp('.*'+productName+'.*', "i")}).sort({'stock': 'desc'})
-    
-      res.send(foundProduct)
-
-}
-
-module.exports.postProduct = async (req, res, next) =>{
-
-    try {
+module.exports.postProduct = async (req, res, next) => {
+  try {
     const NewProduct = new Product(req.body);
-    await NewProduct.save()
+    await NewProduct.save();
 
-    res.json({ message:NewProduct })
-    }catch(e){
-        res.json({ message: e })
-    }
+    res.json({ message: NewProduct });
+  } catch (e) {
+    res.json({ message: e });
+  }
+};
 
-}
+module.exports.getProductsById = async (req, res, next) => {
+  const { id } = req.params; //THIS HAS TO BE EXACT PARAM NAME IN ROUTE
+  const foundProduct = await Product.findById(id).sort({ stock: "desc" });
 
-module.exports.getProductsById = async (req, res, next)=>{
-    const {id} = req.params //THIS HAS TO BE EXACT PARAM NAME IN ROUTE
-    const foundProduct = await Product.findById(id).sort({'stock': 'desc'})
+  console.log(foundProduct);
+  if (!foundProduct) {
+    res.send("not found!");
+  }
 
-    console.log (foundProduct)
-    if (!foundProduct) {
-    res.send('not found!')}
+  res.send(foundProduct);
+};
 
-    res.send(foundProduct)
-}
+module.exports.getProductsByCatagoryName = async (req, res, next) => {
+  const { catagoryName } = req.params; //THIS HAS TO BE EXACT PARAM NAME IN ROUTE
+  const foundProducts = await Product.find({
+    productCategory: catagoryName,
+  }).sort({ stock: "desc" });
 
-module.exports.getProductsByCatagoryName = async (req, res, next)=>{
-    const {catagoryName} = req.params //THIS HAS TO BE EXACT PARAM NAME IN ROUTE
-    const foundProducts = await Product.find({ productCategory: catagoryName}).sort({'stock': 'desc'})
+  console.log(foundProducts);
+  if (!foundProducts) {
+    res.send("not found!");
+  }
 
-    console.log (foundProducts)
-    if (!foundProducts) {
-    res.send('not found!')}
+  res.send(foundProducts);
+};
 
-    res.send(foundProducts)
-}
+module.exports.editProduct = async (req, res, next) => {
+  const { id } = req.params;
 
+  const editedProduct = await Product.findByIdAndUpdate(id, { ...req.body });
 
-module.exports.editProduct = async (req,res, next)=>{
-    const {id} = req.params;
+  await editedProduct.save();
 
-    const editedProduct = await Product.findByIdAndUpdate(id, {...req.body})
+  res.send(editedProduct);
+};
 
-    await editedProduct.save();
+module.exports.deleteProduct = async (req, res, next) => {
+  const { id } = req.params;
+  await Product.findByIdAndDelete(id);
+  console.log(id);
 
-    res.send(editedProduct)
-}
-
-
-module.exports.deleteProduct = async (req, res, next) =>{
-    const {id} = req.params;
-    await Product.findByIdAndDelete(id);
-    console.log (id)
-
-    res.send('success')
-
-}
+  res.send("success");
+};

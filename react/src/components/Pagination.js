@@ -28,7 +28,7 @@ export default function Pagination(props) {
             totPages - 3,
             totPages - 2,
             totPages - 1,
-            totPages
+            totPages,
           ];
         else
           pageArr = [
@@ -42,7 +42,7 @@ export default function Pagination(props) {
             currentPage + 2,
             currentPage + 3,
             "",
-            totPages
+            totPages,
           ];
       }
     }

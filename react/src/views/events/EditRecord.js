@@ -1,28 +1,24 @@
-import React,{useState,Fragment,useContext} from 'react'
-import axiosClient from '../../utils/axios';
-import { AuthContext } from '../../context/AuthContext';
-import ModalAlert from '../../components/ModalAlert';
-import useInputState from '../../hooks/useInputState';
+import React, { useState, Fragment, useContext } from "react";
+import axiosClient from "../../utils/axios";
+import { AuthContext } from "../../context/AuthContext";
+import ModalAlert from "../../components/ModalAlert";
+import useInputState from "../../hooks/useInputState";
 
 export default function EditRecord(props) {
-  const [message, setMessage] = useState('')
-  const [messageCount, setMessageCount] = useState(0)
-  const [header, setHeader] = useState('Success')
+  const [message, setMessage] = useState("");
+  const [messageCount, setMessageCount] = useState(0);
+  const [header, setHeader] = useState("Success");
 
-  const [record, handleRecordChange] = useInputState('')
+  const [record, handleRecordChange] = useInputState("");
 
-  const {authState} = useContext(AuthContext)
-
-
-
-
+  const { authState } = useContext(AuthContext);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const body = {
       record: record,
-      id: props.id || ''
+      id: props.id || "",
     };
 
     await axiosClient({
@@ -32,30 +28,30 @@ export default function EditRecord(props) {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(response => {
-
-
+    }).then((response) => {
       try {
-        setHeader('Success')
-        setMessage(JSON.stringify (response.data))
-        setMessageCount(messageCount+1)
-      }catch(e){
-        setHeader('Error')
-        setMessage(JSON.stringify (e))
-        setMessageCount(messageCount+1)
+        setHeader("Success");
+        setMessage(JSON.stringify(response.data));
+        setMessageCount(messageCount + 1);
+      } catch (e) {
+        setHeader("Error");
+        setMessage(JSON.stringify(e));
+        setMessageCount(messageCount + 1);
       }
-         })
-
+    });
   };
 
-  if(authState.authorization_level=='0' || !authState.authorization_level ){
-    return <Fragment></Fragment>
+  if (authState.authorization_level == "0" || !authState.authorization_level) {
+    return <Fragment></Fragment>;
   }
 
-
-    return (           
-            <Fragment>
-              <ModalAlert header={header} message={message} messageCount={messageCount} />
+  return (
+    <Fragment>
+      <ModalAlert
+        header={header}
+        message={message}
+        messageCount={messageCount}
+      />
       <form onSubmit={onSubmit}>
         <div>
           <input
@@ -66,9 +62,8 @@ export default function EditRecord(props) {
             onChange={handleRecordChange}
           />
         </div>
-         <input type="submit" value="Edit Record" /> 
+        <input type="submit" value="Edit Record" />
       </form>
     </Fragment>
-
-    )
+  );
 }

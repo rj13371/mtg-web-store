@@ -1,62 +1,51 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/Users');
+const jwt = require("jsonwebtoken");
+const User = require("../models/Users");
 const env = process.env;
 
 module.exports.checkToken = async (req, res, next) => {
+  console.log(req.cookies);
 
-    console.log(req.cookies)
+  const req_token = req.cookies.token;
+  let auth = false;
+  let dateNow = new Date();
 
-    const req_token = req.cookies.token 
-    let auth = false;
-    let dateNow = new Date();
+  if (!req_token) {
+    return res.status(200).json({ message: "please login" });
+  }
 
+  try {
+    const token = jwt.decode(req_token, env.JWTSECRET);
+    console.log("here!!!!", token.exp, dateNow / 1000);
 
-    if(!req_token){
-        return res.status(200).json({message: 'please login'})
+    if (token.exp < dateNow / 1000) {
+      res.clearCookie("token", { secure: true, sameSite: "none" });
     }
 
-    try{
-
-        const token = jwt.decode(req_token, env.JWTSECRET);
-        console.log('here!!!!', token.exp, (dateNow/1000))
-
-        if (token.exp < (dateNow/1000)){
-
-            res.clearCookie('token', {  secure: true, sameSite: 'none' });
-
-
-        }
-
-        if(!jwt.verify(req_token, env.JWTSECRET)) throw 'invalid token'
-        else{
-            auth=true;
-        }
-    }catch(err){
-        
-        console.log(err,'invalid token')
-    }
-
-    if (!auth){
-        return res.status(400).json({message:'token verification failed'})
-    }
+    if (!jwt.verify(req_token, env.JWTSECRET)) throw "invalid token";
     else {
-        const data = jwt.verify(req_token, env.JWTSECRET)
+      auth = true;
+    }
+  } catch (err) {
+    console.log(err, "invalid token");
+  }
 
+  if (!auth) {
+    return res.status(400).json({ message: "token verification failed" });
+  } else {
+    const data = jwt.verify(req_token, env.JWTSECRET);
 
-        
+    const user = await User.findById(data._id);
 
-        const user = await User.findById(data._id)
-
-        if (!user){
-            return res.status(400).json({error:'user not found'})
-        }
-
-        const {_id, email, username, authorization_level} = user
-
-        console.log(_id, email, username, authorization_level)
-
-        return res.status(200).json({user: {_id, email, username, authorization_level}})
+    if (!user) {
+      return res.status(400).json({ error: "user not found" });
     }
 
+    const { _id, email, username, authorization_level } = user;
 
-}
+    console.log(_id, email, username, authorization_level);
+
+    return res
+      .status(200)
+      .json({ user: { _id, email, username, authorization_level } });
+  }
+};

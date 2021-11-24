@@ -1,29 +1,26 @@
-import React,{useState,Fragment,useContext} from 'react'
-import axiosClient from '../../utils/axios';
-import { AuthContext } from '../../context/AuthContext';
-import ModalAlert from '../../components/ModalAlert';
-import useInputState from '../../hooks/useInputState';
+import React, { useState, Fragment, useContext } from "react";
+import axiosClient from "../../utils/axios";
+import { AuthContext } from "../../context/AuthContext";
+import ModalAlert from "../../components/ModalAlert";
+import useInputState from "../../hooks/useInputState";
 
 export default function EditPlace(props) {
-  const [message, setMessage] = useState('')
-  const [messageCount, setMessageCount] = useState(0)
-  const [header, setHeader] = useState('Success')
+  const [message, setMessage] = useState("");
+  const [messageCount, setMessageCount] = useState(0);
+  const [header, setHeader] = useState("Success");
 
-  const [place, handleplaceChange] = useInputState('')
+  const [place, handleplaceChange] = useInputState("");
 
-  const {authState} = useContext(AuthContext)
+  const { authState } = useContext(AuthContext);
 
-console.log(place)
-
-
+  console.log(place);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-
     const body = {
       place: place,
-      id: props.id || ''
+      id: props.id || "",
     };
 
     await axiosClient({
@@ -33,33 +30,31 @@ console.log(place)
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(response => {
-
-
+    }).then((response) => {
       try {
-        setHeader('Success')
-        setMessage(JSON.stringify (response.data))
-        setMessageCount(messageCount+1)
-      }catch(e){
-        setHeader('Error')
-        setMessage(JSON.stringify (e))
-        setMessageCount(messageCount+1)
+        setHeader("Success");
+        setMessage(JSON.stringify(response.data));
+        setMessageCount(messageCount + 1);
+      } catch (e) {
+        setHeader("Error");
+        setMessage(JSON.stringify(e));
+        setMessageCount(messageCount + 1);
       }
-         })
-
-
-
+    });
   };
 
-  if(authState.authorization_level=='0' || !authState.authorization_level ){
-    return <Fragment></Fragment>
+  if (authState.authorization_level == "0" || !authState.authorization_level) {
+    return <Fragment></Fragment>;
   }
 
-
-    return (           
-            <Fragment>
-              <ModalAlert header={header} message={message} messageCount={messageCount} />
-      <form onSubmit={(e)=> onSubmit(e)}>
+  return (
+    <Fragment>
+      <ModalAlert
+        header={header}
+        message={message}
+        messageCount={messageCount}
+      />
+      <form onSubmit={(e) => onSubmit(e)}>
         <div>
           <input
             type="text"
@@ -69,9 +64,8 @@ console.log(place)
             onChange={handleplaceChange}
           />
         </div>
-         <input type="submit" value="Edit place" /> 
+        <input type="submit" value="Edit place" />
       </form>
     </Fragment>
-
-    )
+  );
 }

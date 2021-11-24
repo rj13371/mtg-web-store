@@ -1,12 +1,11 @@
-import React,{useEffect, useContext} from 'react'
+import React, { useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    BrowserRouter as Router,
-    Redirect,
-    useHistory
-  } from "react-router-dom";
-import axiosClient from '../../utils/axios';
-import { Button } from 'react-bootstrap';
+  BrowserRouter as Router,
+  useHistory,
+} from "react-router-dom";
+import axiosClient from "../../utils/axios";
+import { Button } from "react-bootstrap";
 
 export default function Logout() {
     const history = useHistory()
@@ -36,6 +35,5 @@ export default function Logout() {
 
     <FontAwesomeIcon icon='sign-out-alt' size="lg" color='red' />
     </Button>
-
-    )
+  );
 }
