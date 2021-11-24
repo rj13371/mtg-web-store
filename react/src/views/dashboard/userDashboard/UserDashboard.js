@@ -30,7 +30,7 @@ export default function UserDashboard() {
 
               {authState.email && authState.authorization_level === "1" ? (
                 <Tab eventKey="employee" title="Employee">
-                  <a href="https://mtgwebstore.herokuapp.com/employeedashboard">
+                  <a aria-label="link to employee dashboard" href="https://mtgwebstore.herokuapp.com/employeedashboard">
                     Employee Dashboard Link{" "}
                   </a>
                 </Tab>

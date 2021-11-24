@@ -29,17 +29,17 @@ export default function SidebarComponent() {
           {" "}
           <FontAwesomeIcon icon="arrow-left" size="1x" />{" "}
         </Button>
-        <a href="/products/catagory/Warhammer%2040k">Warhammer 40k</a>
-        <a href="/products/catagory/board%20games">Board Games</a>
-        <a href="/products/catagory/role%20playing%20games">
+        <a aria-label="link to products of warhammer 40k" href="/products/catagory/Warhammer%2040k">Warhammer 40k</a>
+        <a aria-label="link to products of board games" href="/products/catagory/board%20games">Board Games</a>
+        <a aria-label="link to products of role playing games" href="/products/catagory/role%20playing%20games">
           Role Playing Games
         </a>
-        <a href="/products/catagory/other%20tcg%20and%20dice%20games">
+        <a aria-label="link to products of other tcg and dice games" href="/products/catagory/other%20tcg%20and%20dice%20games">
           Other TCG and Dice Games
         </a>
-        <a href="/products/catagory/card%20accessories">Card Accessories</a>
-        <a href="/products/catagory/misc">Misc</a>
-        <a href="/products/catagory/Comic%20books">Comic Books</a>
+        <a aria-label="link to products of card accessories" href="/products/catagory/card%20accessories">Card Accessories</a>
+        <a aria-label="link to products of misc category" href="/products/catagory/misc">Misc</a>
+        <a aria-label="link to products of comic books" href="/products/catagory/Comic%20books">Comic Books</a>
       </div>
 
       {size.width < 500 ? (

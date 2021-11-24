@@ -36,7 +36,7 @@ export default function LandingCarousel(props) {
     <Container fluid="sm">
       <Carousel style={{ textAlign: "center" }}>
         <Carousel.Item>
-          <a href={landingLinks[0]}>
+          <a aria-label="link to landing carousel image 1" href={landingLinks[0]}>
             <img
               style={
                 size.width > 500
@@ -57,7 +57,7 @@ export default function LandingCarousel(props) {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <a href={landingLinks[1]}>
+          <a aria-label="link to landing carousel image 2" href={landingLinks[1]}>
             <img
               style={
                 size.width > 500
@@ -78,7 +78,7 @@ export default function LandingCarousel(props) {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <a href={landingLinks[2]}>
+          <a aria-label="link to landing carousel image 1" href={landingLinks[2]}>
             <img
               style={
                 size.width > 500

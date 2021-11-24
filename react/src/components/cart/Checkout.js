@@ -7,7 +7,6 @@ import { Image } from "react-bootstrap";
 import CheckoutOrder from "../../views/dashboard/userDashboard/Orders/CheckoutOrder";
 import { AuthContext } from "../../context/AuthContext";
 import { Fragment } from "react";
-
 export default function Checkout() {
   const { authState } = useContext(AuthContext);
 
