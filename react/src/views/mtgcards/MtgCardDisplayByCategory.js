@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import ShoppingCart from "../../components/cart/ShoppingCart";
-import { Card, Container, Col, Row, Button } from "react-bootstrap";
+import { Card, Row, Button } from "react-bootstrap";
 import axiosClient from "../../utils/axios";
 import { useParams } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
-import EditMtgCard from "./EditMtgCard";
 import ReactPaginate from "react-paginate";
 import { Fragment } from "react";
 
@@ -52,7 +51,7 @@ export default function MtgCardDisplayBySetName() {
                 {" "}
                 Details{" "}
               </Button>{" "}
-              <ShoppingCart product={card} stock={card.stock}/>
+              <ShoppingCart product={card} stock={card.stock} />
             </Card.Body>
           </Card>
         ));
@@ -71,10 +70,9 @@ export default function MtgCardDisplayBySetName() {
 
   return (
     <Fragment>
-
-        <Row xs={1} md={3} className="g-4">
-          {cards}
-        </Row>
+      <Row xs={1} md={3} className="g-4">
+        {cards}
+      </Row>
 
       <ReactPaginate
         previousLabel={"prev"}
