@@ -16,7 +16,8 @@ See here: https://mtgwebstore.herokuapp.com/
 </ul>
 
 
+## Quick start
 
-
-
- 
+- Install dependencies in web-api and react folder: `npm i`
+- Start the frontend from react folder: `npm start`
+- Build on production: `npm run build`
