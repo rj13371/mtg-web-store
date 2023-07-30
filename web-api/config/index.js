@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./.env" });
+require("dotenv").config({ path: "./etc/secrets/.env" });
 
 module.exports = {
   SECRET: process.env.APP_SECRET,
